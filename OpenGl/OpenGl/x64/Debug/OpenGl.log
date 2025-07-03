@@ -1,0 +1,8 @@
+﻿  glad.c
+  Main.cpp
+  shader_m.cpp
+  stb_image.cpp
+  TextureManager.cpp
+  TextureResource.cpp
+  正在生成代码...
+LINK : fatal error LNK1104: 无法打开文件“assimp-vc143-mtd.lib”
