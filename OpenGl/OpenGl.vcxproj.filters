@@ -27,7 +27,7 @@
     <ClCompile Include="Assests\Lib\glad.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Assests\Src\TextureManager.cpp">
+    <ClCompile Include="Assests\Src\Managers\TextureManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Assests\Src\shader.cpp">
@@ -36,7 +36,7 @@
     <ClCompile Include="Assests\Src\TextureResource.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Assests\Src\InputSystem.cpp">
+    <ClCompile Include="Assests\Src\Managers\InputSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Assests\Src\imgui\imgui.cpp">
@@ -60,7 +60,7 @@
     <ClCompile Include="Assests\Src\imgui\imgui_widgets.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Assests\Src\ResourcePathManager.cpp">
+    <ClCompile Include="Assests\Src\Managers\ResourcePathManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Assests\Src\baseShader.cpp">
@@ -74,7 +74,7 @@
     <ClInclude Include="Assests\Include\Shader.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Assests\Include\TextureManager.h">
+    <ClInclude Include="Assests\Include\Managers\TextureManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Assests\Include\TextureResource.h">
@@ -89,13 +89,19 @@
     <ClInclude Include="Assests\Include\TextureEnums.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Assests\Include\InputSystem.h">
+    <ClInclude Include="Assests\Include\Managers\InputSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Assests\Include\ResourcePathManager.h">
+    <ClInclude Include="Assests\Include\Managers\ResourcePathManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Assests\Include\baseShader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Assests\Include\Managers\UI_Manager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Assests\Include\girdMesh.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -118,6 +124,8 @@
     <None Include="Assests\Shaders\shader.vert" />
     <None Include="Assests\Shaders\model_load.frag" />
     <None Include="Assests\Shaders\model_load.vert" />
+    <None Include="Assests\Shaders\grid\grid.frag" />
+    <None Include="Assests\Shaders\grid\grid.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assests\Resource\Textures\awesomeface.png">

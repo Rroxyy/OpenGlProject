@@ -16,10 +16,17 @@ class baseShader : public Shader
 public:
 	baseShader();
 	baseShader(const char* vertexPath, const char* fragmentPath);
+	baseShader(std::string& _shaderName);
 
+	void setShaderName(std::string& _ShaderName);
+	void setShaderName(std::string&& _ShaderName);
 	void drawShaderUI();
-
+	void update_shader_value()const;
+	void use()const override;
 protected:
+	std::string shaderName="baseShader";
+
+
 	ImVec4 lightColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);;
 	int useNormalTex = 0;
 	float ambientStrength = 0.1;

@@ -32,33 +32,26 @@ public:
     vector<Vertex>       vertices;   // 顶点数据列表
     vector<unsigned int> indices;    // 索引数组，用于按顺序绘制三角形
     unsigned int VAO;                // 顶点数组对象（VAO）
+    GLenum PrimitiveType;
 
     // 构造函数：接收顶点、索引和纹理数据，并初始化网格
-    Mesh(vector<Vertex> vertices, vector<unsigned int> indices)
+    // 注意：移动赋值，原来的数据会消失
+    Mesh(vector<Vertex>& vertices, vector<unsigned int>& indices, GLenum _primitiveType = GL_TRIANGLES)
     {
-        this->vertices = vertices;
-        this->indices = indices;
+        this->vertices = std::move(vertices);
+        this->indices = std::move(indices);
+        this->PrimitiveType = _primitiveType;
 
-        // 初始化所有缓冲对象和设置顶点属性
         setupMesh();
     }
 
-    // 渲染网格
-    void Draw(Shader& shader)
-    {
-        // 绑定相应的纹理到对应的纹理单元
-        unsigned int diffuseNr = 1;
-        unsigned int specularNr = 1;
-        unsigned int normalNr = 1;
-        unsigned int heightNr = 1;
 
-        // 绑定VAO并绘制网格（使用索引）
+    // 渲染网格
+    void Draw()
+    {
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
-
-        // 重置为默认纹理单元
-        glActiveTexture(GL_TEXTURE0);
     }
 
 private:

@@ -23,13 +23,16 @@
 #include "TextureResource.h"
 #include "Shader.h"
 #include "ResourcePathManager.h"
+#include "UI_Manager.h"
+#include "baseShader.h"
+#include "girdMesh.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 GLFWwindow* glfwInitialize();
 void imguiInitialize(GLFWwindow* window);
-void ui_update(Shader& shader);
+void ui_update();
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
@@ -55,12 +58,21 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader ourShader(ResourcePathManager::getInstance().getBaseShaderVert().c_str(),
+    baseShader ourShader(ResourcePathManager::getInstance().getBaseShaderVert().c_str(),
         ResourcePathManager::getInstance().getBaseShaderFrag().c_str()
         );
 
+    baseShader gridShader(
+        ResourcePathManager::getInstance().getGridShaderVert().c_str(),
+        ResourcePathManager::getInstance().getGridShaderFrag().c_str()
+    );
+    gridShader.setShaderName("gridShader");
+
     // load models
     // -----------
+    gridMesh grid_mesh;
+
+
     Model ourModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj");
 
     TextureResource baseTex("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_MatID.tga");
@@ -95,30 +107,42 @@ int main()
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+        glm::mat4 view = camera.GetViewMatrix();
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+
+        //grid
+        gridShader.use();
+        gridShader.setMat4("projection", projection);
+        gridShader.setMat4("view", view);
+        gridShader.setMat4("model", model);
+        grid_mesh.Draw();
+
+
+
         // don't forget to enable shader before setting uniforms
         ourShader.use();
         baseTex.activeTexture();
         normalTex.activeTexture();
 
+        // view/projection transformations
+        ourShader.setMat4("projection", projection);
+        ourShader.setMat4("view", view);
+        ourShader.setMat4("model", model);
+
+
+
         ourShader.setVec3("lightPos", glm::vec3(10, 10, 10));
         ourShader.setVec3("cameraPos", camera.Position);
 
-        // view/projection transformations
-        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-        glm::mat4 view = camera.GetViewMatrix();
-        ourShader.setMat4("projection", projection);
-        ourShader.setMat4("view", view);
-
-        // render the loaded model
-        glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); 
-        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	
-        ourShader.setMat4("model", model);
-        ourModel.Draw(ourShader);
+        ourModel.Draw();
 
 
         //ui
-        ui_update(ourShader);
+        ui_update();
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -137,7 +161,7 @@ int main()
     return 0;
 }
 
-void ui_update(Shader& shader)
+void ui_update()
 {
     static bool show_demo_window = false;
     ImGui_ImplOpenGL3_NewFrame();
@@ -168,51 +192,11 @@ void ui_update(Shader& shader)
     ImGui::Spacing();
 
 
+    UIManager::getInstance().DrawAllUI();
    
 
-    static ImVec4 lightColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
-    glm::vec3 shadercolor = glm::vec3(lightColor.x, lightColor.y, lightColor.z);
-    shader.setVec3("lightColor", shadercolor);
-    if (ImGui::CollapsingHeader("Light Color"))
-    {
-        ImGui::ColorEdit3("Light Color", (float*)&lightColor);  // 只编辑 RGB
-    }
+
     ImGui::Spacing();
-
-
-    static int useNormalTex = 0;
-    shader.setInt("useNormalTex", useNormalTex);
-    if (ImGui::CollapsingHeader("Normal Texture"))
-    {
-        ImGui::RadioButton("ON", &useNormalTex, 1);
-        ImGui::SameLine();
-        ImGui::RadioButton("OFF", &useNormalTex, 0);
-
-    }
-    ImGui::Spacing();
-
-    static float ambientStrength = 0.1;
-    shader.setFloat("ambientStrength", ambientStrength);
-    if (ImGui::CollapsingHeader("Ambient Setting"))
-    {
-        ImGui::SliderFloat("Ambient Strength", &ambientStrength, 0.0f, 1.0f);
-    }
-    ImGui::Spacing();
-
-
-    static float specularStrength = 0.5;
-    static float shininess = 32.0;
-    shader.setFloat("specularStrength", specularStrength);
-    shader.setFloat("shininess", shininess);
-    if (ImGui::CollapsingHeader("Specular Setting"))
-    {
-        ImGui::SliderFloat("Specular Strength", &specularStrength, 0.0f, 1.0f);
-        ImGui::SliderFloat("Shininess", &shininess, 0.0f, 64.0f);
-
-    }
-
-
-
     if (ImGui::Button("Show Demo Window"))
     {
         show_demo_window = !show_demo_window;
