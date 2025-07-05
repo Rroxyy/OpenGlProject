@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 
-class Camera;
 
 struct GLFWwindow;
 
@@ -11,7 +10,6 @@ public:
 	bool isMoving;
 
 	static InputSystem& getInstance();
-	void setCamera(Camera* camera);
 	void checkInput(GLFWwindow* window, float deltaTime);
 	void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
 	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
@@ -31,6 +29,5 @@ private:
 	float lastX;
 	float lastY;
 	bool firstMouse;
-	Camera* camera;
 };
 

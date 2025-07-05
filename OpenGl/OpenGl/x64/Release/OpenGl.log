@@ -1,19 +1,10 @@
 ﻿  Main.cpp
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\baseShader.h(32,26): warning C4305: “初始化”: 从“double”到“float”截断
-  (编译源文件“Assests/Main.cpp”)
-  
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\girdMesh.h(33,34): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
-  (编译源文件“Assests/Main.cpp”)
-  
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Main.cpp(179,24): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-  baseShader.cpp
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\baseShader.h(32,26): warning C4305: “初始化”: 从“double”到“float”截断
-  (编译源文件“Assests/Src/baseShader.cpp”)
-  
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Main.cpp(182,24): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+  InputSystem.cpp
     正在创建库 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\x64\Release\OpenGl.lib 和对象 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\x64\Release\OpenGl.exp
   正在生成代码
-  120 of 3898 functions ( 3.1%) were compiled, the rest were copied from previous compilation.
+  16 of 3906 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
     1 functions were new in current compilation
-    141 functions had inline decision re-evaluated but remain unchanged
+    128 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   OpenGl.vcxproj -> C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\x64\Release\OpenGl.exe

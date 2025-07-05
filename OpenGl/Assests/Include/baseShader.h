@@ -23,17 +23,18 @@ public:
 	void drawShaderUI();
 	void update_shader_value()const;
 	void use()const override;
+	void PrintActiveUniforms();
 protected:
 	std::string shaderName="baseShader";
 
 
 	ImVec4 lightColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);;
 	int useNormalTex = 0;
-	float ambientStrength = 0.1;
+	float ambientStrength = 0.1f;
 
 
-	float specularStrength = 0.5;
-	float shininess = 32.0;
+	float specularStrength = 0.5f;
+	float shininess = 32.0f;
 
 
 private:

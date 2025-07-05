@@ -158,6 +158,7 @@
   <ItemGroup>
     <ClInclude Include="Assests\Include\baseShader.h" />
     <ClInclude Include="Assests\Include\girdMesh.h" />
+    <ClInclude Include="Assests\Include\Managers\globalParametersManager.h" />
     <ClInclude Include="Assests\Include\Managers\InputSystem.h" />
     <ClInclude Include="Assests\Include\Managers\UI_Manager.h" />
     <ClInclude Include="Assests\Include\mesh.h" />

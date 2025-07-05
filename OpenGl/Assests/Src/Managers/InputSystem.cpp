@@ -4,12 +4,12 @@
 #include <GLFW/glfw3.h>
 
 #include "camera.h"
+#include "globalParametersManager.h"
 
 InputSystem::InputSystem()
 {
     isMoving = false;
     firstMouse = true;
-    camera =nullptr;
 }
 InputSystem::~InputSystem()
 {
@@ -23,10 +23,7 @@ InputSystem& InputSystem::getInstance()
 	return instance;
 }
 
-void InputSystem::setCamera(Camera* _camera)
-{
-    getInstance().camera = _camera;
-}
+
 
 
 void InputSystem::checkInput(GLFWwindow* window, float deltaTime)
@@ -55,10 +52,11 @@ void InputSystem::checkInput(GLFWwindow* window, float deltaTime)
 
     if (isMoving)
     {
+        Camera* camera = globalParametersManager::getInstance().mainCamera;
         if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
             camera->IsPushing = true;
 
-
+        
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
             camera->ProcessKeyboard(FORWARD, deltaTime);
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -94,10 +92,11 @@ void InputSystem::mouse_callback(GLFWwindow* window, double xposIn, double yposI
     lastX = xpos;
     lastY = ypos;
 
-    camera->ProcessMouseMovement(xoffset, yoffset);
+    globalParametersManager::getInstance().mainCamera->ProcessMouseMovement(xoffset, yoffset);
 }
 void InputSystem::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     if (!getInstance().isMoving)return;
-    camera->ProcessMouseScroll(static_cast<float>(yoffset));
+    globalParametersManager::getInstance().projectionDirty = true;
+    globalParametersManager::getInstance().mainCamera->ProcessMouseScroll(static_cast<float>(yoffset));
 }

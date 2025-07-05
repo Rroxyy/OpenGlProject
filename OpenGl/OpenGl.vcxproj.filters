@@ -104,6 +104,9 @@
     <ClInclude Include="Assests\Include\girdMesh.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Assests\Include\Managers\globalParametersManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\light_cube.frag">

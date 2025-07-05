@@ -26,6 +26,7 @@
 #include "UI_Manager.h"
 #include "baseShader.h"
 #include "girdMesh.h"
+#include "globalParametersManager.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -34,8 +35,8 @@ GLFWwindow* glfwInitialize();
 void imguiInitialize(GLFWwindow* window);
 void ui_update();
 // settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+//const unsigned int SCR_WIDTH = 800;
+//const unsigned int SCR_HEIGHT = 600;
 
 // camera
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
@@ -50,7 +51,7 @@ glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 int main()
 {
     //camera initialize
-    InputSystem::getInstance().setCamera(&camera);
+    globalParametersManager::getInstance().mainCamera = &camera;
 
     GLFWwindow* window = glfwInitialize();
 
@@ -58,7 +59,7 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    baseShader ourShader(ResourcePathManager::getInstance().getBaseShaderVert().c_str(),
+    baseShader tvShader(ResourcePathManager::getInstance().getBaseShaderVert().c_str(),
         ResourcePathManager::getInstance().getBaseShaderFrag().c_str()
         );
 
@@ -73,16 +74,18 @@ int main()
     gridMesh grid_mesh;
 
 
-    Model ourModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj");
+    Model tvModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj");
 
     TextureResource baseTex("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_MatID.tga");
     TextureResource normalTex("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_Normal_G.tga");
 
 
 
-    ourShader.use();
-    ourShader.useTexture("texture_base", baseTex);
-    ourShader.useTexture("texture_normal", normalTex);
+    tvShader.use();
+    tvShader.useTexture("texture_base", baseTex);
+    tvShader.useTexture("texture_normal", normalTex);
+
+    tvShader.PrintActiveUniforms();
     // draw in wireframe
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -108,7 +111,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+        glm::mat4 projection = globalParametersManager::getInstance().getProjection();
         glm::mat4 view = camera.GetViewMatrix();
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
@@ -124,21 +127,21 @@ int main()
 
 
         // don't forget to enable shader before setting uniforms
-        ourShader.use();
+        tvShader.use();
         baseTex.activeTexture();
         normalTex.activeTexture();
 
         // view/projection transformations
-        ourShader.setMat4("projection", projection);
-        ourShader.setMat4("view", view);
-        ourShader.setMat4("model", model);
+        tvShader.setMat4("projection", projection);
+        tvShader.setMat4("view", view);
+        tvShader.setMat4("model", model);
 
 
 
-        ourShader.setVec3("lightPos", glm::vec3(10, 10, 10));
-        ourShader.setVec3("cameraPos", camera.Position);
+        tvShader.setVec3("lightPos", glm::vec3(10, 10, 10));
+        tvShader.setVec3("cameraPos", camera.Position);
 
-        ourModel.Draw();
+        tvModel.Draw();
 
 
         //ui
@@ -227,7 +230,8 @@ GLFWwindow* glfwInitialize()
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(globalParametersManager::getInstance().getWidth(),
+        globalParametersManager::getInstance().getHeight(), "LearnOpenGL", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -278,6 +282,7 @@ void imguiInitialize(GLFWwindow* window)
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
+    globalParametersManager::getInstance().setResolution(width, height);
     glViewport(0, 0, width, height);
 }
 

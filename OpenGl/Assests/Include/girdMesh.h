@@ -30,7 +30,7 @@ public:
             indices.push_back(i);
             indices.push_back(i + 1);
         }
-        indicesCnt = indices.size();
+        indicesCnt = static_cast<int>(indices.size());
         setupMesh(gridVertices,indices);
 	}
 
