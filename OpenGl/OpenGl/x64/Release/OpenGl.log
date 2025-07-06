@@ -1,10 +1,11 @@
 ﻿  Main.cpp
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Main.cpp(182,24): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+  globalParametersManager.cpp
   InputSystem.cpp
     正在创建库 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\x64\Release\OpenGl.lib 和对象 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\x64\Release\OpenGl.exp
   正在生成代码
-  16 of 3906 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
-    128 functions had inline decision re-evaluated but remain unchanged
+  8 of 3906 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    124 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   OpenGl.vcxproj -> C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\x64\Release\OpenGl.exe

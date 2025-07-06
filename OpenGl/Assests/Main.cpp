@@ -85,7 +85,7 @@ int main()
     tvShader.useTexture("texture_base", baseTex);
     tvShader.useTexture("texture_normal", normalTex);
 
-    tvShader.PrintActiveUniforms();
+    //tvShader.PrintActiveUniforms();
     // draw in wireframe
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 

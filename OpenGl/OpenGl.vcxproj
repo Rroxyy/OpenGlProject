@@ -75,7 +75,7 @@
     <LibraryPath>C:\Users\Drwin\Desktop\render\render3\vs\lib\dubug;C:\Users\Drwin\Desktop\render\render3\vs\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Managers;C:\Users\Drwin\Desktop\render\render3\vs\include\imgui;C:\Users\Drwin\Desktop\render\render3\assimp\contrib\zlib;C:\Users\Drwin\Desktop\render\render3\assimp\build\include;C:\Users\Drwin\Desktop\render\render3\assimp\include;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include;C:\Users\Drwin\Desktop\render\render3\vs\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object\Component;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Managers;C:\Users\Drwin\Desktop\render\render3\vs\include\imgui;C:\Users\Drwin\Desktop\render\render3\assimp\contrib\zlib;C:\Users\Drwin\Desktop\render\render3\assimp\build\include;C:\Users\Drwin\Desktop\render\render3\assimp\include;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include;C:\Users\Drwin\Desktop\render\render3\vs\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Drwin\Desktop\render\render3\vs\lib;C:\Users\Drwin\Desktop\render\render3\vs\lib\release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -140,7 +140,8 @@
   <ItemGroup>
     <ClCompile Include="Assests\Lib\glad.c" />
     <ClCompile Include="Assests\Main.cpp" />
-    <ClCompile Include="Assests\Src\baseShader.cpp" />
+    <ClCompile Include="Assests\Src\Object\Object.cpp" />
+    <ClCompile Include="Assests\Src\render\baseShader.cpp" />
     <ClCompile Include="Assests\Src\imgui\imgui.cpp" />
     <ClCompile Include="Assests\Src\imgui\imgui_demo.cpp" />
     <ClCompile Include="Assests\Src\imgui\imgui_draw.cpp" />
@@ -148,26 +149,31 @@
     <ClCompile Include="Assests\Src\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="Assests\Src\imgui\imgui_tables.cpp" />
     <ClCompile Include="Assests\Src\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="Assests\Src\Managers\globalParametersManager.cpp" />
     <ClCompile Include="Assests\Src\Managers\InputSystem.cpp" />
     <ClCompile Include="Assests\Src\Managers\ResourcePathManager.cpp" />
-    <ClCompile Include="Assests\Src\shader.cpp" />
-    <ClCompile Include="Assests\Src\stb_image.cpp" />
+    <ClCompile Include="Assests\Src\render\shader.cpp" />
+    <ClCompile Include="Assests\Src\render\stb_image.cpp" />
     <ClCompile Include="Assests\Src\Managers\TextureManager.cpp" />
-    <ClCompile Include="Assests\Src\TextureResource.cpp" />
+    <ClCompile Include="Assests\Src\render\TextureResource.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Assests\Include\baseShader.h" />
-    <ClInclude Include="Assests\Include\girdMesh.h" />
+    <ClInclude Include="Assests\Include\Managers\ObjectManager.h" />
+    <ClInclude Include="Assests\Include\Object\Component\Component.h" />
+    <ClInclude Include="Assests\Include\Object\Component\Transform.h" />
+    <ClInclude Include="Assests\Include\render\baseShader.h" />
+    <ClInclude Include="Assests\Include\render\girdMesh.h" />
     <ClInclude Include="Assests\Include\Managers\globalParametersManager.h" />
     <ClInclude Include="Assests\Include\Managers\InputSystem.h" />
     <ClInclude Include="Assests\Include\Managers\UI_Manager.h" />
-    <ClInclude Include="Assests\Include\mesh.h" />
-    <ClInclude Include="Assests\Include\model.h" />
+    <ClInclude Include="Assests\Include\render\mesh.h" />
+    <ClInclude Include="Assests\Include\render\model.h" />
     <ClInclude Include="Assests\Include\Managers\ResourcePathManager.h" />
-    <ClInclude Include="Assests\Include\TextureEnums.h" />
-    <ClInclude Include="Assests\Include\TextureResource.h" />
+    <ClInclude Include="Assests\Include\Object\Object.h" />
+    <ClInclude Include="Assests\Include\render\TextureEnums.h" />
+    <ClInclude Include="Assests\Include\render\TextureResource.h" />
     <ClInclude Include="Assests\Include\camera.h" />
-    <ClInclude Include="Assests\Include\Shader.h" />
+    <ClInclude Include="Assests\Include\render\Shader.h" />
     <ClInclude Include="Assests\Include\Managers\TextureManager.h" />
   </ItemGroup>
   <ItemGroup>

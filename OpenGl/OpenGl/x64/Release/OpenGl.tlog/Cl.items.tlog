@@ -8,6 +8,7 @@ C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\imgui\imgui_impl_glf
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\imgui\imgui_impl_opengl3.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\imgui_impl_opengl3.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\imgui\imgui_tables.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\imgui_tables.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\imgui\imgui_widgets.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\imgui_widgets.obj
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\globalParametersManager.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\globalParametersManager.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\InputSystem.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\InputSystem.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\ResourcePathManager.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\ResourcePathManager.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\shader.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\shader.obj

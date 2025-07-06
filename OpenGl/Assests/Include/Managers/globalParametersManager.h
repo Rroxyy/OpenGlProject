@@ -1,4 +1,6 @@
 ﻿#pragma once
+#include <glm/gtc/matrix_transform.hpp>
+
 
 class Camera;
 class globalParametersManager
@@ -10,16 +12,8 @@ public:
 		return instance;
 	}
 
-	glm::mat4 getProjection()
-	{
-		if (projectionDirty)
-		{
-			projectionMat = glm::perspective(glm::radians(mainCamera->Zoom),
-				(float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-			projectionDirty = false;
-		}
-		return projectionMat;
-	}
+	glm::mat4 getProjection();
+	
 
 	unsigned int getWidth() const { return SCR_WIDTH; }
 	unsigned int getHeight() const { return SCR_HEIGHT; }

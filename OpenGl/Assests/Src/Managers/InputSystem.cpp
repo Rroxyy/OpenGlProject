@@ -97,6 +97,5 @@ void InputSystem::mouse_callback(GLFWwindow* window, double xposIn, double yposI
 void InputSystem::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     if (!getInstance().isMoving)return;
-    globalParametersManager::getInstance().projectionDirty = true;
     globalParametersManager::getInstance().mainCamera->ProcessMouseScroll(static_cast<float>(yoffset));
 }
