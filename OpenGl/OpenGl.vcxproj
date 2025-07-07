@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClCompile Include="Assests\Lib\glad.c" />
     <ClCompile Include="Assests\Main.cpp" />
+    <ClCompile Include="Assests\Src\Managers\ObjectManager.cpp" />
     <ClCompile Include="Assests\Src\Object\Object.cpp" />
     <ClCompile Include="Assests\Src\render\baseShader.cpp" />
     <ClCompile Include="Assests\Src\imgui\imgui.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="Assests\Include\Managers\TextureManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assests\Resource\ObjectData\ObjectManager.json" />
     <None Include="Assests\Shaders\grid\grid.frag" />
     <None Include="Assests\Shaders\grid\grid.vert" />
     <None Include="Assests\Shaders\light_cube.frag" />

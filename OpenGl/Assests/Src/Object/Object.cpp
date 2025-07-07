@@ -3,55 +3,37 @@
 #include <string>
 
 #include "json.hpp"
+#include "ObjectManager.h"
+
 
 Object::Object()
 {
-    transform = AddComponent<Transform>();
+    id=ObjectManager::getInstance().addObject(this);
+    AddComponent()
 }
 
 Object::~Object()
+{}
+
+nlohmann::json Object::toJson() 
 {
-	
-}
-
-template <typename T, typename... Args>
-T* Object::AddComponent(Args&&... args)
-{
-    // 编译期断言：确保模板类型 T 是 Component 的派生类（或 Component 本身）
-    static_assert(std::is_base_of<Component, T>::value, "T must be a Component");
-
-    // 使用完美转发构造一个 T 类型的对象，并由 unique_ptr 接管内存管理
-    auto comp = std::make_unique<T>(std::forward<Args>(args)...);
-    //auto comp = std::make_unique<T>(static_cast<Args&&>(args)...);
-
-    // 获取裸指针，以便返回给外部使用
-    T* ptr = comp.get();
-
-    // 将组件存入对象的组件容器，key 使用类型的哈希值（typeid 获取类型信息）
-    components[typeid(T).hash_code()] = std::move(comp);
-
-    // 返回组件的裸指针，方便调用者继续操作这个组件
-    return ptr;
-}
-
-template <typename T>
-T* Object::AddComponent(std::unique_ptr<T> comp)
-{
-    static_assert(std::is_base_of<Component, T>::value, "T must be a Component");
-    T* ptr = comp.get();
-    components[typeid(T)] = std::move(comp);
-    return ptr;
-}
-
-
-template <typename T>
-T* Object::GetComponent()
-{
-    auto it = components.find(typeid(T).hash_code());
-    if (it != components.end()) {
-        return dynamic_cast<T*>(it->second.get());
+    nlohmann::json ret;
+    nlohmann::json data = nlohmann::json::array();  
+    for (auto& it:components)
+    {
+        auto component = it.second.get();
+        data.push_back(component->toJson());
     }
-    return nullptr;
+    ret["componentsData"] = data;
+    ret["id"] = id;
+    ret["name"] = objectName;
+
+    return ret;
+}
+
+const std::string& Object::getObjectName()const
+{
+    return objectName;
 }
 
 

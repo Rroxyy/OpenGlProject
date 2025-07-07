@@ -27,6 +27,8 @@
 #include "baseShader.h"
 #include "girdMesh.h"
 #include "globalParametersManager.h"
+#include "Object.h"
+#include "ObjectManager.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -50,6 +52,11 @@ glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
 int main()
 {
+    Object temp;
+    temp.GetComponent<Transform>()->position = glm::vec3(12, 12, 11);
+
+
+
     //camera initialize
     globalParametersManager::getInstance().mainCamera = &camera;
 

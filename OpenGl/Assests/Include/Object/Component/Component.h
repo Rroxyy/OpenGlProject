@@ -5,8 +5,10 @@
 class Component
 {
 public:
-	virtual ~Component() {}
-	virtual void Update(float dt) {}
+	std::string componentName;
+	virtual const std::string& getComponentName() const = 0;
+	virtual nlohmann::json toJson() = 0;
+
 
 private:
 };
