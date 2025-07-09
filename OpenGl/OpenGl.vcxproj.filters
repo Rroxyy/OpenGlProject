@@ -128,6 +128,9 @@
     <ClInclude Include="Assests\Include\Managers\ObjectManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Assests\Include\Object\Component\ComponentFactory.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\light_cube.frag">

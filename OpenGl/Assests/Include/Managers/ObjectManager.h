@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <json.hpp>
 #include <memory>
 #include <unordered_map>
 
@@ -14,7 +15,11 @@ public:
 		return instance;
 	}
 
-	size_t addObject(Object* object);
+	size_t createObject();
+
+	Object* createObjectPtr();
+
+	void createObjectByJson(const nlohmann::json& js);
 
 	Object* getObject(size_t id);
 
@@ -23,14 +28,15 @@ public:
 	bool removeObject(Object* object);
 
 	void saveJson();
+
+	void loadJson();
 private:
 	size_t objectCnt=0;
 	std::unordered_map<size_t, std::unique_ptr<Object>>objects;
 
 
-
 	ObjectManager() = default;
-	~ObjectManager() = default;
+	~ObjectManager();
 
 	ObjectManager(ObjectManager&) = delete;
 	ObjectManager& operator=(ObjectManager&) = delete;

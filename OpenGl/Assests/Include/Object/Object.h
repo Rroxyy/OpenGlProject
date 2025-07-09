@@ -3,43 +3,53 @@
 #include <memory>
 #include <string>
 #include <unordered_map>
+#include <iostream>
 #include "Transform.h"
 
 class Component;
 class Object {
+    friend class ObjectManager;
 public:
     size_t id;
     std::string objectName;
 
-    Object();
+   
     ~Object();
 
     template <typename T, typename... Args>
     T* AddComponent(Args&&... args)
     {
-        // 编译期断言：确保模板类型 T 是 Component 的派生类（或 Component 本身）
         static_assert(std::is_base_of<Component, T>::value, "T must be a Component");
 
-        // 使用完美转发构造一个 T 类型的对象，并由 unique_ptr 接管内存管理
         auto comp = std::make_unique<T>(std::forward<Args>(args)...);
-        //auto comp = std::make_unique<T>(static_cast<Args&&>(args)...);
-
-        // 获取裸指针，以便返回给外部使用
-        T* ptr = comp.get();
-
-        // 将组件存入对象的组件容器，key 使用类型的哈希值（typeid 获取类型信息）
-        components[typeid(T).hash_code()] = std::move(comp);
-
-        // 返回组件的裸指针，方便调用者继续操作这个组件
-        return ptr;
+        return AddComponent(std::move(comp));
     }
+
 
     template <typename T>
     T* AddComponent(std::unique_ptr<T> comp)
     {
         static_assert(std::is_base_of<Component, T>::value, "T must be a Component");
+
+        size_t key = typeid(*comp).hash_code();
+
+        std::cout << objectName << " :" << typeid(*comp).name() << std::endl;
+
+        auto it = components.find(key);
+
+        if (it != components.end()) {
+            std::cerr << "Object: " << objectName<<id
+                << "  [警告] Component 类型 " << typeid(T).name()
+                << " 已存在，取消新建，返回已有实例。\n";
+            std::cout << components.size() << std::endl;
+
+            return static_cast<T*>(it->second.get());
+        }
+
         T* ptr = comp.get();
-        components[typeid(T)] = std::move(comp);
+        components[key] = std::move(comp);
+
+        std::cout << components.size()<<std::endl;
         return ptr;
     }
 
@@ -53,9 +63,18 @@ public:
         return nullptr;
     }
 
-    virtual nlohmann::json toJson() ;
+    nlohmann::json toJson();
 
-    virtual const std::string& getObjectName()const;
+    void loadJson(const nlohmann::json& componentsJson);
+
+    const std::string& getObjectName()const;
+
+    void setObjectName(std::string&& name);
+
+    void showUI();
+
 private:
+
+    Object();
     std::unordered_map<size_t, std::unique_ptr<Component>> components;
 };

@@ -52,8 +52,10 @@ glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
 int main()
 {
-    Object temp;
-    temp.GetComponent<Transform>()->position = glm::vec3(12, 12, 11);
+    ObjectManager::getInstance().loadJson();
+
+    Object* temp = ObjectManager::getInstance().createObjectPtr();
+    temp->objectName = "temp";
 
 
 

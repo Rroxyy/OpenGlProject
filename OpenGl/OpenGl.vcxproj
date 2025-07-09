@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="Assests\Include\Managers\ObjectManager.h" />
     <ClInclude Include="Assests\Include\Object\Component\Component.h" />
+    <ClInclude Include="Assests\Include\Object\Component\ComponentFactory.h" />
     <ClInclude Include="Assests\Include\Object\Component\Transform.h" />
     <ClInclude Include="Assests\Include\render\baseShader.h" />
     <ClInclude Include="Assests\Include\render\girdMesh.h" />
