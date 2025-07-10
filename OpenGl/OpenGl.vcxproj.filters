@@ -75,6 +75,9 @@
     <ClCompile Include="Assests\Src\Managers\ObjectManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Assests\Src\Object\Component\Transform.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assests\Include\camera.h">
@@ -169,5 +172,8 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="..\..\..\..\uploads_files_2529155_Textures_Baked\tv_Normal_G+.tga" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="..\..\..\..\planeobj.obj" />
   </ItemGroup>
 </Project>

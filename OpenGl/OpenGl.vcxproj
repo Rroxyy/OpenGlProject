@@ -141,6 +141,7 @@
     <ClCompile Include="Assests\Lib\glad.c" />
     <ClCompile Include="Assests\Main.cpp" />
     <ClCompile Include="Assests\Src\Managers\ObjectManager.cpp" />
+    <ClCompile Include="Assests\Src\Object\Component\Transform.cpp" />
     <ClCompile Include="Assests\Src\Object\Object.cpp" />
     <ClCompile Include="Assests\Src\render\baseShader.cpp" />
     <ClCompile Include="Assests\Src\imgui\imgui.cpp" />

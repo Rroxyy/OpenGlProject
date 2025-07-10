@@ -52,11 +52,14 @@ glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
 int main()
 {
-    ObjectManager::getInstance().loadJson();
+    //ObjectManager::getInstance().loadJson();
 
-    Object* temp = ObjectManager::getInstance().createObjectPtr();
-    temp->objectName = "temp";
+    Object* tv = ObjectManager::getInstance().createObjectPtr("TV");
 
+    Object* plane = ObjectManager::getInstance().createObjectPtr("plane");
+
+    Object* light= ObjectManager::getInstance().createObjectPtr("Light");
+    globalParametersManager::getInstance().mainLight = light;
 
 
     //camera initialize
@@ -71,6 +74,12 @@ int main()
     baseShader tvShader(ResourcePathManager::getInstance().getBaseShaderVert().c_str(),
         ResourcePathManager::getInstance().getBaseShaderFrag().c_str()
         );
+    tvShader.setShaderName("tvShader");
+
+    baseShader planeShader(ResourcePathManager::getInstance().getBaseShaderVert().c_str(),
+        ResourcePathManager::getInstance().getBaseShaderFrag().c_str()
+    );
+    planeShader.setShaderName("planeShader");
 
     baseShader gridShader(
         ResourcePathManager::getInstance().getGridShaderVert().c_str(),
@@ -84,6 +93,7 @@ int main()
 
 
     Model tvModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj");
+    Model planeModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj");
 
     TextureResource baseTex("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_MatID.tga");
     TextureResource normalTex("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_Normal_G.tga");
@@ -120,38 +130,35 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-        glm::mat4 projection = globalParametersManager::getInstance().getProjection();
-        glm::mat4 view = camera.GetViewMatrix();
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
         model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 
         //grid
         gridShader.use();
-        gridShader.setMat4("projection", projection);
-        gridShader.setMat4("view", view);
         gridShader.setMat4("model", model);
         grid_mesh.Draw();
 
 
+        //plane
+        planeShader.use();
+        planeShader.setMat4("model", plane->GetComponent<Transform>()->getModelMat4());
+        planeModel.Draw();
 
-        // don't forget to enable shader before setting uniforms
+
+        // tv
         tvShader.use();
         baseTex.activeTexture();
         normalTex.activeTexture();
 
         // view/projection transformations
-        tvShader.setMat4("projection", projection);
-        tvShader.setMat4("view", view);
-        tvShader.setMat4("model", model);
-
-
-
-        tvShader.setVec3("lightPos", glm::vec3(10, 10, 10));
+        tvShader.setMat4("model", tv->GetComponent<Transform>()->getModelMat4());
         tvShader.setVec3("cameraPos", camera.Position);
 
         tvModel.Draw();
 
+        baseTex.deactivateTexture();
+        normalTex.deactivateTexture();
 
         //ui
         ui_update();

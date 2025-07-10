@@ -1,4 +1,8 @@
 #include "baseShader.h"
+
+#include "camera.h"
+#include "globalParametersManager.h"
+#include "Object.h"
 #include "ResourcePathManager.h"
 #include "UI_Manager.h"
 
@@ -60,6 +64,18 @@ void baseShader::drawShaderUI()
             ImGui::TreePop();
         }
 
+        if (ImGui::TreeNode("BaseColor"))
+        {
+            ImGui::Text("Use Base Texture:");
+            ImGui::RadioButton("On", &useBaseTex, 1);
+            ImGui::SameLine();
+            ImGui::RadioButton("Off", &useBaseTex, 0);
+            ImGui::Spacing();
+
+            ImGui::ColorEdit3("Light Color", (float*)&defualtColor);
+            ImGui::TreePop();
+        }
+
         if (ImGui::TreeNode("Normal Map"))
         {
             ImGui::Text("Use Normal Texture:");
@@ -90,8 +106,19 @@ void baseShader::drawShaderUI()
 
 void baseShader::update_shader_value()const
 {
-    glm::vec3 shadercolor = glm::vec3(lightColor.x, lightColor.y, lightColor.z);
-    setVec3("lightColor", shadercolor);
+    setMat4("projection", globalParametersManager::getInstance().getProjection());
+    setMat4("view", globalParametersManager::getInstance().mainCamera->GetViewMatrix());
+
+    setVec3("cameraPos", globalParametersManager::getInstance().mainCamera->Position);
+
+
+    glm::vec3 temp = glm::vec3(lightColor.x, lightColor.y, lightColor.z);
+    setVec3("lightColor", temp);
+    setVec3("lightDir",globalParametersManager::getInstance().mainLight->GetComponent<Transform>()->getBackDir());
+
+    setInt("useBaseTex", useBaseTex);
+    temp = glm::vec3(defualtColor.x, defualtColor.y, defualtColor.z);
+    setVec3("defaultColor", temp);
 
     setInt("useNormalTex", useNormalTex);
     setFloat("ambientStrength", ambientStrength);

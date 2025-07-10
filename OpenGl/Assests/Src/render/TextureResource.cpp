@@ -81,6 +81,12 @@ void TextureResource::activeTexture() const
     glBindTexture(GL_TEXTURE_2D, texture_id);
 }
 
+void TextureResource::deactivateTexture() const
+{
+    glActiveTexture(toGLTextureUnit(textureChannel));
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
 int TextureResource::getTextureUnitIndex() const
 {
     return static_cast<int>(textureChannel);

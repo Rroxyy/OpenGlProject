@@ -39,6 +39,14 @@ Object* ObjectManager::createObjectPtr()
 	return objects[id].get();
 }
 
+Object* ObjectManager::createObjectPtr(std::string&& name)
+{
+	Object* object = createObjectPtr();
+	object->objectName = name;
+	return object;
+}
+
+
 void ObjectManager::createObjectByJson(const nlohmann::json& js)
 {
 	objectCnt++;

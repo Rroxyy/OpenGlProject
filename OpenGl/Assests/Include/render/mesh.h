@@ -10,6 +10,8 @@
 
 #include <string>
 #include <vector>
+
+#include "Component.h"
 using namespace std;
 
 #define MAX_BONE_INFLUENCE 4 // 每个顶点最多受到4个骨骼的影响
@@ -26,7 +28,8 @@ struct Vertex {
 };
 
 // 网格类
-class Mesh {
+class Mesh
+{
 public:
     // 网格数据
     vector<Vertex>       vertices;   // 顶点数据列表
@@ -44,13 +47,17 @@ public:
 
         setupMesh();
     }
+    //const std::string& getComponentName() const override
+    //{
+	   // 
+    //}
 
 
     // 渲染网格
     void Draw()
     {
         glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
+        glDrawElements(PrimitiveType, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
     }
 

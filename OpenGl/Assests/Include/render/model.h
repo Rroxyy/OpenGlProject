@@ -17,8 +17,11 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <json.hpp>
 #include <map>
 #include <vector>
+
+#include "Component.h"
 using namespace std;
 
 // 从文件读取纹理并生成纹理ID
@@ -36,7 +39,16 @@ public:
     Model(string const& path, bool gamma = false) : gammaCorrection(gamma)
     {
         loadModel(path);
+        //componentName = "Model";
     }
+    /*const std::string& getComponentName() const override
+    {
+        return componentName;
+    }
+    nlohmann::json toJson() override
+    {
+	    
+    }*/
 
     // 渲染整个模型
     void Draw()

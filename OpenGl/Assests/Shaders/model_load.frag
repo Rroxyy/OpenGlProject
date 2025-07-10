@@ -6,11 +6,15 @@ in vec3 positionWS;
 in vec3 normal;
 in mat3 TBN;
 
-uniform vec3 lightPos;
-uniform vec3 cameraPos;
+uniform vec3 lightDir;
 uniform vec3 lightColor;
 
+uniform vec3 cameraPos;
+
+uniform int useBaseTex;
 uniform int useNormalTex;
+
+uniform vec3 defaultColor;
 
 uniform float ambientStrength;
 
@@ -22,10 +26,8 @@ uniform sampler2D texture_normal;
 
 void main()
 {
-    vec3 lightDir = normalize(lightPos - positionWS);
     vec3 viewDir = normalize(cameraPos - positionWS);
 
-    
     // 采样 normal map，映射到 [-1, 1]
     vec3 tangentNormal = texture(texture_normal, TexCoords).rgb;
     tangentNormal =  normalize(tangentNormal * 2.0 - 1.0);
@@ -46,7 +48,7 @@ void main()
     vec3 specular = specularStrength * spec * lightColor;
 
 
-    vec3 baseColor = texture(texture_base, TexCoords).rgb;
+    vec3 baseColor = mix(defaultColor,texture(texture_base, TexCoords).rgb,useBaseTex);
     vec3 finalColor = (ambient + diffuse + specular) * baseColor;
 
     FragColor = vec4(finalColor, 1.0);

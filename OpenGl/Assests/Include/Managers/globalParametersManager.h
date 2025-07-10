@@ -3,6 +3,10 @@
 
 
 class Camera;
+class Object;
+
+class Transform;
+
 class globalParametersManager
 {
 public:
@@ -25,6 +29,8 @@ public:
 	}
 
 	Camera* mainCamera;
+
+	Object* mainLight;
 
 	bool projectionDirty = true;
 private:

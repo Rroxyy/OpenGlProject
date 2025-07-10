@@ -26,13 +26,14 @@ public:
 	void PrintActiveUniforms();
 protected:
 	std::string shaderName="baseShader";
-
-
-	ImVec4 lightColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);;
+	int useBaseTex = 1;
 	int useNormalTex = 1;
+
+	ImVec4 lightColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+
+	ImVec4 defualtColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+	
 	float ambientStrength = 0.1f;
-
-
 	float specularStrength = 0.5f;
 	float shininess = 32.0f;
 

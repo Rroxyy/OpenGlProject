@@ -19,6 +19,8 @@ public:
 
 	Object* createObjectPtr();
 
+	Object* createObjectPtr(std::string&&name);
+
 	void createObjectByJson(const nlohmann::json& js);
 
 	Object* getObject(size_t id);

@@ -25,8 +25,10 @@ public:
 
 	void setToShader(Shader& shader);
 	void activeTexture() const;
+	void deactivateTexture() const;
 
 	GLenum getGLTextureUnit() const;
+
 	int getTextureUnitIndex() const;
 private:
 	unsigned int texture_id;

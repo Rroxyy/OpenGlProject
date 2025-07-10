@@ -33,7 +33,6 @@ public:
 
         size_t key = typeid(*comp).hash_code();
 
-        std::cout << objectName << " :" << typeid(*comp).name() << std::endl;
 
         auto it = components.find(key);
 
@@ -41,15 +40,15 @@ public:
             std::cerr << "Object: " << objectName<<id
                 << "  [警告] Component 类型 " << typeid(T).name()
                 << " 已存在，取消新建，返回已有实例。\n";
-            std::cout << components.size() << std::endl;
 
             return static_cast<T*>(it->second.get());
         }
 
         T* ptr = comp.get();
+        ptr->setObject(this);
         components[key] = std::move(comp);
+        
 
-        std::cout << components.size()<<std::endl;
         return ptr;
     }
 

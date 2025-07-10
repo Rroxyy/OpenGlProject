@@ -23,24 +23,24 @@
             }
         ],
         "id": 1,
-        "objectName": "temp"
+        "objectName": "TV"
     },
     {
         "componentsData": [
             {
                 "componentData": {
                     "position": {
-                        "x": 15.5,
-                        "y": 4.400000095367432,
-                        "z": -7.199999809265137
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
                     },
                     "rotation": {
-                        "x": -6.699999809265137,
-                        "y": 3.299999952316284,
-                        "z": 5.5
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
                     },
                     "scale": {
-                        "x": -5.599999904632568,
+                        "x": 1.0,
                         "y": 1.0,
                         "z": 1.0
                     }
@@ -49,7 +49,7 @@
             }
         ],
         "id": 2,
-        "objectName": "temp"
+        "objectName": "plane"
     },
     {
         "componentsData": [
@@ -61,9 +61,9 @@
                         "z": 0.0
                     },
                     "rotation": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
+                        "x": -35.900001525878906,
+                        "y": 338.6000061035156,
+                        "z": -80.0
                     },
                     "scale": {
                         "x": 1.0,
@@ -75,32 +75,6 @@
             }
         ],
         "id": 3,
-        "objectName": "temp"
-    },
-    {
-        "componentsData": [
-            {
-                "componentData": {
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "rotation": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "scale": {
-                        "x": 1.0,
-                        "y": 1.0,
-                        "z": 1.0
-                    }
-                },
-                "componentName": "Transform"
-            }
-        ],
-        "id": 4,
-        "objectName": "temp"
+        "objectName": "Light"
     }
 ]
