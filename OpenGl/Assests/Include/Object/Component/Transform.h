@@ -51,7 +51,7 @@ public:
         return -getForward();
     }
 
-    const std::string& getComponentName() const override
+    const std::string getComponentName() const override
     {
         return componentName;
     }

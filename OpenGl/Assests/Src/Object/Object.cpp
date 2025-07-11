@@ -20,6 +20,12 @@ Object::Object()
 Object::~Object()
 {}
 
+void Object::use()
+{
+    for (const auto& it : components)it.second.get()->use();
+}
+
+
 void Object::showUI()
 {
 	if (ImGui::TreeNode((getObjectName()+ std::to_string(id)).c_str()))
@@ -40,6 +46,7 @@ nlohmann::json Object::toJson()
     for (auto& it:components)
     {
         auto component = it.second.get();
+        //std::cout << component->getComponentName() << std::endl;
         data.push_back(component->toJson());
     }
     ret["componentsData"] = data;

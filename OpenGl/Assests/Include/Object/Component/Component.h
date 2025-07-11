@@ -1,13 +1,17 @@
 ﻿#pragma once
 
+#include "json.hpp"
 
 class Object;
 class Component
 {
 public:
 	std::string componentName;
-	Object* object;
-	virtual const std::string& getComponentName() const = 0;
+	Object* object=nullptr;
+	virtual const std::string getComponentName()const
+	{
+		return typeid(*this).name();
+	}
 	virtual nlohmann::json toJson() = 0;
 	virtual void loadJson(const nlohmann::json& js) = 0;
 	virtual std::unique_ptr<Component> clone() const = 0;
@@ -16,5 +20,9 @@ public:
 	{
 		object = objectptr;
 	}
+
+
+	//use in main while
+	virtual void use() {};
 private:
 };

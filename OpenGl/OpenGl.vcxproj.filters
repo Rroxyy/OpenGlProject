@@ -134,6 +134,9 @@
     <ClInclude Include="Assests\Include\Object\Component\ComponentFactory.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Assests\Include\plugins.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\light_cube.frag">
@@ -172,8 +175,5 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="..\..\..\..\uploads_files_2529155_Textures_Baked\tv_Normal_G+.tga" />
-  </ItemGroup>
-  <ItemGroup>
-    <Object Include="..\..\..\..\planeobj.obj" />
   </ItemGroup>
 </Project>

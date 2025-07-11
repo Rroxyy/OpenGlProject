@@ -27,28 +27,64 @@ using namespace std;
 // 从文件读取纹理并生成纹理ID
 unsigned int TextureFromFile(const char* path, const string& directory, bool gamma = false);
 
-class Model
+class Model:public Component
 {
 public:
     // 模型数据
     vector<Mesh> meshes;                // 模型包含的网格
-    string directory;                   // 模型所在的文件夹
-    bool gammaCorrection;               // 是否使用\u伽马校正
+    string filePath;                   // 模型所在的文件夹
 
-    // 构造函数，描述一个模型文件路径
-    Model(string const& path, bool gamma = false) : gammaCorrection(gamma)
+    Model()
     {
-        loadModel(path);
-        //componentName = "Model";
+        componentName = "Model";
     }
-    /*const std::string& getComponentName() const override
+    
+    
+    Model(string const& _path) 
+    {
+        componentName = "Model";
+        filePath = _path;
+        loadModel(_path);
+    }
+    const std::string getComponentName() const override
     {
         return componentName;
     }
     nlohmann::json toJson() override
     {
-	    
-    }*/
+        nlohmann::json ret;
+        nlohmann::json data;
+        data["filePath"] = filePath;
+        ret[getComponentName()] = data;
+        return ret;
+    }
+
+    void loadJson(const nlohmann::json& js) override
+    {
+        filePath = js["filePath"].get<std::string>();
+        loadJson(filePath);
+    }
+    std::unique_ptr<Component> clone() const override
+    {
+        return make_unique<Model>(*this);
+    }
+
+    void showUI() override
+    {
+	    if (ImGui::TreeNode(getComponentName().c_str()))
+	    {
+		    for (auto&it:meshes)
+		    {
+                it.showUI();
+		    }
+            ImGui::TreePop();
+	    }
+    }
+
+    void use() override
+    {
+        Draw();
+    }
 
     // 渲染整个模型
     void Draw()
@@ -56,6 +92,40 @@ public:
         for (unsigned int i = 0; i < meshes.size(); i++)
             meshes[i].Draw();
     }
+
+    Model(Model&&other) noexcept:meshes(std::move(other.meshes)),filePath(std::move(other.filePath))
+    {
+        componentName = "Model";
+    }
+    Model& operator=(Model&& other)noexcept
+	{
+        if (this == &other)return *this;
+        componentName = "Model";
+        meshes = std::move(other.meshes);
+        filePath = std::move(other.filePath);
+        return *this;
+	}
+
+    // 拷贝构造函数
+    Model(const Model& other)
+        : meshes(other.meshes),    // 调用 Mesh 的拷贝构造（确保 Mesh 支持拷贝）
+        filePath(other.filePath)
+    {
+        componentName = "Model";
+    }
+
+    // 拷贝赋值运算符
+    Model& operator=(const Model& other)
+    {
+        if (this != &other)
+        {
+            componentName = "Model";
+            meshes = other.meshes;      // 调用 Mesh 的拷贝赋值
+            filePath = other.filePath;
+        }
+        return *this;
+    }
+
 
 private:
     // 使用 ASSIMP 读取模型，并处理所有网格
@@ -70,8 +140,12 @@ private:
             return;
         }
 
-        directory = path.substr(0, path.find_last_of('/'));
         processNode(scene->mRootNode, scene);
+        int index = 1;
+        for (auto&it:meshes)
+        {
+            it.componentName = it.getComponentName() + to_string(index++);
+        }
     }
 
     // 递归处理模型的节点

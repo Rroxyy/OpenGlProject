@@ -62,6 +62,8 @@ public:
         return nullptr;
     }
 
+    void use();
+
     nlohmann::json toJson();
 
     void loadJson(const nlohmann::json& componentsJson);

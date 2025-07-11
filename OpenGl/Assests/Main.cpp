@@ -52,22 +52,34 @@ glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
 int main()
 {
-    //ObjectManager::getInstance().loadJson();
-
-    Object* tv = ObjectManager::getInstance().createObjectPtr("TV");
-
-    Object* plane = ObjectManager::getInstance().createObjectPtr("plane");
-
-    Object* light= ObjectManager::getInstance().createObjectPtr("Light");
-    globalParametersManager::getInstance().mainLight = light;
-
-
-    //camera initialize
-    globalParametersManager::getInstance().mainCamera = &camera;
+    
 
     GLFWwindow* window = glfwInitialize();
 
     imguiInitialize(window);
+
+
+    //ObjectManager::getInstance().loadJson();
+
+    Object* grid = ObjectManager::getInstance().createObjectPtr("Grid");
+    grid->AddComponent<gridMesh>();
+
+
+    Object* tv = ObjectManager::getInstance().createObjectPtr("TV");
+    Model tvModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj");
+    tv->AddComponent<Model>(std::move(tvModel));
+
+    Object* plane = ObjectManager::getInstance().createObjectPtr("plane");
+
+    Object* light = ObjectManager::getInstance().createObjectPtr("Light");
+    globalParametersManager::getInstance().mainLight = light;
+
+
+
+
+
+    //camera initialize
+    globalParametersManager::getInstance().mainCamera = &camera;
 
     // build and compile shaders
     // -------------------------
@@ -87,12 +99,15 @@ int main()
     );
     gridShader.setShaderName("gridShader");
 
+
+
+
+
     // load models
     // -----------
-    gridMesh grid_mesh;
 
+    
 
-    Model tvModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj");
     Model planeModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj");
 
     TextureResource baseTex("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_MatID.tga");
@@ -137,7 +152,7 @@ int main()
         //grid
         gridShader.use();
         gridShader.setMat4("model", model);
-        grid_mesh.Draw();
+        grid->use();
 
 
         //plane
@@ -155,7 +170,8 @@ int main()
         tvShader.setMat4("model", tv->GetComponent<Transform>()->getModelMat4());
         tvShader.setVec3("cameraPos", camera.Position);
 
-        tvModel.Draw();
+        tv->use();
+        //tvModel.Draw();
 
         baseTex.deactivateTexture();
         normalTex.deactivateTexture();

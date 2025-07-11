@@ -4,61 +4,61 @@
 
 
 
-class gridMesh
+class gridMesh:public Mesh
 {
 public:
     int indicesCnt;
     GLuint VAO, VBO, EBO;
 	gridMesh()
 	{
-        std::vector<glm::vec3> gridVertices;
-        std::vector<unsigned int> indices;
+        std::vector<Vertex> _vertices;
+        std::vector<unsigned int> _indices;
+
         int gridSize = 10;     // 网格扩展范围：-10 到 +10
         float step = 1.0f;     // 每格间隔
 
         for (int i = -gridSize; i <= gridSize; ++i) {
-            // 水平方向点（Z 方向）
-            gridVertices.push_back(glm::vec3(i * step, 0.0f, -gridSize * step));  // A
-            gridVertices.push_back(glm::vec3(i * step, 0.0f, gridSize * step));   // B
+            glm::vec3 a(i * step, 0.0f, -gridSize * step); // A
+            glm::vec3 b(i * step, 0.0f, gridSize * step); // B
+            glm::vec3 c(-gridSize * step, 0.0f, i * step); // C
+            glm::vec3 d(gridSize * step, 0.0f, i * step); // D
 
-            // 垂直方向点（X 方向）
-            gridVertices.push_back(glm::vec3(-gridSize * step, 0.0f, i * step));  // C
-            gridVertices.push_back(glm::vec3(gridSize * step, 0.0f, i * step));   // D
+            // 将每个点转成 Vertex 格式（可复用下面的创建函数）
+            _vertices.push_back(createGridVertex(a));
+            _vertices.push_back(createGridVertex(b));
+            _vertices.push_back(createGridVertex(c));
+            _vertices.push_back(createGridVertex(d));
         }
 
-        for (int i = 0; i < gridVertices.size(); i += 2) {
-            indices.push_back(i);
-            indices.push_back(i + 1);
+        // 每两个点组成一条线段
+        for (unsigned int i = 0; i < _vertices.size(); i += 2) {
+            _indices.push_back(i);
+            _indices.push_back(i + 1);
         }
-        indicesCnt = static_cast<int>(indices.size());
-        setupMesh(gridVertices,indices);
+        this->vertices = _vertices;
+        this->indices = _indices;
+        this->PrimitiveType = GL_LINES;
+
+        setupMesh();
 	}
 
-    void Draw()
-	{
-        glBindVertexArray(VAO);
-        glDrawElements(GL_LINES, indicesCnt, GL_UNSIGNED_INT, 0);
-        glBindVertexArray(0);
-	}
-private:
-    void setupMesh(std::vector<glm::vec3>& gridVertices, std::vector<unsigned int>& indices)
+    Vertex createGridVertex(const glm::vec3& pos)
     {
-        glGenVertexArrays(1, &VAO);
-        glGenBuffers(1, &VBO);
-        glGenBuffers(1, &EBO);
+        Vertex v;
+        v.Position = pos;
+        v.Normal = glm::vec3(0.0f, 1.0f, 0.0f); // 向上（Y+），用于调试也行
+        v.TexCoords = glm::vec2(0.0f);          // 网格线不贴图，可为0
+        v.Tangent = glm::vec3(1.0f, 0.0f, 0.0f);   // 默认右方向
+        v.Bitangent = glm::vec3(0.0f, 0.0f, 1.0f); // 默认前方向
 
-        glBindVertexArray(VAO);
+        // 骨骼初始化为无绑定
+        for (int i = 0; i < MAX_BONE_INFLUENCE; ++i) {
+            v.m_BoneIDs[i] = 0;
+            v.m_Weights[i] = 0.0f;
+        }
 
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferData(GL_ARRAY_BUFFER, gridVertices.size() * sizeof(glm::vec3), gridVertices.data(), GL_STATIC_DRAW);
-
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
-
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
-
-        glBindVertexArray(0);
-
+        return v;
     }
+
+    
 };

@@ -12,7 +12,7 @@
 #include <vector>
 
 #include "Component.h"
-using namespace std;
+#include "plugins.h"
 
 #define MAX_BONE_INFLUENCE 4 // 每个顶点最多受到4个骨骼的影响
 
@@ -28,30 +28,245 @@ struct Vertex {
 };
 
 // 网格类
-class Mesh
+class Mesh:public Component
 {
 public:
     // 网格数据
-    vector<Vertex>       vertices;   // 顶点数据列表
-    vector<unsigned int> indices;    // 索引数组，用于按顺序绘制三角形
+    std::vector<Vertex>       vertices;   // 顶点数据列表
+    std::vector<unsigned int> indices;    // 索引数组，用于按顺序绘制三角形
     unsigned int VAO;                // 顶点数组对象（VAO）
     GLenum PrimitiveType;
 
     // 构造函数：接收顶点、索引和纹理数据，并初始化网格
     // 注意：移动赋值，原来的数据会消失
-    Mesh(vector<Vertex>& vertices, vector<unsigned int>& indices, GLenum _primitiveType = GL_TRIANGLES)
+    Mesh()
+    {
+        componentName = "Mesh";
+        VBO = EBO = VAO = 0;
+    }
+
+    Mesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices
+        , GLenum _primitiveType = GL_TRIANGLES):Mesh()
     {
         this->vertices = std::move(vertices);
         this->indices = std::move(indices);
         this->PrimitiveType = _primitiveType;
+        componentName = "Mesh";
 
         setupMesh();
     }
-    //const std::string& getComponentName() const override
-    //{
-	   // 
-    //}
 
+    Mesh(Mesh&& other) noexcept
+        : vertices(std::move(other.vertices)),
+        indices(std::move(other.indices)),
+        VAO(other.VAO),
+        VBO(other.VBO),
+		EBO(other.EBO),
+        PrimitiveType(other.PrimitiveType)
+    {
+        other.VAO = 0; // 避免析构时重复释放VAO
+        componentName = "Mesh";
+    }
+
+    Mesh& operator=(Mesh&& other) noexcept
+    {
+        if (this != &other) {
+            // 移动数据
+            vertices = std::move(other.vertices);
+            indices = std::move(other.indices);
+            VAO = other.VAO;
+            VBO = other.VBO;
+            EBO = other.EBO;
+            PrimitiveType = other.PrimitiveType;
+            componentName = "Mesh";
+            // 置空other的资源
+            other.VAO = 0;
+        }
+        return *this;
+    }
+    Mesh(const Mesh& other)
+        : vertices(other.vertices),
+        indices(other.indices),
+        PrimitiveType(other.PrimitiveType)
+
+    {
+        componentName = "Mesh";
+        VAO = other.VAO;
+        VBO = other.VBO;
+        EBO = other.EBO;
+    }
+
+    Mesh& operator=(const Mesh& other)
+    {
+        if (this != &other) {
+            componentName = "Mesh";
+            vertices = other.vertices;
+            indices = other.indices;
+            PrimitiveType = other.PrimitiveType;
+            VAO = other.VAO;
+            VBO = other.VBO;
+            EBO = other.EBO;
+
+        }
+        return *this;
+    }
+
+    void use() override
+    {
+        Draw();
+    }
+    const std::string getComponentName() const override
+    {
+        return componentName;
+    }
+
+    nlohmann::json toJson() override
+    {
+        nlohmann::json ret;
+        nlohmann::json data;
+
+        nlohmann::json verticesJson = nlohmann::json::array();
+
+        for (auto& it : vertices)
+        {
+            nlohmann::json vertexJson;
+
+            vertexJson["Position"] = vec3ToJson(it.Position);
+            vertexJson["Normal"] = vec3ToJson(it.Normal);
+            vertexJson["TexCoords"] = vec2ToJson(it.TexCoords);
+            vertexJson["Tangent"] = vec3ToJson(it.Tangent);
+            vertexJson["Bitangent"] = vec3ToJson(it.Bitangent);
+
+            // 骨骼信息
+            nlohmann::json boneIDsJson = nlohmann::json::array();
+            nlohmann::json weightsJson = nlohmann::json::array();
+
+            for (int i = 0; i < MAX_BONE_INFLUENCE; ++i)
+            {
+                boneIDsJson.push_back(it.m_BoneIDs[i]);
+                weightsJson.push_back(it.m_Weights[i]);
+            }
+
+            vertexJson["BoneIDs"] = boneIDsJson;
+            vertexJson["Weights"] = weightsJson;
+
+            verticesJson.push_back(vertexJson);
+        }
+
+        nlohmann::json indicesJson = nlohmann::json::array();
+
+        for (auto&it:indices)
+        {
+            indicesJson.push_back(it);
+        }
+
+        // 可以将 verticesJson 存储进 data 或 ret 中
+        data["vertices"] = verticesJson;
+        data["indices"] = indicesJson;
+        ret["Mesh"] = data;
+        return ret;
+    }
+
+    void loadJson(const nlohmann::json& js) override
+    {
+        vertices.clear();
+        indices.clear();
+
+        const auto& verticesJson = js.at("vertices");
+        for (const auto& vertexJson : verticesJson)
+        {
+            Vertex v;
+            v.Position = jsonToVec3(vertexJson.at("Position"));
+            v.Normal = jsonToVec3(vertexJson.at("Normal"));
+            v.TexCoords = jsonToVec2(vertexJson.at("TexCoords"));
+            v.Tangent = jsonToVec3(vertexJson.at("Tangent"));
+            v.Bitangent = jsonToVec3(vertexJson.at("Bitangent"));
+
+            const auto& boneIDs = vertexJson.at("BoneIDs");
+            const auto& weights = vertexJson.at("Weights");
+
+            for (int i = 0; i < MAX_BONE_INFLUENCE; ++i)
+            {
+                v.m_BoneIDs[i] = boneIDs[i].get<int>();
+                v.m_Weights[i] = weights[i].get<float>();
+            }
+
+            vertices.push_back(v);
+        }
+
+        const auto& indicesJson = js.at("indices");
+        for (const auto& idx : indicesJson)
+        {
+            indices.push_back(idx.get<unsigned int>());
+        }
+    }
+
+    std::unique_ptr<Component> clone() const override
+    {
+        return std::make_unique<Mesh>(*this);
+    }
+
+    void showUI() override
+    {
+        if (ImGui::TreeNode(getComponentName().c_str()))
+        {
+            // 展示顶点数量、索引数量等基本信息
+            ImGui::Text("Vertices: %zu", vertices.size());
+            ImGui::Text("Indices: %zu", indices.size());
+
+            static int vertexStart = 0;
+            const int vertexShowCount = 10;  // 一次展示 10 个
+
+
+            if (ImGui::TreeNode("Vertices"))
+            {
+                ImGui::SliderInt("Start Vertex", &vertexStart, 0, std::max(0, (int)vertices.size() - vertexShowCount));
+
+                for (int i = vertexStart; i < vertexStart + vertexShowCount && i < vertices.size(); ++i)
+                {
+                    const auto& v = vertices[i];
+                    std::string label = "Vertex #" + std::to_string(i);
+                    if (ImGui::TreeNode(label.c_str()))
+                    {
+                        ImGui::Text("Position: (%.2f, %.2f, %.2f)", v.Position.x, v.Position.y, v.Position.z);
+                        ImGui::Text("Normal:   (%.2f, %.2f, %.2f)", v.Normal.x, v.Normal.y, v.Normal.z);
+                        ImGui::Text("TexCoord: (%.2f, %.2f)", v.TexCoords.x, v.TexCoords.y);
+                        ImGui::Text("Tangent:  (%.2f, %.2f, %.2f)", v.Tangent.x, v.Tangent.y, v.Tangent.z);
+                        ImGui::Text("Bitangent:(%.2f, %.2f, %.2f)", v.Bitangent.x, v.Bitangent.y, v.Bitangent.z);
+
+                        ImGui::Text("Bones: ");
+                        ImGui::Indent();
+                        for (int j = 0; j < MAX_BONE_INFLUENCE; ++j)
+                        {
+                            ImGui::Text("#%d: ID = %d, Weight = %.2f", j, v.m_BoneIDs[j], v.m_Weights[j]);
+                        }
+                        ImGui::Unindent();
+
+                        ImGui::TreePop();
+                    }
+                }
+                ImGui::TreePop();
+            }
+
+            if (ImGui::TreeNode("Indices"))
+            {
+                static int indexStart = 0;
+                const int indexShowCount = 30;
+                ImGui::SliderInt("Start Index", &indexStart, 0, std::max(0, (int)indices.size() - indexShowCount));
+
+                for (int i = indexStart; i < indexStart + indexShowCount && i < indices.size(); ++i)
+                {
+                    ImGui::Text("#%d: %u", i, indices[i]);
+                }
+
+                ImGui::TreePop();
+            }
+
+            ImGui::TreePop(); // Component根结点
+        }
+    }
+
+  
 
     // 渲染网格
     void Draw()
@@ -61,7 +276,7 @@ public:
         glBindVertexArray(0);
     }
 
-private:
+protected:
     // 渲染所需的缓冲区对象
     unsigned int VBO, EBO;
 

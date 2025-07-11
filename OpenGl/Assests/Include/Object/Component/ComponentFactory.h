@@ -4,7 +4,10 @@
 #include <string>
 
 #include "Component.h"
+#include "mesh.h"
+#include "model.h"
 #include "Transform.h"
+
 using ComponentCreator = std::function<std::unique_ptr<Component>()>;
 
 class ComponentFactory {
@@ -36,6 +39,14 @@ public:
     ComponentFactoryRegisterHelper() {
         ComponentFactory::getInstance().registerComponent("Transform", []() {
             return std::make_unique<Transform>();
+            });
+
+        ComponentFactory::getInstance().registerComponent("Mesh", []() {
+            return std::make_unique<Mesh>();
+            });
+
+        ComponentFactory::getInstance().registerComponent("Model", []() {
+            return std::make_unique<Model>();
             });
     }
 };
