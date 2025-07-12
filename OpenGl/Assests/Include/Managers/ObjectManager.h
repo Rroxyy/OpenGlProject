@@ -33,7 +33,10 @@ public:
 
 	void loadJson();
 
-	void useInMainWhile();
+	void start();
+
+	void update();
+
 private:
 	size_t objectCnt=0;
 	std::unordered_map<size_t, std::unique_ptr<Object>>objects;

@@ -14,29 +14,38 @@ class Shader;
 class TextureResource
 {
 public:
-	char const* filePath;
+	friend class TextureManager;
 
-	TextureResource(TextureChannel textureChannel, char const* filePath);
-	TextureResource(char const* filePath);
+	
 
 	~TextureResource();
 
 	void SetTexture( WrapMode wrap_mode, FilterMode filter_mode, bool useMipmap);
 
 	void setToShader(Shader& shader);
-	void activeTexture() const;
-	void deactivateTexture() const;
 
-	GLenum getGLTextureUnit() const;
+	unsigned int getGLtexture_id()
+	{
+		return gltexture_id;
+	}
 
-	int getTextureUnitIndex() const;
+	//void activeTexture() const;
+	//void deactivateTexture() const;
+	//GLenum getGLTextureUnit() const;
+	//int getTextureUnitIndex() const;
+
 private:
-	unsigned int texture_id;
-	TextureChannel textureChannel;
+	size_t texture_id;
+	unsigned int gltexture_id;
+	std::string filePath;
+
+
 	int height;
 	int width;
 	int nrChannels;
 	int format;
+
+	TextureResource(size_t id,const std::string& filePath);
 
 
 	static GLenum loadTextureFormat(int& nrChannels);

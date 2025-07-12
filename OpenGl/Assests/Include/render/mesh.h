@@ -58,7 +58,6 @@ public:
 
     ~Mesh()
     {
-        std::cout << "Class Mesh:               " << "Release component: " << componentName << std::endl;
 
     }
 

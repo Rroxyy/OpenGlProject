@@ -62,7 +62,12 @@ public:
         return nullptr;
     }
 
-    void use();
+    void start();
+
+    void beforeUpdate();
+    void update();
+    void afterUpdate();
+
 
     nlohmann::json toJson();
 

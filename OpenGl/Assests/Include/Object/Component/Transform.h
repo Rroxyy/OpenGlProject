@@ -36,7 +36,6 @@ public:
 
     ~Transform()
     {
-        std::cout << "Class Transform:               " << "Release component: " << componentName << std::endl;
 
     }
 

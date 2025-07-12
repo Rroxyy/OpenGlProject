@@ -10,13 +10,25 @@ ObjectManager::~ObjectManager()
 }
 
 
-void ObjectManager::useInMainWhile()
+void ObjectManager::start()
 {
-	for (auto&it:objects)
+	for (auto& it : objects)
 	{
-		it.second.get()->use();
+		it.second.get()->start();
 	}
 }
+
+
+void ObjectManager::update()
+{
+	
+	for (auto&it:objects)
+	{
+		it.second.get()->update();
+	}
+}
+
+
 
 
 size_t ObjectManager::createObject()

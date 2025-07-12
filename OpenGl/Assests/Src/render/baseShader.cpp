@@ -6,6 +6,7 @@
 #include "ResourcePathManager.h"
 #include "UI_Manager.h"
 #include "plugins.h"
+#include "TextureResource.h"
 
 baseShader::baseShader(const char* vertexPath, const char* fragmentPath)
 	: Shader(vertexPath, fragmentPath)
@@ -28,11 +29,63 @@ baseShader::baseShader(std::string&& _shaderName):
 	shaderName = _shaderName;
 }
 
-void baseShader::update() 
+
+
+
+void baseShader::start()
 {
     Shader::use();
-    update_shader_value();
+    activeTexture();
 }
+
+
+
+void baseShader::activeTexture()const
+{
+    int textureChannel = 0;
+    for (const auto& it : textureResourcesList)
+    {
+        blindTextureToShader(it.first, textureChannel);
+        textureChannel++;
+    }
+}
+
+void baseShader::blindTexturesChannel()const
+{
+    int textureChannel = 0;
+    for (const auto& it : textureResourcesList)
+    {
+        GLenum glChannel = static_cast<GLenum>(GL_TEXTURE0 + textureChannel);
+        glActiveTexture(glChannel);
+        glBindTexture(GL_TEXTURE_2D, it.second->getGLtexture_id());
+        textureChannel++;
+    }
+
+}
+
+void baseShader::unblindTexturesChannel()const
+{
+    int textureChannel = 0;
+    for (const auto& it : textureResourcesList)
+    {
+        GLenum glChannel = static_cast<GLenum>(GL_TEXTURE0 + textureChannel);
+        glActiveTexture(glChannel);
+        glBindTexture(GL_TEXTURE_2D, 0);
+        textureChannel++;
+    }
+}
+
+
+void baseShader::setTexture(const std::string& nameInShader, TextureResource* tr)
+{
+	if (textureResourcesList.size()>32)
+	{
+        std::cout << "What the hell r u doing? Stop it!" << std::endl;
+        std::abort();
+	}
+    textureResourcesList.emplace_back(nameInShader, tr); 
+}
+
 
 
 void baseShader::PrintActiveUniforms()
@@ -66,9 +119,12 @@ void baseShader::showUI()
 }
 
 
-void baseShader::update_shader_value()
+void baseShader::blind_shader_value()
 {
-    
+    Shader::use();
+    //texture
+    blindTexturesChannel();
+
     /////////////////////////
     //must pass these
     setMat4("projection", globalParametersManager::getInstance().getProjection());

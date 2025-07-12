@@ -22,10 +22,28 @@ Object::~Object()
     std::cout << "Release Object: " << objectName << std::endl;
 }
 
-void Object::use()
+void Object::start()
+{
+    for (const auto& it : components)it.second.get()->start();
+}
+
+void Object::beforeUpdate()
+{
+    for (const auto& it : components)it.second.get()->beforeUpdate();
+}
+
+void Object::update()
 {
     for (const auto& it : components)it.second.get()->update();
 }
+
+void Object::afterUpdate()
+{
+    for (const auto& it : components)it.second.get()->afterUpdate();
+}
+
+
+
 
 
 void Object::showUI()

@@ -4,8 +4,12 @@ out vec4 FragColor;
 
 uniform vec3 defaultColor;
 
+in vec2 TexCoords;
+
+uniform sampler2D texture_base;
 
 void main()
 {
-    FragColor = vec4(defaultColor, 1.0);
+    vec3 baseTexColor=texture(texture_base, TexCoords).rgb;
+    FragColor = vec4(mix(defaultColor,baseTexColor,0.5), 1.0);
 }

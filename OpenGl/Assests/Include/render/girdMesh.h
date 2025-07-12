@@ -8,7 +8,6 @@ class gridMesh:public Mesh
 {
 public:
     int indicesCnt;
-    GLuint VAO, VBO, EBO;
 	gridMesh()
 	{
         std::vector<Vertex> _vertices;

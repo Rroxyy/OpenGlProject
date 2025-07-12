@@ -29,6 +29,7 @@
 #include "globalParametersManager.h"
 #include "Object.h"
 #include "ObjectManager.h"
+#include "TextureManager.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -68,6 +69,14 @@ int main()
     baseShader tvShader("tvShader");
     tv->AddComponent<baseShader>(std::move(tvShader));
 
+    TextureResource* baseTex = TextureManager::getInstance()
+	.createTextureResource("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_MatID.tga");
+	TextureResource * normalTex = TextureManager::getInstance()
+	.createTextureResource("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_Normal_G.tga");
+
+    tv->GetComponent<baseShader>()->setTexture("texture_base", baseTex);
+
+
 
     Object* plane = ObjectManager::getInstance().createObjectPtr("plane");
     Model planeModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj");
@@ -84,14 +93,11 @@ int main()
     globalParametersManager::getInstance().mainCamera = &camera;
 
 
-    TextureResource baseTex("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_MatID.tga");
-    TextureResource normalTex("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_Normal_G.tga");
+    
 
 
 
-   /* tvShader.update();
-    tvShader.useTexture("texture_base", baseTex);
-    tvShader.useTexture("texture_normal", normalTex);*/
+    
 
     //tvShader.PrintActiveUniforms();
     // draw in wireframe
@@ -99,6 +105,9 @@ int main()
 
     // render loop
     // -----------
+
+    ObjectManager::getInstance().start();
+
     while (!glfwWindowShouldClose(window))
     {
         // per-frame time logic
@@ -112,6 +121,8 @@ int main()
         //processInput(window);
         InputSystem::getInstance().checkInput(window, deltaTime);
 
+        
+
         // render
         // ------
         //sky color
@@ -121,8 +132,11 @@ int main()
 
         //grid
        
-        grid->use();
-        plane->use();
+       /* grid->update();
+        plane->update();
+        tv->update();*/
+
+        ObjectManager::getInstance().update();
 
 
         // tv
@@ -133,7 +147,6 @@ int main()
         // view/projection transformations
         //tvShader.setVec3("cameraPos", camera.Position);
 
-        tv->use();
 
        /* baseTex.deactivateTexture();
         normalTex.deactivateTexture();*/

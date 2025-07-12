@@ -2,7 +2,7 @@
 #include "TextureResource.h"
 
 
-void Shader::useTexture(std::string&& nameInShader,TextureResource& tr)
+void Shader::blindTextureToShader(const std::string& nameInShader,int shaderChannel)const
 {
-    setInt(nameInShader, tr.getTextureUnitIndex());
+    setInt(nameInShader, shaderChannel);
 }

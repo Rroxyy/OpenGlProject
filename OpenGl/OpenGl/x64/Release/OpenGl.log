@@ -1,10 +1,8 @@
-﻿  Main.cpp
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Main.cpp(177,24): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-  baseShader.cpp
+﻿  TextureManager.cpp
     正在创建库 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\x64\Release\OpenGl.lib 和对象 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\x64\Release\OpenGl.exp
   正在生成代码
-  2 of 5691 functions (<0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    135 functions had inline decision re-evaluated but remain unchanged
+  628 of 5885 functions (10.7%) were compiled, the rest were copied from previous compilation.
+    353 functions were new in current compilation
+    416 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   OpenGl.vcxproj -> C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\x64\Release\OpenGl.exe

@@ -2,19 +2,9 @@
 #include "TextureManager.h"
 #include <filesystem>
 
-TextureResource::TextureResource(TextureChannel _textureChannel,char const* _filePath)
-{
-    if (!std::filesystem::exists(_filePath)) {
-        std::cerr << "纹理文件不存在: " << _filePath << std::endl;
-        std::abort();
-    }
-    textureChannel = _textureChannel;
-    filePath = _filePath;
-    glGenTextures(1, &texture_id);
-        SetTexture(WrapMode::Repeat,FilterMode::Linear,false);
-}
 
-TextureResource::TextureResource(char const* _filePath)
+
+TextureResource::TextureResource(size_t id,const std::string& _filePath)
 {
     if (!std::filesystem::exists(_filePath)) {
         std::cerr << "纹理文件不存在: " << _filePath << std::endl;
@@ -22,8 +12,7 @@ TextureResource::TextureResource(char const* _filePath)
     }
     filePath = _filePath;
 
-    textureChannel = TextureManager::getInstance().getTexChannel(this);
-    glGenTextures(1, &texture_id);
+    glGenTextures(1, &gltexture_id);
     SetTexture(WrapMode::Repeat, FilterMode::Linear, false);
 }
 
@@ -34,7 +23,7 @@ TextureResource::~TextureResource()
 
 void TextureResource::SetTexture(WrapMode wrap_mode,FilterMode filter_mode,bool useMipmap)
 {
-    auto data = stbi_load(filePath, &width, &height, &nrChannels, 0);
+    auto data = stbi_load(filePath.c_str(), &width, &height, &nrChannels, 0);
     format = loadTextureFormat(nrChannels);
 
     if (data == nullptr)
@@ -43,7 +32,7 @@ void TextureResource::SetTexture(WrapMode wrap_mode,FilterMode filter_mode,bool 
         std::abort();
     }
    
-    glBindTexture(GL_TEXTURE_2D, texture_id);
+    glBindTexture(GL_TEXTURE_2D, gltexture_id);
 
     GLenum wrap = getGlWrapMode(wrap_mode);
     GLenum filter = getGlFilterMode(filter_mode);
@@ -74,28 +63,28 @@ void TextureResource::setToShader(Shader& shader)
 
 
 
-//when update use 
-void TextureResource::activeTexture() const
-{
-    glActiveTexture(toGLTextureUnit(textureChannel));
-    glBindTexture(GL_TEXTURE_2D, texture_id);
-}
-
-void TextureResource::deactivateTexture() const
-{
-    glActiveTexture(toGLTextureUnit(textureChannel));
-    glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-int TextureResource::getTextureUnitIndex() const
-{
-    return static_cast<int>(textureChannel);
-}
-
-GLenum TextureResource::getGLTextureUnit() const
-{
-    return toGLTextureUnit(textureChannel);
-}
+////when update use 
+//void TextureResource::activeTexture() const
+//{
+//    glActiveTexture(toGLTextureUnit(textureChannel));
+//    glBindTexture(GL_TEXTURE_2D, gltexture_id);
+//}
+//
+//void TextureResource::deactivateTexture() const
+//{
+//    glActiveTexture(toGLTextureUnit(textureChannel));
+//    glBindTexture(GL_TEXTURE_2D, 0);
+//}
+//
+//int TextureResource::getTextureUnitIndex() const
+//{
+//    return static_cast<int>(textureChannel);
+//}
+//
+//GLenum TextureResource::getGLTextureUnit() const
+//{
+//    return toGLTextureUnit(textureChannel);
+//}
 
 GLenum TextureResource::loadTextureFormat(int& nrChannels)
 {

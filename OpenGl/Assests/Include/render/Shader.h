@@ -77,7 +77,7 @@ public:
         glUseProgram(ID);
     }
 
-    void useTexture(std::string&& nameInShader, TextureResource& tr);
+    void blindTextureToShader(const std::string& nameInShader, int shaderChannel)const;
 
 
 

@@ -21,7 +21,9 @@
 #include <map>
 #include <vector>
 
+#include "baseShader.h"
 #include "Component.h"
+#include "Object.h"
 using namespace std;
 
 // 从文件读取纹理并生成纹理ID
@@ -49,7 +51,6 @@ public:
 
     ~Model()
     {
-        std::cout << "Class Model:               " << "Release component: " << componentName << std::endl;
 
     }
     const std::string getComponentName() const override
@@ -96,8 +97,10 @@ public:
     // 渲染整个模型
     void Draw()
     {
+        object->GetComponent<baseShader>()->blind_shader_value();
         for (unsigned int i = 0; i < meshes.size(); i++)
             meshes[i].Draw();
+        object->GetComponent<baseShader>()->unblindTexturesChannel();
     }
 
     Model(Model&&other) noexcept:meshes(std::move(other.meshes)),filePath(std::move(other.filePath))
