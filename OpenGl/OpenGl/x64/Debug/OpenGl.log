@@ -1,8 +1,8 @@
-﻿  glad.c
-  Main.cpp
-  shader_m.cpp
-  stb_image.cpp
-  TextureManager.cpp
-  TextureResource.cpp
+﻿  Main.cpp
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Main.cpp(177,24): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+  ObjectManager.cpp
+  Transform.cpp
+  Object.cpp
+  baseShader.cpp
   正在生成代码...
-LINK : fatal error LNK1104: 无法打开文件“assimp-vc143-mtd.lib”
+  OpenGl.vcxproj -> C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\x64\Debug\OpenGl.exe

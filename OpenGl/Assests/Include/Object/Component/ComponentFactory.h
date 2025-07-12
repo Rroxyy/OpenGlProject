@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 
+#include "baseShader.h"
 #include "Component.h"
 #include "mesh.h"
 #include "model.h"
@@ -47,6 +48,10 @@ public:
 
         ComponentFactory::getInstance().registerComponent("Model", []() {
             return std::make_unique<Model>();
+            });
+
+        ComponentFactory::getInstance().registerComponent("baseShader", []() {
+            return std::make_unique<baseShader>();
             });
     }
 };

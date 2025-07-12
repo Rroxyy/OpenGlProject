@@ -32,6 +32,8 @@ public:
 	void saveJson();
 
 	void loadJson();
+
+	void useInMainWhile();
 private:
 	size_t objectCnt=0;
 	std::unordered_map<size_t, std::unique_ptr<Object>>objects;

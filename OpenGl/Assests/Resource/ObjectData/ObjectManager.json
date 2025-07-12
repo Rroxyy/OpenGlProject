@@ -3,6 +3,17 @@
         "componentsData": [
             {
                 "componentData": {
+                    "defaultColor": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    }
+                },
+                "componentName": "BaseShader"
+            },
+            {
+                "componentData": {
                     "position": {
                         "x": 0.0,
                         "y": 0.0,
@@ -19,10 +30,10 @@
                         "z": 1.0
                     }
                 },
-                "componentName": "class Transform"
+                "componentName": "Transform"
             },
             {
-                "Mesh": {
+                "componentData": {
                     "indices": [
                         0,
                         1,
@@ -3303,7 +3314,8 @@
                             ]
                         }
                     ]
-                }
+                },
+                "componentName": "Mesh"
             }
         ],
         "id": 1,
@@ -3313,35 +3325,15 @@
         "componentsData": [
             {
                 "componentData": {
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "rotation": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "scale": {
+                    "defaultColor": {
+                        "w": 1.0,
                         "x": 1.0,
                         "y": 1.0,
                         "z": 1.0
                     }
                 },
-                "componentName": "class Transform"
+                "componentName": "BaseShader"
             },
-            {
-                "class Model": {
-                    "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj"
-                }
-            }
-        ],
-        "id": 2,
-        "objectName": "TV"
-    },
-    {
-        "componentsData": [
             {
                 "componentData": {
                     "position": {
@@ -3360,7 +3352,56 @@
                         "z": 1.0
                     }
                 },
-                "componentName": "class Transform"
+                "componentName": "Transform"
+            },
+            {
+                "componentData": {
+                    "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj"
+                },
+                "componentName": "Model"
+            }
+        ],
+        "id": 2,
+        "objectName": "TV"
+    },
+    {
+        "componentsData": [
+            {
+                "componentData": {
+                    "defaultColor": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    }
+                },
+                "componentName": "BaseShader"
+            },
+            {
+                "componentData": {
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "scale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    }
+                },
+                "componentName": "Transform"
+            },
+            {
+                "componentData": {
+                    "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj"
+                },
+                "componentName": "Model"
             }
         ],
         "id": 3,
@@ -3386,7 +3427,7 @@
                         "z": 1.0
                     }
                 },
-                "componentName": "class Transform"
+                "componentName": "Transform"
             }
         ],
         "id": 4,

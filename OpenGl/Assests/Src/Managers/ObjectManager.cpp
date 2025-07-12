@@ -10,6 +10,15 @@ ObjectManager::~ObjectManager()
 }
 
 
+void ObjectManager::useInMainWhile()
+{
+	for (auto&it:objects)
+	{
+		it.second.get()->use();
+	}
+}
+
+
 size_t ObjectManager::createObject()
 {
 	objectCnt++;

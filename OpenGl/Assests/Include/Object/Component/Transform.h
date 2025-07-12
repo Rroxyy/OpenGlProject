@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <imgui.h>
+#include <iostream>
 #include <json.hpp>
 #include <memory>
 #include <string>
@@ -31,6 +32,12 @@ public:
         : position(pos), scale(scl), rotation(rot) {
         componentName = "Transform";
         dirty = true;
+    }
+
+    ~Transform()
+    {
+        std::cout << "Class Transform:               " << "Release component: " << componentName << std::endl;
+
     }
 
     glm::mat4 getModelMat4()

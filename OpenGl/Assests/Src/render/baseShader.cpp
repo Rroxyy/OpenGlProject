@@ -5,13 +5,13 @@
 #include "Object.h"
 #include "ResourcePathManager.h"
 #include "UI_Manager.h"
+#include "plugins.h"
 
 baseShader::baseShader(const char* vertexPath, const char* fragmentPath)
 	: Shader(vertexPath, fragmentPath)
 {
-	UIManager::getInstance().Register([this]() {
-		this->drawShaderUI();
-		});
+    componentName = "BaseShader";
+	
 }
 
 baseShader::baseShader()
@@ -21,14 +21,14 @@ baseShader::baseShader()
 	
 }
 
-baseShader::baseShader(std::string& _shaderName):
+baseShader::baseShader(std::string&& _shaderName):
 	baseShader(ResourcePathManager::getInstance().getBaseShaderVert().c_str(),
 		ResourcePathManager::getInstance().getBaseShaderFrag().c_str())
 {
 	shaderName = _shaderName;
 }
 
-void baseShader::use() const
+void baseShader::update() 
 {
     Shader::use();
     update_shader_value();
@@ -54,76 +54,30 @@ void baseShader::PrintActiveUniforms()
 
 
 
-void baseShader::drawShaderUI()
+void baseShader::showUI()
 {
-    if (ImGui::TreeNode(shaderName.c_str()))  // 顶层 Shader 名
+    if (ImGui::TreeNode(getComponentName().c_str()))
     {
-        if (ImGui::TreeNode("Lighting"))
-        {
-            ImGui::ColorEdit3("Light Color", (float*)&lightColor);
-            ImGui::TreePop();
-        }
+        ImGui::Text(shaderName.c_str());
+        ImGui::ColorEdit3("Default Color", (float*)&defaultColor);
 
-        if (ImGui::TreeNode("BaseColor"))
-        {
-            ImGui::Text("Use Base Texture:");
-            ImGui::RadioButton("On", &useBaseTex, 1);
-            ImGui::SameLine();
-            ImGui::RadioButton("Off", &useBaseTex, 0);
-            ImGui::Spacing();
-
-            ImGui::ColorEdit3("Light Color", (float*)&defualtColor);
-            ImGui::TreePop();
-        }
-
-        if (ImGui::TreeNode("Normal Map"))
-        {
-            ImGui::Text("Use Normal Texture:");
-            ImGui::RadioButton("On", &useNormalTex, 1);
-            ImGui::SameLine();
-            ImGui::RadioButton("Off", &useNormalTex, 0);
-            ImGui::TreePop();
-        }
-
-        if (ImGui::TreeNode("Ambient"))
-        {
-            ImGui::SliderFloat("Strength", &ambientStrength, 0.0f, 1.0f);
-            ImGui::TreePop();
-        }
-
-        if (ImGui::TreeNode("Specular"))
-        {
-            ImGui::SliderFloat("Strength", &specularStrength, 0.0f, 1.0f);
-            ImGui::SliderFloat("Shininess", &shininess, 0.0f, 64.0f);
-            ImGui::TreePop();
-        }
-
-        ImGui::TreePop();  // 收起顶层节点
+        ImGui::TreePop();
     }
 }
 
 
-
-void baseShader::update_shader_value()const
+void baseShader::update_shader_value()
 {
+    
+    /////////////////////////
+    //must pass these
     setMat4("projection", globalParametersManager::getInstance().getProjection());
     setMat4("view", globalParametersManager::getInstance().mainCamera->GetViewMatrix());
+    setMat4("model", object->GetComponent<Transform>()->getModelMat4());
+    /////////////////////////
 
-    setVec3("cameraPos", globalParametersManager::getInstance().mainCamera->Position);
-
-
-    glm::vec3 temp = glm::vec3(lightColor.x, lightColor.y, lightColor.z);
-    setVec3("lightColor", temp);
-    setVec3("lightDir",globalParametersManager::getInstance().mainLight->GetComponent<Transform>()->getBackDir());
-
-    setInt("useBaseTex", useBaseTex);
-    temp = glm::vec3(defualtColor.x, defualtColor.y, defualtColor.z);
+    glm::vec3 temp = glm::vec3(defaultColor.x, defaultColor.y, defaultColor.z);
     setVec3("defaultColor", temp);
-
-    setInt("useNormalTex", useNormalTex);
-    setFloat("ambientStrength", ambientStrength);
-    setFloat("specularStrength", specularStrength);
-    setFloat("shininess", shininess);
 }
 
 
@@ -136,5 +90,35 @@ void baseShader::setShaderName(std::string&& _ShaderName)
 {
     shaderName = _ShaderName;
 }
+
+
+const std::string baseShader::getComponentName() const
+{
+    return componentName;
+}
+
+nlohmann::json baseShader::toJson()
+{
+    nlohmann::json ret;
+    nlohmann::json data;
+
+    data["defaultColor"] = vec4ToJson(imToGlmVec4(defaultColor));
+
+    ret["componentName"] = getComponentName();
+    ret["componentData"] = data;
+
+    return ret;
+}
+
+void baseShader::loadJson(const nlohmann::json& js)
+{
+    defaultColor=jsonToImVec4(js);
+}
+
+std::unique_ptr<Component> baseShader::clone() const
+{
+    return std::make_unique<baseShader>(*this);
+}
+
 
 

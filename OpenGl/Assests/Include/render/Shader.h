@@ -72,7 +72,7 @@ public:
     }
     // activate the shader
     // ------------------------------------------------------------------------
-    virtual void use() const
+    virtual void use() 
     {
         glUseProgram(ID);
     }

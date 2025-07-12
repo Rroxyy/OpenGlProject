@@ -9,34 +9,38 @@
 #include <sstream>
 #include <iostream>
 
+#include "Component.h"
 #include "Shader.h"
 
-class baseShader : public Shader
+class baseShader : public Shader,public Component
 {
 public:
 	baseShader();
 	baseShader(const char* vertexPath, const char* fragmentPath);
-	baseShader(std::string& _shaderName);
+	baseShader(std::string&& _shaderName);
+	~baseShader()
+	{
+		std::cout << "Class baseShader:               " << "Release component: " << componentName << std::endl;
 
-	void setShaderName(std::string& _ShaderName);
-	void setShaderName(std::string&& _ShaderName);
-	void drawShaderUI();
-	void update_shader_value()const;
-	void use()const override;
-	void PrintActiveUniforms();
+	}
+
+	virtual void setShaderName(std::string& _ShaderName);
+	virtual void setShaderName(std::string&& _ShaderName);
+	virtual void update_shader_value();
+	virtual void PrintActiveUniforms();
+
+	//component
+	const std::string getComponentName() const override;
+	nlohmann::json toJson() override;
+	void loadJson(const nlohmann::json& js) override;
+	std::unique_ptr<Component> clone() const override;
+	void showUI() override;
+	void update()override;
+
 protected:
 	std::string shaderName="baseShader";
-	int useBaseTex = 1;
-	int useNormalTex = 1;
-
-	ImVec4 lightColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
-
-	ImVec4 defualtColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
-	
-	float ambientStrength = 0.1f;
-	float specularStrength = 0.5f;
-	float shininess = 32.0f;
-
 
 private:
+	ImVec4 defaultColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+	
 };

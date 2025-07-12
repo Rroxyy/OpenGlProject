@@ -78,6 +78,9 @@
     <ClCompile Include="Assests\Src\Object\Component\Transform.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Assests\Src\render\Shaders\BaseLightShader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assests\Include\camera.h">
@@ -137,6 +140,9 @@
     <ClInclude Include="Assests\Include\plugins.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Assests\Include\render\Shaders\BaseLightShader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\light_cube.frag">
@@ -151,14 +157,6 @@
     <None Include="Shaders\shader.vert">
       <Filter>资源文件\Shaders</Filter>
     </None>
-    <None Include="Assests\Shaders\light_cube.frag" />
-    <None Include="Assests\Shaders\materials.frag" />
-    <None Include="Assests\Shaders\shader.frag" />
-    <None Include="Assests\Shaders\shader.vert" />
-    <None Include="Assests\Shaders\model_load.frag" />
-    <None Include="Assests\Shaders\model_load.vert" />
-    <None Include="Assests\Shaders\grid\grid.frag" />
-    <None Include="Assests\Shaders\grid\grid.vert" />
     <None Include="Assests\Resource\ObjectData\ObjectManager.json" />
   </ItemGroup>
   <ItemGroup>

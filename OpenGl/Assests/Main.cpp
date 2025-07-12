@@ -52,72 +52,46 @@ glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
 int main()
 {
-    
-
     GLFWwindow* window = glfwInitialize();
-
     imguiInitialize(window);
-
 
     //ObjectManager::getInstance().loadJson();
 
     Object* grid = ObjectManager::getInstance().createObjectPtr("Grid");
     grid->AddComponent<gridMesh>();
-
+    baseShader gridShader("gridShader");
+    grid->AddComponent<baseShader>(gridShader);
 
     Object* tv = ObjectManager::getInstance().createObjectPtr("TV");
     Model tvModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj");
     tv->AddComponent<Model>(std::move(tvModel));
+    baseShader tvShader("tvShader");
+    tv->AddComponent<baseShader>(std::move(tvShader));
+
 
     Object* plane = ObjectManager::getInstance().createObjectPtr("plane");
+    Model planeModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj");
+    plane->AddComponent<Model>(std::move(planeModel));
+    baseShader planeShader("planeShader");
+    plane->AddComponent<baseShader>(std::move(planeShader));
+
 
     Object* light = ObjectManager::getInstance().createObjectPtr("Light");
     globalParametersManager::getInstance().mainLight = light;
 
 
-
-
-
     //camera initialize
     globalParametersManager::getInstance().mainCamera = &camera;
 
-    // build and compile shaders
-    // -------------------------
-    baseShader tvShader(ResourcePathManager::getInstance().getBaseShaderVert().c_str(),
-        ResourcePathManager::getInstance().getBaseShaderFrag().c_str()
-        );
-    tvShader.setShaderName("tvShader");
-
-    baseShader planeShader(ResourcePathManager::getInstance().getBaseShaderVert().c_str(),
-        ResourcePathManager::getInstance().getBaseShaderFrag().c_str()
-    );
-    planeShader.setShaderName("planeShader");
-
-    baseShader gridShader(
-        ResourcePathManager::getInstance().getGridShaderVert().c_str(),
-        ResourcePathManager::getInstance().getGridShaderFrag().c_str()
-    );
-    gridShader.setShaderName("gridShader");
-
-
-
-
-
-    // load models
-    // -----------
-
-    
-
-    Model planeModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj");
 
     TextureResource baseTex("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_MatID.tga");
     TextureResource normalTex("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_Normal_G.tga");
 
 
 
-    tvShader.use();
+   /* tvShader.update();
     tvShader.useTexture("texture_base", baseTex);
-    tvShader.useTexture("texture_normal", normalTex);
+    tvShader.useTexture("texture_normal", normalTex);*/
 
     //tvShader.PrintActiveUniforms();
     // draw in wireframe
@@ -145,36 +119,24 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-        glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-
         //grid
-        gridShader.use();
-        gridShader.setMat4("model", model);
+       
         grid->use();
-
-
-        //plane
-        planeShader.use();
-        planeShader.setMat4("model", plane->GetComponent<Transform>()->getModelMat4());
-        planeModel.Draw();
+        plane->use();
 
 
         // tv
-        tvShader.use();
-        baseTex.activeTexture();
-        normalTex.activeTexture();
+       
+      /*  baseTex.activeTexture();
+        normalTex.activeTexture();*/
 
         // view/projection transformations
-        tvShader.setMat4("model", tv->GetComponent<Transform>()->getModelMat4());
-        tvShader.setVec3("cameraPos", camera.Position);
+        //tvShader.setVec3("cameraPos", camera.Position);
 
         tv->use();
-        //tvModel.Draw();
 
-        baseTex.deactivateTexture();
-        normalTex.deactivateTexture();
+       /* baseTex.deactivateTexture();
+        normalTex.deactivateTexture();*/
 
         //ui
         ui_update();
@@ -193,6 +155,7 @@ int main()
     // ------------------------------------------------------------------
     glfwDestroyWindow(window);
     glfwTerminate();
+    cout << "ok" << endl;
     return 0;
 }
 

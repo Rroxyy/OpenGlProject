@@ -18,11 +18,13 @@ Object::Object()
 }
 
 Object::~Object()
-{}
+{
+    std::cout << "Release Object: " << objectName << std::endl;
+}
 
 void Object::use()
 {
-    for (const auto& it : components)it.second.get()->use();
+    for (const auto& it : components)it.second.get()->update();
 }
 
 
@@ -60,10 +62,18 @@ void Object::loadJson(const nlohmann::json& componentsJson)
 {
 	for (auto& js:componentsJson)
 	{
-        std::string name = js["componentName"];
-        auto comPtr=ComponentFactory::getInstance().create(name);
-        auto ptr= AddComponent(std::move(comPtr));
-        ptr->loadJson(js["componentData"]);
+        if (js.contains("componentName") && js["componentName"].is_string()) {
+            std::string name = js["componentName"].get<std::string>();
+            std::cout << getObjectName() << " " << name << std::endl;
+
+            auto comPtr = ComponentFactory::getInstance().create(name);
+            auto ptr = AddComponent(std::move(comPtr));
+            ptr->loadJson(js["componentData"]);
+        }
+        else {
+            std::cerr << "Object::loadJson: 缺少或错误的字段 componentName: " << js.dump(4) << std::endl;
+            std::abort();
+        }
         
 	}
 }

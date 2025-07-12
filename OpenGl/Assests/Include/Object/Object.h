@@ -38,7 +38,7 @@ public:
 
         if (it != components.end()) {
             std::cerr << "Object: " << objectName<<id
-                << "  [警告] Component 类型 " << typeid(T).name()
+                << "  [警告] Component 类型 " << typeid(*comp).name()
                 << " 已存在，取消新建，返回已有实例。\n";
 
             return static_cast<T*>(it->second.get());

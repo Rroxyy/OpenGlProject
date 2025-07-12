@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\Drwin\Desktop\render\render3\assimp\build\include;C:\Users\Drwin\Desktop\render\render3\assimp\include;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include;C:\Users\Drwin\Desktop\render\render3\vs\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Drwin\Desktop\render\render3\vs\lib\dubug;C:\Users\Drwin\Desktop\render\render3\vs\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\Shaders;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object\Component;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Managers;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include;C:\Users\Drwin\Desktop\render\render3\vs\include\imgui;C:\Users\Drwin\Desktop\render\render3\assimp\build\include;C:\Users\Drwin\Desktop\render\render3\assimp\include;C:\Users\Drwin\Desktop\render\render3\vs\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Drwin\Desktop\render\render3\vs\lib\debug;C:\Users\Drwin\Desktop\render\render3\vs\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object\Component;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Managers;C:\Users\Drwin\Desktop\render\render3\vs\include\imgui;C:\Users\Drwin\Desktop\render\render3\assimp\contrib\zlib;C:\Users\Drwin\Desktop\render\render3\assimp\build\include;C:\Users\Drwin\Desktop\render\render3\assimp\include;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include;C:\Users\Drwin\Desktop\render\render3\vs\include;$(IncludePath)</IncludePath>
@@ -112,11 +112,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc143-mtd.lib;zlibstaticd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -155,6 +156,7 @@
     <ClCompile Include="Assests\Src\Managers\InputSystem.cpp" />
     <ClCompile Include="Assests\Src\Managers\ResourcePathManager.cpp" />
     <ClCompile Include="Assests\Src\render\shader.cpp" />
+    <ClCompile Include="Assests\Src\render\Shaders\BaseLightShader.cpp" />
     <ClCompile Include="Assests\Src\render\stb_image.cpp" />
     <ClCompile Include="Assests\Src\Managers\TextureManager.cpp" />
     <ClCompile Include="Assests\Src\render\TextureResource.cpp" />
@@ -174,6 +176,7 @@
     <ClInclude Include="Assests\Include\render\model.h" />
     <ClInclude Include="Assests\Include\Managers\ResourcePathManager.h" />
     <ClInclude Include="Assests\Include\Object\Object.h" />
+    <ClInclude Include="Assests\Include\render\Shaders\BaseLightShader.h" />
     <ClInclude Include="Assests\Include\render\TextureEnums.h" />
     <ClInclude Include="Assests\Include\render\TextureResource.h" />
     <ClInclude Include="Assests\Include\camera.h" />
@@ -182,14 +185,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assests\Resource\ObjectData\ObjectManager.json" />
-    <None Include="Assests\Shaders\grid\grid.frag" />
-    <None Include="Assests\Shaders\grid\grid.vert" />
-    <None Include="Assests\Shaders\light_cube.frag" />
-    <None Include="Assests\Shaders\materials.frag" />
-    <None Include="Assests\Shaders\model_load.frag" />
-    <None Include="Assests\Shaders\model_load.vert" />
-    <None Include="Assests\Shaders\shader.frag" />
-    <None Include="Assests\Shaders\shader.vert" />
     <None Include="Shaders\light_cube.frag" />
     <None Include="Shaders\materials.frag" />
     <None Include="Shaders\shader.frag" />

@@ -56,6 +56,12 @@ public:
         setupMesh();
     }
 
+    ~Mesh()
+    {
+        std::cout << "Class Mesh:               " << "Release component: " << componentName << std::endl;
+
+    }
+
     Mesh(Mesh&& other) noexcept
         : vertices(std::move(other.vertices)),
         indices(std::move(other.indices)),
@@ -111,7 +117,7 @@ public:
         return *this;
     }
 
-    void use() override
+    void update() override
     {
         Draw();
     }
@@ -131,11 +137,11 @@ public:
         {
             nlohmann::json vertexJson;
 
-            vertexJson["Position"] = vec3ToJson(it.Position);
-            vertexJson["Normal"] = vec3ToJson(it.Normal);
-            vertexJson["TexCoords"] = vec2ToJson(it.TexCoords);
-            vertexJson["Tangent"] = vec3ToJson(it.Tangent);
-            vertexJson["Bitangent"] = vec3ToJson(it.Bitangent);
+            vertexJson["Position"] =     vec3ToJson(it.Position);
+            vertexJson["Normal"] =       vec3ToJson(it.Normal);
+            vertexJson["TexCoords"] =    vec2ToJson(it.TexCoords);
+            vertexJson["Tangent"] =      vec3ToJson(it.Tangent);
+            vertexJson["Bitangent"] =    vec3ToJson(it.Bitangent);
 
             // 骨骼信息
             nlohmann::json boneIDsJson = nlohmann::json::array();
@@ -163,7 +169,8 @@ public:
         // 可以将 verticesJson 存储进 data 或 ret 中
         data["vertices"] = verticesJson;
         data["indices"] = indicesJson;
-        ret["Mesh"] = data;
+        ret["componentData"] = data;
+        ret["componentName"] = getComponentName();
         return ret;
     }
 

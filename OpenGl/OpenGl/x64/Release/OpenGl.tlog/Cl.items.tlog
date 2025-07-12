@@ -15,6 +15,7 @@ C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\globalParam
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\InputSystem.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\InputSystem.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\ResourcePathManager.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\ResourcePathManager.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\shader.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\shader.obj
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Shaders\BaseLightShader.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\BaseLightShader.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\stb_image.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\stb_image.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\TextureManager.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\TextureManager.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\TextureResource.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\TextureResource.obj

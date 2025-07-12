@@ -46,6 +46,12 @@ public:
         filePath = _path;
         loadModel(_path);
     }
+
+    ~Model()
+    {
+        std::cout << "Class Model:               " << "Release component: " << componentName << std::endl;
+
+    }
     const std::string getComponentName() const override
     {
         return componentName;
@@ -55,14 +61,15 @@ public:
         nlohmann::json ret;
         nlohmann::json data;
         data["filePath"] = filePath;
-        ret[getComponentName()] = data;
+        ret["componentData"] = data;
+        ret["componentName"] = getComponentName();
         return ret;
     }
 
     void loadJson(const nlohmann::json& js) override
     {
         filePath = js["filePath"].get<std::string>();
-        loadJson(filePath);
+        loadModel(filePath);
     }
     std::unique_ptr<Component> clone() const override
     {
@@ -81,7 +88,7 @@ public:
 	    }
     }
 
-    void use() override
+    void update() override
     {
         Draw();
     }
