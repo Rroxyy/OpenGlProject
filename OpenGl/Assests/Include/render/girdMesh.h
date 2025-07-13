@@ -8,6 +8,7 @@ class gridMesh:public Mesh
 {
 public:
     int indicesCnt;
+   
 	gridMesh()
 	{
         std::vector<Vertex> _vertices;
@@ -34,8 +35,8 @@ public:
             _indices.push_back(i);
             _indices.push_back(i + 1);
         }
-        this->vertices = _vertices;
-        this->indices = _indices;
+        this->vertices = std::move(_vertices);
+        this->indices =std::move(_indices);
         this->PrimitiveType = GL_LINES;
 
         setupMesh();

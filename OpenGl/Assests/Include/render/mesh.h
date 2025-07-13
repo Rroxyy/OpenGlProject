@@ -28,9 +28,10 @@ struct Vertex {
 };
 
 // 网格类
-class Mesh:public Component
+class Mesh
 {
 public:
+	std::string meshName;
     // 网格数据
     std::vector<Vertex>       vertices;   // 顶点数据列表
     std::vector<unsigned int> indices;    // 索引数组，用于按顺序绘制三角形
@@ -41,7 +42,7 @@ public:
     // 注意：移动赋值，原来的数据会消失
     Mesh()
     {
-        componentName = "Mesh";
+        //componentName = "Mesh";
         VBO = EBO = VAO = 0;
     }
 
@@ -51,7 +52,7 @@ public:
         this->vertices = std::move(vertices);
         this->indices = std::move(indices);
         this->PrimitiveType = _primitiveType;
-        componentName = "Mesh";
+        //componentName = "Mesh";
 
         setupMesh();
     }
@@ -70,7 +71,7 @@ public:
         PrimitiveType(other.PrimitiveType)
     {
         other.VAO = 0; // 避免析构时重复释放VAO
-        componentName = "Mesh";
+        //componentName = "Mesh";
     }
 
     Mesh& operator=(Mesh&& other) noexcept
@@ -83,7 +84,7 @@ public:
             VBO = other.VBO;
             EBO = other.EBO;
             PrimitiveType = other.PrimitiveType;
-            componentName = "Mesh";
+            //componentName = "Mesh";
             // 置空other的资源
             other.VAO = 0;
         }
@@ -95,7 +96,7 @@ public:
         PrimitiveType(other.PrimitiveType)
 
     {
-        componentName = "Mesh";
+        //componentName = "Mesh";
         VAO = other.VAO;
         VBO = other.VBO;
         EBO = other.EBO;
@@ -104,7 +105,7 @@ public:
     Mesh& operator=(const Mesh& other)
     {
         if (this != &other) {
-            componentName = "Mesh";
+            //componentName = "Mesh";
             vertices = other.vertices;
             indices = other.indices;
             PrimitiveType = other.PrimitiveType;
@@ -116,105 +117,10 @@ public:
         return *this;
     }
 
-    void update() override
+
+    void showUI()
     {
-        Draw();
-    }
-    const std::string getComponentName() const override
-    {
-        return componentName;
-    }
-
-    nlohmann::json toJson() override
-    {
-        nlohmann::json ret;
-        nlohmann::json data;
-
-        nlohmann::json verticesJson = nlohmann::json::array();
-
-        for (auto& it : vertices)
-        {
-            nlohmann::json vertexJson;
-
-            vertexJson["Position"] =     vec3ToJson(it.Position);
-            vertexJson["Normal"] =       vec3ToJson(it.Normal);
-            vertexJson["TexCoords"] =    vec2ToJson(it.TexCoords);
-            vertexJson["Tangent"] =      vec3ToJson(it.Tangent);
-            vertexJson["Bitangent"] =    vec3ToJson(it.Bitangent);
-
-            // 骨骼信息
-            nlohmann::json boneIDsJson = nlohmann::json::array();
-            nlohmann::json weightsJson = nlohmann::json::array();
-
-            for (int i = 0; i < MAX_BONE_INFLUENCE; ++i)
-            {
-                boneIDsJson.push_back(it.m_BoneIDs[i]);
-                weightsJson.push_back(it.m_Weights[i]);
-            }
-
-            vertexJson["BoneIDs"] = boneIDsJson;
-            vertexJson["Weights"] = weightsJson;
-
-            verticesJson.push_back(vertexJson);
-        }
-
-        nlohmann::json indicesJson = nlohmann::json::array();
-
-        for (auto&it:indices)
-        {
-            indicesJson.push_back(it);
-        }
-
-        // 可以将 verticesJson 存储进 data 或 ret 中
-        data["vertices"] = verticesJson;
-        data["indices"] = indicesJson;
-        ret["componentData"] = data;
-        ret["componentName"] = getComponentName();
-        return ret;
-    }
-
-    void loadJson(const nlohmann::json& js) override
-    {
-        vertices.clear();
-        indices.clear();
-
-        const auto& verticesJson = js.at("vertices");
-        for (const auto& vertexJson : verticesJson)
-        {
-            Vertex v;
-            v.Position = jsonToVec3(vertexJson.at("Position"));
-            v.Normal = jsonToVec3(vertexJson.at("Normal"));
-            v.TexCoords = jsonToVec2(vertexJson.at("TexCoords"));
-            v.Tangent = jsonToVec3(vertexJson.at("Tangent"));
-            v.Bitangent = jsonToVec3(vertexJson.at("Bitangent"));
-
-            const auto& boneIDs = vertexJson.at("BoneIDs");
-            const auto& weights = vertexJson.at("Weights");
-
-            for (int i = 0; i < MAX_BONE_INFLUENCE; ++i)
-            {
-                v.m_BoneIDs[i] = boneIDs[i].get<int>();
-                v.m_Weights[i] = weights[i].get<float>();
-            }
-
-            vertices.push_back(v);
-        }
-
-        const auto& indicesJson = js.at("indices");
-        for (const auto& idx : indicesJson)
-        {
-            indices.push_back(idx.get<unsigned int>());
-        }
-    }
-
-    std::unique_ptr<Component> clone() const override
-    {
-        return std::make_unique<Mesh>(*this);
-    }
-
-    void showUI() override
-    {
-        if (ImGui::TreeNode(getComponentName().c_str()))
+        if (ImGui::TreeNode(meshName.c_str()))
         {
             // 展示顶点数量、索引数量等基本信息
             ImGui::Text("Vertices: %zu", vertices.size());

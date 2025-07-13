@@ -53,6 +53,15 @@ public:
     {
 
     }
+
+    void addMesh(Mesh* mesh)
+    {
+        meshes.emplace_back(move(*mesh));
+
+        setMeshName();
+    }
+
+
     const std::string getComponentName() const override
     {
         return componentName;
@@ -103,6 +112,8 @@ public:
         object->GetComponent<baseShader>()->unblindTexturesChannel();
     }
 
+
+   
     Model(Model&&other) noexcept:meshes(std::move(other.meshes)),filePath(std::move(other.filePath))
     {
         componentName = "Model";
@@ -115,7 +126,6 @@ public:
         filePath = std::move(other.filePath);
         return *this;
 	}
-
     // 拷贝构造函数
     Model(const Model& other)
         : meshes(other.meshes),    // 调用 Mesh 的拷贝构造（确保 Mesh 支持拷贝）
@@ -123,7 +133,6 @@ public:
     {
         componentName = "Model";
     }
-
     // 拷贝赋值运算符
     Model& operator=(const Model& other)
     {
@@ -138,6 +147,15 @@ public:
 
 
 private:
+    void setMeshName()
+    {
+	    int index = 0;
+	    for (auto& it:meshes)
+	    {
+		    it.meshName = "mesh" + to_string(index);
+	    }
+    }
+
     // 使用 ASSIMP 读取模型，并处理所有网格
     void loadModel(string const& path)
     {
@@ -151,11 +169,8 @@ private:
         }
 
         processNode(scene->mRootNode, scene);
-        int index = 1;
-        for (auto&it:meshes)
-        {
-            it.componentName = it.getComponentName() + to_string(index++);
-        }
+
+        setMeshName();
     }
 
     // 递归处理模型的节点

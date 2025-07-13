@@ -59,7 +59,13 @@ int main()
     //ObjectManager::getInstance().loadJson();
 
     Object* grid = ObjectManager::getInstance().createObjectPtr("Grid");
-    grid->AddComponent<gridMesh>();
+    grid->AddComponent<Model>();
+
+
+    gridMesh grid_mesh;
+
+    grid->GetComponent<Model>()->addMesh(&grid_mesh);
+
     baseShader gridShader("gridShader");
     grid->AddComponent<baseShader>(gridShader);
 
@@ -99,29 +105,19 @@ int main()
 
     
 
-    //tvShader.PrintActiveUniforms();
     // draw in wireframe
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-    // render loop
-    // -----------
 
     ObjectManager::getInstance().start();
 
     while (!glfwWindowShouldClose(window))
     {
-        // per-frame time logic
-        // --------------------
         float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
-        // input
-        // -----
-        //processInput(window);
         InputSystem::getInstance().checkInput(window, deltaTime);
-
-        
 
         // render
         // ------
@@ -130,26 +126,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-        //grid
-       
-       /* grid->update();
-        plane->update();
-        tv->update();*/
-
         ObjectManager::getInstance().update();
-
-
-        // tv
-       
-      /*  baseTex.activeTexture();
-        normalTex.activeTexture();*/
-
-        // view/projection transformations
-        //tvShader.setVec3("cameraPos", camera.Position);
-
-
-       /* baseTex.deactivateTexture();
-        normalTex.deactivateTexture();*/
 
         //ui
         ui_update();

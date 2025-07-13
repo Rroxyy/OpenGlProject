@@ -42,10 +42,6 @@ public:
             return std::make_unique<Transform>();
             });
 
-        ComponentFactory::getInstance().registerComponent("Mesh", []() {
-            return std::make_unique<Mesh>();
-            });
-
         ComponentFactory::getInstance().registerComponent("Model", []() {
             return std::make_unique<Model>();
             });
