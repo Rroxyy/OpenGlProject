@@ -28,16 +28,35 @@ public:
 		projectionDirty = true; 
 	}
 
+	void updateCurrentFrame()
+	{
+		lastFrame = currentFrame;
+		currentFrame = static_cast<float>(glfwGetTime());
+	}
+
+	float getFrameTime()
+	{
+		return currentFrame - lastFrame;
+	}
+
 	Camera* mainCamera;
 
 	Object* mainLight;
 
 	bool projectionDirty = true;
+
+
+	
 private:
 	glm::mat4 projectionMat;
 
 	unsigned int SCR_WIDTH = 800;
 	unsigned int SCR_HEIGHT = 600;
+
+	//time
+	float currentFrame = 0;
+	float lastFrame = 0;
+
 	globalParametersManager() =default;
 	~globalParametersManager() = default;
 

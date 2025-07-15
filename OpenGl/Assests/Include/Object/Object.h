@@ -55,11 +55,13 @@ public:
     template <typename T>
     T* GetComponent()
     {
-        auto it = components.find(typeid(T).hash_code());
-        if (it != components.end()) {
-            return dynamic_cast<T*>(it->second.get());
+        for (auto& [typeHash, component] : components)
+        {
+            T* casted = dynamic_cast<T*>(component.get());
+            if (casted)
+                return casted; // 找到类型为 T 或其派生类的组件
         }
-        return nullptr;
+        return nullptr; // 没找到
     }
 
     void start();

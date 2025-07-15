@@ -8,11 +8,11 @@
 #include "plugins.h"
 #include "TextureResource.h"
 
-baseShader::baseShader(const char* vertexPath, const char* fragmentPath)
+baseShader::baseShader(const char* vertexPath, const char* fragmentPath,const std::string& _shaderName)
 	: Shader(vertexPath, fragmentPath)
 {
-    componentName = "BaseShader";
-	
+    componentName = "Shader";
+    shaderName = _shaderName;
 }
 
 baseShader::baseShader()
@@ -22,12 +22,12 @@ baseShader::baseShader()
 	
 }
 
-baseShader::baseShader(std::string&& _shaderName):
-	baseShader(ResourcePathManager::getInstance().getBaseShaderVert().c_str(),
-		ResourcePathManager::getInstance().getBaseShaderFrag().c_str())
+baseShader::baseShader(const std::string& _shaderName): baseShader(ResourcePathManager::getInstance().getBaseShaderVert().c_str(),
+    ResourcePathManager::getInstance().getBaseShaderFrag().c_str(), _shaderName)
 {
-	shaderName = _shaderName;
+	
 }
+
 
 
 
@@ -63,7 +63,7 @@ void baseShader::blindTexturesChannel()const
 
 }
 
-void baseShader::unblindTexturesChannel()const
+void baseShader::unblindShaderValue()const
 {
     int textureChannel = 0;
     for (const auto& it : textureResourcesList)
@@ -88,22 +88,7 @@ void baseShader::setTexture(const std::string& nameInShader, TextureResource* tr
 
 
 
-void baseShader::PrintActiveUniforms()
-{
-    GLint count;
-    glGetProgramiv(ID, GL_ACTIVE_UNIFORMS, &count);
 
-    char name[128];
-    for (int i = 0; i < count; ++i) {
-        GLenum type;
-        GLint size;
-        glGetActiveUniform(ID, i, sizeof(name), nullptr, &size, &type, name);
-
-        GLint location = glGetUniformLocation(ID, name);
-
-        std::cout << "Uniform #" << i << ": " << name << " | type: " << type << " | location: " << location << std::endl;
-    }
-}
 
 
 

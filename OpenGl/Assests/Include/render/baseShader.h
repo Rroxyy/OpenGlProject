@@ -15,8 +15,8 @@ class baseShader : public Shader,public Component
 {
 public:
 	baseShader();
-	baseShader(const char* vertexPath, const char* fragmentPath);
-	baseShader(std::string&& _shaderName);
+	baseShader(const char* vertexPath, const char* fragmentPath, const std::string& _shaderName = "baseSHader");
+	baseShader(const std::string& _shaderName);
 
 	~baseShader()
 	{
@@ -26,14 +26,13 @@ public:
 	virtual void setShaderName(std::string& _ShaderName);
 	virtual void setShaderName(std::string&& _ShaderName);
 	virtual void blind_shader_value();
-	virtual void PrintActiveUniforms();
 
 	//texture
-	void setTexture(const std::string& nameInShader,TextureResource* tr);
-	void blindTexturesChannel() const;
-	void unblindTexturesChannel() const;
+	virtual void setTexture(const std::string& nameInShader,TextureResource* tr);
+	virtual void blindTexturesChannel() const;
+	virtual void unblindShaderValue() const;
 
-	void activeTexture() const;
+	virtual void activeTexture() const;
 
 	//component
 	const std::string getComponentName() const override;
@@ -41,15 +40,15 @@ public:
 	void loadJson(const nlohmann::json& js) override;
 	std::unique_ptr<Component> clone() const override;
 	void showUI() override;
-
 	void start() override;
-	//void beforeUpdate() override;
-	//void update()override;
+
 
 protected:
 	std::string shaderName="baseShader";
 	std::vector<std::pair<std::string, TextureResource*>>textureResourcesList;
-private:
+
 	ImVec4 defaultColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+
+
 	
 };

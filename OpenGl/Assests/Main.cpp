@@ -30,6 +30,7 @@
 #include "Object.h"
 #include "ObjectManager.h"
 #include "TextureManager.h"
+#include "Shaders/BaseLightShader.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -45,9 +46,6 @@ void ui_update();
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
 
-// timing
-float deltaTime = 0.0f;	// time between current frame and last frame
-float lastFrame = 0.0f;
 
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
@@ -72,22 +70,25 @@ int main()
     Object* tv = ObjectManager::getInstance().createObjectPtr("TV");
     Model tvModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj");
     tv->AddComponent<Model>(std::move(tvModel));
-    baseShader tvShader("tvShader");
-    tv->AddComponent<baseShader>(std::move(tvShader));
+    BaseLightShader tvShader("tvShader");
+    tv->AddComponent<BaseLightShader>(std::move(tvShader));
 
     TextureResource* baseTex = TextureManager::getInstance()
 	.createTextureResource("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_MatID.tga");
 	TextureResource * normalTex = TextureManager::getInstance()
 	.createTextureResource("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_Normal_G.tga");
 
-    tv->GetComponent<baseShader>()->setTexture("texture_base", baseTex);
+    tv->GetComponent<BaseLightShader>()->setTexture("texture_base", baseTex);
+    tv->GetComponent<BaseLightShader>()->setTexture("texture_normal",normalTex);
 
 
 
     Object* plane = ObjectManager::getInstance().createObjectPtr("plane");
     Model planeModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj");
     plane->AddComponent<Model>(std::move(planeModel));
-    baseShader planeShader("planeShader");
+    baseShader planeShader("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/DepthShader/baseShader.vert",
+        "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/DepthShader/baseShader.frag",
+        "planeShader");
     plane->AddComponent<baseShader>(std::move(planeShader));
 
 
@@ -113,11 +114,10 @@ int main()
 
     while (!glfwWindowShouldClose(window))
     {
-        float currentFrame = static_cast<float>(glfwGetTime());
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
+        globalParametersManager::getInstance().updateCurrentFrame();
+        
 
-        InputSystem::getInstance().checkInput(window, deltaTime);
+        InputSystem::getInstance().checkInput(window);
 
         // render
         // ------
@@ -247,6 +247,7 @@ GLFWwindow* glfwInitialize()
     // configure global opengl state
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
+
     return window;
 }
 
@@ -256,6 +257,9 @@ void imguiInitialize(GLFWwindow* window)
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+    io.FontGlobalScale = 1.5f;
+
     ImGui::StyleColorsDark();
 
     // 后端初始化

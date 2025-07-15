@@ -3,12 +3,23 @@
 #include "globalParametersManager.h"
 #include "Transform.h"
 #include "camera.h"
+#include "ResourcePathManager.h"
 #include "Object/Object.h"
 
-BaseLightShader::BaseLightShader()
+BaseLightShader::BaseLightShader() :baseShader(
+    ResourcePathManager::getInstance().getBaseLightShaderVert().c_str(),
+    ResourcePathManager::getInstance().getBaseLightShaderFrag().c_str(),
+    "BaseLightShader")
 {
-
 }
+
+BaseLightShader::BaseLightShader(const std::string& shaderName) :baseShader(
+    ResourcePathManager::getInstance().getBaseLightShaderVert().c_str(),
+    ResourcePathManager::getInstance().getBaseLightShaderFrag().c_str(),
+    shaderName)
+{
+}
+
 
 void BaseLightShader::showUI()
 {
@@ -28,7 +39,10 @@ void BaseLightShader::showUI()
             ImGui::RadioButton("Off", &useBaseTex, 0);
             ImGui::Spacing();
 
-            ImGui::ColorEdit3("Default Color", (float*)&defaultColor);
+            if (!useBaseTex)
+            {
+                ImGui::ColorEdit3("Default Color", (float*)&defaultColor);
+            }
             ImGui::TreePop();
         }
 
@@ -60,10 +74,11 @@ void BaseLightShader::showUI()
 
 
 
-void BaseLightShader::update_shader_value()
+void BaseLightShader::blind_shader_value()
 {
-    setMat4("projection", globalParametersManager::getInstance().getProjection());
-    setMat4("view", globalParametersManager::getInstance().mainCamera->GetViewMatrix());
+    baseShader::blind_shader_value();
+
+
 
     setVec3("cameraPos", globalParametersManager::getInstance().mainCamera->Position);
 
@@ -73,8 +88,11 @@ void BaseLightShader::update_shader_value()
     setVec3("lightDir", globalParametersManager::getInstance().mainLight->GetComponent<Transform>()->getBackDir());
 
     setInt("useBaseTex", useBaseTex);
+   
     temp = glm::vec3(defaultColor.x, defaultColor.y, defaultColor.z);
     setVec3("defaultColor", temp);
+    
+    
 
     setInt("useNormalTex", useNormalTex);
     setFloat("ambientStrength", ambientStrength);

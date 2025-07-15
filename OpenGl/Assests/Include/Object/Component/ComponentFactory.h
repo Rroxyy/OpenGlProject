@@ -8,6 +8,7 @@
 #include "mesh.h"
 #include "model.h"
 #include "Transform.h"
+#include "Shaders/BaseLightShader.h"
 
 using ComponentCreator = std::function<std::unique_ptr<Component>()>;
 
@@ -48,6 +49,10 @@ public:
 
         ComponentFactory::getInstance().registerComponent("baseShader", []() {
             return std::make_unique<baseShader>();
+            });
+
+        ComponentFactory::getInstance().registerComponent("BaseLightShader", []() {
+            return std::make_unique<BaseLightShader>();
             });
     }
 };

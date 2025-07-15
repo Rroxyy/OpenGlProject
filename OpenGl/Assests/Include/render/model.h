@@ -109,7 +109,7 @@ public:
         object->GetComponent<baseShader>()->blind_shader_value();
         for (unsigned int i = 0; i < meshes.size(); i++)
             meshes[i].Draw();
-        object->GetComponent<baseShader>()->unblindTexturesChannel();
+        object->GetComponent<baseShader>()->unblindShaderValue();
     }
 
 

@@ -10,7 +10,7 @@ public:
 	bool isMoving;
 
 	static InputSystem& getInstance();
-	void checkInput(GLFWwindow* window, float deltaTime);
+	void checkInput(GLFWwindow* window);
 	void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
 	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 

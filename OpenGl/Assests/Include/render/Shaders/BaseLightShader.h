@@ -5,14 +5,10 @@ class BaseLightShader:public baseShader
 {
 public :
 	BaseLightShader();
-	BaseLightShader(std::string& _shaderName);
+	BaseLightShader(const std::string& shaderName);
 
-	void setShaderName(std::string& _ShaderName)override;
-	void setShaderName(std::string&& _ShaderName)override;
 	void showUI()override;
-	void update_shader_value() override;
-	void use() override;
-	virtual void PrintActiveUniforms() override;
+	void blind_shader_value() override;
 
 private:
 	int useBaseTex = 1;
@@ -20,7 +16,6 @@ private:
 
 	ImVec4 lightColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
 
-	ImVec4 defaultColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
 
 	float ambientStrength = 0.1f;
 	float specularStrength = 0.5f;
