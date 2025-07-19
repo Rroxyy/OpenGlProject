@@ -1,4 +1,6 @@
-﻿#include "globalParametersManager.h"
+﻿#include <glad/glad.h>       
+#include <GLFW/glfw3.h>      
+#include "globalParametersManager.h"
 
 
 #include "camera.h"
@@ -11,4 +13,10 @@ glm::mat4  globalParametersManager::getProjection()
 		projectionDirty = false;
 	}
 	return projectionMat;
+}
+
+void globalParametersManager::updateCurrentFrame()
+{
+	lastFrame = currentFrame;
+	currentFrame = static_cast<float>(glfwGetTime());
 }

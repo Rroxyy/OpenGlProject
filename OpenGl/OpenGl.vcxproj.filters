@@ -33,7 +33,7 @@
     <ClCompile Include="Assests\Src\render\shader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Assests\Src\render\TextureResource.cpp">
+    <ClCompile Include="Assests\Src\Object\Component\TextureResource.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Assests\Src\Managers\InputSystem.cpp">
@@ -63,7 +63,7 @@
     <ClCompile Include="Assests\Src\Managers\ResourcePathManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Assests\Src\render\baseShader.cpp">
+    <ClCompile Include="Assests\Src\Object\Component\baseShader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Assests\Src\Managers\globalParametersManager.cpp">
@@ -81,6 +81,9 @@
     <ClCompile Include="Assests\Src\render\Shaders\BaseLightShader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Assests\Src\imgui\ImGuizmo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assests\Include\camera.h">
@@ -92,16 +95,16 @@
     <ClInclude Include="Assests\Include\Managers\TextureManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Assests\Include\render\TextureResource.h">
+    <ClInclude Include="Assests\Include\Object\Component\TextureResource.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Assests\Include\render\mesh.h">
+    <ClInclude Include="Assests\Include\Object\Component\mesh.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Assests\Include\render\model.h">
+    <ClInclude Include="Assests\Include\Object\Component\model.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Assests\Include\render\TextureEnums.h">
+    <ClInclude Include="Assests\Include\Object\Component\TextureEnums.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Assests\Include\Managers\InputSystem.h">
@@ -110,13 +113,13 @@
     <ClInclude Include="Assests\Include\Managers\ResourcePathManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Assests\Include\render\baseShader.h">
+    <ClInclude Include="Assests\Include\Object\Component\baseShader.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Assests\Include\Managers\UI_Manager.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Assests\Include\render\girdMesh.h">
+    <ClInclude Include="Assests\Include\Object\Component\girdMesh.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Assests\Include\Managers\globalParametersManager.h">
@@ -141,6 +144,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Assests\Include\render\Shaders\BaseLightShader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Assests\Include\imgui\ImGuizmo.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

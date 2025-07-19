@@ -24,12 +24,12 @@
 #include "Shader.h"
 #include "ResourcePathManager.h"
 #include "UI_Manager.h"
-#include "baseShader.h"
 #include "girdMesh.h"
 #include "globalParametersManager.h"
 #include "Object.h"
 #include "ObjectManager.h"
 #include "TextureManager.h"
+#include "imgui/ImGuizmo.h"
 #include "Shaders/BaseLightShader.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -155,6 +155,8 @@ void ui_update()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
+    ImGuiIO& io = ImGui::GetIO();
+
 
     ImGui::Begin("Control Panel");
     ImGui::Spacing();
@@ -189,7 +191,33 @@ void ui_update()
     {
         show_demo_window = !show_demo_window;
     }
+
+
+    if (ImGui::TreeNode("Gizmos test"))
+    {
+        // ✅ 添加 ImGuizmo 初始化调用
+        ImGuizmo::BeginFrame();
+
+        ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);  // 设置操作区域
+
+        static glm::mat4 modelMatrix = glm::mat4(1.0f); // static 防止每帧重置
+
+        ImGuizmo::SetOrthographic(false); 
+
+        ImGuizmo::Manipulate(
+            glm::value_ptr(globalParametersManager::getInstance().mainCamera->GetViewMatrix()),
+            glm::value_ptr(globalParametersManager::getInstance().getProjection()),
+            ImGuizmo::TRANSLATE,
+            ImGuizmo::WORLD,
+            glm::value_ptr(modelMatrix));
+
+        ImGui::TreePop();
+    }
+
+
     ImGui::End();
+
+    
 
 
     if (show_demo_window)
@@ -201,6 +229,23 @@ void ui_update()
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+void imguiInitialize(GLFWwindow* window)
+{
+    //ui initialize and configure
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+    io.FontGlobalScale = 1.5f;
+
+    ImGui::StyleColorsDark();
+
+    // 后端初始化
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+
+    const char* glsl_version = "#version 330";
+    ImGui_ImplOpenGL3_Init(glsl_version);
 }
 
 GLFWwindow* glfwInitialize()
@@ -251,23 +296,6 @@ GLFWwindow* glfwInitialize()
     return window;
 }
 
-void imguiInitialize(GLFWwindow* window)
-{
-    //ui initialize and configure
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-
-    io.FontGlobalScale = 1.5f;
-
-    ImGui::StyleColorsDark();
-
-    // 后端初始化
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-
-    const char* glsl_version = "#version 330";
-    ImGui_ImplOpenGL3_Init(glsl_version);
-}
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {

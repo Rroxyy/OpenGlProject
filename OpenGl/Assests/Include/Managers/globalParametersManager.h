@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include <glm/gtc/matrix_transform.hpp>
 
-
 class Camera;
 class Object;
 
@@ -28,11 +27,8 @@ public:
 		projectionDirty = true; 
 	}
 
-	void updateCurrentFrame()
-	{
-		lastFrame = currentFrame;
-		currentFrame = static_cast<float>(glfwGetTime());
-	}
+	void updateCurrentFrame();
+
 
 	float getFrameTime()
 	{
