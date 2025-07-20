@@ -85,7 +85,7 @@ void BaseLightShader::blind_shader_value()
 
     glm::vec3 temp = glm::vec3(lightColor.x, lightColor.y, lightColor.z);
     setVec3("lightColor", temp);
-    setVec3("lightDir", globalParametersManager::getInstance().mainLight->GetComponent<Transform>()->getBackDir());
+    setVec3("lightDir", globalParametersManager::getInstance().mainLight->GetComponentAs<Transform>()->getBackDir());
 
     setInt("useBaseTex", useBaseTex);
    

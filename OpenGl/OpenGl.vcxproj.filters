@@ -149,6 +149,15 @@
     <ClInclude Include="Assests\Include\imgui\ImGuizmo.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Assests\Include\Object\Component\Render.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Assests\Include\Object\Component\AABB.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Assests\Include\Math\Ray.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\light_cube.frag">

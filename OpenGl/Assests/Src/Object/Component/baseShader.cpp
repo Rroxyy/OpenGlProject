@@ -114,7 +114,7 @@ void baseShader::blind_shader_value()
     //must pass these
     setMat4("projection", globalParametersManager::getInstance().getProjection());
     setMat4("view", globalParametersManager::getInstance().mainCamera->GetViewMatrix());
-    setMat4("model", object->GetComponent<Transform>()->getModelMat4());
+    setMat4("model", object->GetComponentAs<Transform>()->getModelMat4());
     /////////////////////////
 
     glm::vec3 temp = glm::vec3(defaultColor.x, defaultColor.y, defaultColor.z);
@@ -122,15 +122,17 @@ void baseShader::blind_shader_value()
 }
 
 
-void baseShader::setShaderName(std::string& _ShaderName)
+void baseShader::setShaderName(const std::string& _ShaderName)
 {
     shaderName = _ShaderName;
 }
 
-void baseShader::setShaderName(std::string&& _ShaderName)
+
+const std::string& baseShader::getShaderName()
 {
-    shaderName = _ShaderName;
+    return shaderName;
 }
+
 
 
 const std::string baseShader::getComponentName() const

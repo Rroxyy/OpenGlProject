@@ -28,6 +28,7 @@
 #include "globalParametersManager.h"
 #include "Object.h"
 #include "ObjectManager.h"
+#include "Render.h"
 #include "TextureManager.h"
 #include "imgui/ImGuizmo.h"
 #include "Shaders/BaseLightShader.h"
@@ -53,6 +54,7 @@ int main()
 {
     GLFWwindow* window = glfwInitialize();
     imguiInitialize(window);
+    globalParametersManager::getInstance().mainCamera = &camera;
 
     //ObjectManager::getInstance().loadJson();
 
@@ -62,24 +64,32 @@ int main()
 
     gridMesh grid_mesh;
 
-    grid->GetComponent<Model>()->addMesh(&grid_mesh);
+    grid->GetComponentAs<Model>()->addMesh(&grid_mesh);
 
     baseShader gridShader("gridShader");
     grid->AddComponent<baseShader>(gridShader);
+    grid->AddComponent<Render>();
 
+
+    ///////////////////////////////////////////////
+    //tv
     Object* tv = ObjectManager::getInstance().createObjectPtr("TV");
     Model tvModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj");
-    tv->AddComponent<Model>(std::move(tvModel));
+    std::cout << "??????????????? " << tvModel.aabb << std::endl;
+    auto* temp=tv->AddComponent<Model>(std::move(tvModel));
+    std::cout <<"??????????????? "<< temp->aabb << std::endl;
     BaseLightShader tvShader("tvShader");
     tv->AddComponent<BaseLightShader>(std::move(tvShader));
+    tv->AddComponent<Render>();
+
 
     TextureResource* baseTex = TextureManager::getInstance()
 	.createTextureResource("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_MatID.tga");
 	TextureResource * normalTex = TextureManager::getInstance()
 	.createTextureResource("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_Normal_G.tga");
 
-    tv->GetComponent<BaseLightShader>()->setTexture("texture_base", baseTex);
-    tv->GetComponent<BaseLightShader>()->setTexture("texture_normal",normalTex);
+    tv->GetComponentAs<BaseLightShader>()->setTexture("texture_base", baseTex);
+    tv->GetComponentAs<BaseLightShader>()->setTexture("texture_normal",normalTex);
 
 
 
@@ -90,6 +100,7 @@ int main()
         "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/DepthShader/baseShader.frag",
         "planeShader");
     plane->AddComponent<baseShader>(std::move(planeShader));
+    plane->AddComponent<Render>();
 
 
     Object* light = ObjectManager::getInstance().createObjectPtr("Light");
@@ -97,7 +108,6 @@ int main()
 
 
     //camera initialize
-    globalParametersManager::getInstance().mainCamera = &camera;
 
 
     
@@ -145,7 +155,7 @@ int main()
     // ------------------------------------------------------------------
     glfwDestroyWindow(window);
     glfwTerminate();
-    cout << "ok" << endl;
+    std::cout << "ok" << std::endl;
     return 0;
 }
 

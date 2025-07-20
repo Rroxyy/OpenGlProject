@@ -11,6 +11,7 @@
 #include <string>
 #include <vector>
 
+#include "AABB.h"
 #include "Component.h"
 #include "plugins.h"
 
@@ -37,6 +38,7 @@ public:
     std::vector<unsigned int> indices;    // 索引数组，用于按顺序绘制三角形
     unsigned int VAO;                // 顶点数组对象（VAO）
     GLenum PrimitiveType;
+    AABB aabb;
 
     // 构造函数：接收顶点、索引和纹理数据，并初始化网格
     // 注意：移动赋值，原来的数据会消失
@@ -57,64 +59,17 @@ public:
         setupMesh();
     }
 
+    Mesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices
+        ,const AABB& _aabb, GLenum _primitiveType = GL_TRIANGLES)
+	:Mesh(vertices,indices)
+    {
+        aabb = _aabb;
+        std::cout << "fkkk  " << aabb << std::endl;
+    }
+
     ~Mesh()
     {
 
-    }
-
-    Mesh(Mesh&& other) noexcept
-        : vertices(std::move(other.vertices)),
-        indices(std::move(other.indices)),
-        VAO(other.VAO),
-        VBO(other.VBO),
-		EBO(other.EBO),
-        PrimitiveType(other.PrimitiveType)
-    {
-        other.VAO = 0; // 避免析构时重复释放VAO
-        //componentName = "Mesh";
-    }
-
-    Mesh& operator=(Mesh&& other) noexcept
-    {
-        if (this != &other) {
-            // 移动数据
-            vertices = std::move(other.vertices);
-            indices = std::move(other.indices);
-            VAO = other.VAO;
-            VBO = other.VBO;
-            EBO = other.EBO;
-            PrimitiveType = other.PrimitiveType;
-            //componentName = "Mesh";
-            // 置空other的资源
-            other.VAO = 0;
-        }
-        return *this;
-    }
-    Mesh(const Mesh& other)
-        : vertices(other.vertices),
-        indices(other.indices),
-        PrimitiveType(other.PrimitiveType)
-
-    {
-        //componentName = "Mesh";
-        VAO = other.VAO;
-        VBO = other.VBO;
-        EBO = other.EBO;
-    }
-
-    Mesh& operator=(const Mesh& other)
-    {
-        if (this != &other) {
-            //componentName = "Mesh";
-            vertices = other.vertices;
-            indices = other.indices;
-            PrimitiveType = other.PrimitiveType;
-            VAO = other.VAO;
-            VBO = other.VBO;
-            EBO = other.EBO;
-
-        }
-        return *this;
     }
 
 

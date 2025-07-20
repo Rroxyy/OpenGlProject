@@ -23,16 +23,14 @@ public:
 
 	}
 
-	virtual void setShaderName(std::string& _ShaderName);
-	virtual void setShaderName(std::string&& _ShaderName);
+	virtual void setShaderName(const std::string& _ShaderName);
+	virtual const std::string& getShaderName();
 	virtual void blind_shader_value();
+	virtual void unblindShaderValue() const;
 
 	//texture
 	virtual void setTexture(const std::string& nameInShader,TextureResource* tr);
-	virtual void blindTexturesChannel() const;
-	virtual void unblindShaderValue() const;
 
-	virtual void activeTexture() const;
 
 	//component
 	const std::string getComponentName() const override;
@@ -48,6 +46,8 @@ protected:
 	std::vector<std::pair<std::string, TextureResource*>>textureResourcesList;
 
 	ImVec4 defaultColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+	virtual void blindTexturesChannel() const;
+	virtual void activeTexture() const;
 
 
 	

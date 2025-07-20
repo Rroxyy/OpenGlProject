@@ -71,11 +71,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\Shaders;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object\Component;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Managers;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include;C:\Users\Drwin\Desktop\render\render3\vs\include\imgui;C:\Users\Drwin\Desktop\render\render3\assimp\build\include;C:\Users\Drwin\Desktop\render\render3\assimp\include;C:\Users\Drwin\Desktop\render\render3\vs\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Math;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\Shaders;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object\Component;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Managers;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include;C:\Users\Drwin\Desktop\render\render3\vs\include\imgui;C:\Users\Drwin\Desktop\render\render3\assimp\build\include;C:\Users\Drwin\Desktop\render\render3\assimp\include;C:\Users\Drwin\Desktop\render\render3\vs\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Drwin\Desktop\render\render3\vs\lib\debug;C:\Users\Drwin\Desktop\render\render3\vs\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object\Component;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Managers;C:\Users\Drwin\Desktop\render\render3\vs\include\imgui;C:\Users\Drwin\Desktop\render\render3\assimp\contrib\zlib;C:\Users\Drwin\Desktop\render\render3\assimp\build\include;C:\Users\Drwin\Desktop\render\render3\assimp\include;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include;C:\Users\Drwin\Desktop\render\render3\vs\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Math;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object\Component;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Managers;C:\Users\Drwin\Desktop\render\render3\vs\include\imgui;C:\Users\Drwin\Desktop\render\render3\assimp\contrib\zlib;C:\Users\Drwin\Desktop\render\render3\assimp\build\include;C:\Users\Drwin\Desktop\render\render3\assimp\include;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include;C:\Users\Drwin\Desktop\render\render3\vs\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Drwin\Desktop\render\render3\vs\lib;C:\Users\Drwin\Desktop\render\render3\vs\lib\release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -165,8 +165,11 @@
   <ItemGroup>
     <ClInclude Include="Assests\Include\imgui\ImGuizmo.h" />
     <ClInclude Include="Assests\Include\Managers\ObjectManager.h" />
+    <ClInclude Include="Assests\Include\Math\Ray.h" />
+    <ClInclude Include="Assests\Include\Object\Component\AABB.h" />
     <ClInclude Include="Assests\Include\Object\Component\Component.h" />
     <ClInclude Include="Assests\Include\Object\Component\ComponentFactory.h" />
+    <ClInclude Include="Assests\Include\Object\Component\Render.h" />
     <ClInclude Include="Assests\Include\Object\Component\Transform.h" />
     <ClInclude Include="Assests\Include\plugins.h" />
     <ClInclude Include="Assests\Include\Object\Component\baseShader.h" />

@@ -7,6 +7,7 @@
 #include "Component.h"
 #include "mesh.h"
 #include "model.h"
+#include "Render.h"
 #include "Transform.h"
 #include "Shaders/BaseLightShader.h"
 
@@ -46,6 +47,18 @@ public:
         ComponentFactory::getInstance().registerComponent("Model", []() {
             return std::make_unique<Model>();
             });
+
+        ComponentFactory::getInstance().registerComponent("Render", []() {
+            return std::make_unique<Render>();
+            });
+
+
+
+
+
+
+
+        //shader
 
         ComponentFactory::getInstance().registerComponent("baseShader", []() {
             return std::make_unique<baseShader>();

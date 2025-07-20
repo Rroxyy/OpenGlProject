@@ -12,7 +12,7 @@
 
 #include <mesh.h>
 #include <shader.h>
-
+#include <iostream>
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -21,20 +21,23 @@
 #include <map>
 #include <vector>
 
+#include "AABB.h"
 #include "baseShader.h"
 #include "Component.h"
 #include "Object.h"
-using namespace std;
+#include <glm/gtx/string_cast.hpp>
 
 // 从文件读取纹理并生成纹理ID
-unsigned int TextureFromFile(const char* path, const string& directory, bool gamma = false);
+unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma = false);
 
 class Model:public Component
 {
 public:
     // 模型数据
-    vector<Mesh> meshes;                // 模型包含的网格
-    string filePath;                   // 模型所在的文件夹
+    std::vector<Mesh> meshes;                // 模型包含的网格
+    std::string filePath;                   // 模型所在的文件夹
+    AABB aabb;
+
 
     Model()
     {
@@ -42,7 +45,7 @@ public:
     }
     
     
-    Model(string const& _path) 
+    Model(std::string const& _path) 
     {
         componentName = "Model";
         filePath = _path;
@@ -56,7 +59,7 @@ public:
 
     void addMesh(Mesh* mesh)
     {
-        meshes.emplace_back(move(*mesh));
+        meshes.emplace_back(std::move(*mesh));
 
         setMeshName();
     }
@@ -83,13 +86,16 @@ public:
     }
     std::unique_ptr<Component> clone() const override
     {
-        return make_unique<Model>(*this);
+        return std::make_unique<Model>(*this);
     }
 
     void showUI() override
     {
 	    if (ImGui::TreeNode(getComponentName().c_str()))
 	    {
+		    std::cout << aabb << std::endl;
+            aabb.showUI();
+
 		    for (auto&it:meshes)
 		    {
                 it.showUI();
@@ -98,79 +104,57 @@ public:
 	    }
     }
 
-    void update() override
-    {
-        Draw();
-    }
+
 
     // 渲染整个模型
     void Draw()
     {
-        object->GetComponent<baseShader>()->blind_shader_value();
         for (unsigned int i = 0; i < meshes.size(); i++)
             meshes[i].Draw();
-        object->GetComponent<baseShader>()->unblindShaderValue();
-    }
-
-
-   
-    Model(Model&&other) noexcept:meshes(std::move(other.meshes)),filePath(std::move(other.filePath))
-    {
-        componentName = "Model";
-    }
-    Model& operator=(Model&& other)noexcept
-	{
-        if (this == &other)return *this;
-        componentName = "Model";
-        meshes = std::move(other.meshes);
-        filePath = std::move(other.filePath);
-        return *this;
-	}
-    // 拷贝构造函数
-    Model(const Model& other)
-        : meshes(other.meshes),    // 调用 Mesh 的拷贝构造（确保 Mesh 支持拷贝）
-        filePath(other.filePath)
-    {
-        componentName = "Model";
-    }
-    // 拷贝赋值运算符
-    Model& operator=(const Model& other)
-    {
-        if (this != &other)
-        {
-            componentName = "Model";
-            meshes = other.meshes;      // 调用 Mesh 的拷贝赋值
-            filePath = other.filePath;
-        }
-        return *this;
     }
 
 
 private:
+
     void setMeshName()
     {
 	    int index = 0;
 	    for (auto& it:meshes)
 	    {
-		    it.meshName = "mesh" + to_string(index);
+		    it.meshName = "mesh" + std::to_string(index);
 	    }
     }
 
     // 使用 ASSIMP 读取模型，并处理所有网格
-    void loadModel(string const& path)
+    void loadModel(std::string const& path)
     {
         Assimp::Importer importer;
         const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals  | aiProcess_CalcTangentSpace);
 
         if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
         {
-            cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << endl;
+	        std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
             return;
         }
 
         processNode(scene->mRootNode, scene);
 
         setMeshName();
+
+        resetAABB();
+    }
+
+    void resetAABB()
+    {
+        
+        aabb = meshes.front().aabb;
+        std::cout << aabb << std::endl;
+        std::cout << meshes.front().aabb << std::endl;
+        for (auto& it:meshes)
+        {
+            std::cout << "it:  " << it.aabb << std::endl;
+            aabb.merge(it.aabb);
+        }
     }
 
     // 递归处理模型的节点
@@ -179,7 +163,7 @@ private:
         for (unsigned int i = 0; i < node->mNumMeshes; i++)
         {
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-            meshes.push_back(processMesh(mesh));
+            meshes.emplace_back(processMesh(mesh));
         }
         for (unsigned int i = 0; i < node->mNumChildren; i++)
         {
@@ -190,8 +174,9 @@ private:
     // 处理网格
     Mesh processMesh(aiMesh* mesh)
     {
-        vector<Vertex> vertices;
-        vector<unsigned int> indices;
+	    std::vector<Vertex> vertices;
+	    std::vector<unsigned int> indices;
+        AABB ab;
 
         // 处理顶点数据
         for (unsigned int i = 0; i < mesh->mNumVertices; i++)
@@ -202,6 +187,7 @@ private:
             vector.y = mesh->mVertices[i].y;
             vector.z = mesh->mVertices[i].z;
             vertex.Position = vector;
+            ab.updateAABB(vector);
 
             if (mesh->HasNormals())
             {
@@ -243,8 +229,8 @@ private:
         }
 
        
-
-        return Mesh(vertices, indices);
+        //std::cout << ab.max_AABB.x << std::endl;
+        return Mesh(vertices, indices,ab);
     }
 };
 

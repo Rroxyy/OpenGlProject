@@ -1,0 +1,84 @@
+﻿#pragma once
+#include <imgui.h>
+
+#include "Component.h"
+#include "model.h"
+
+
+class baseShader;
+class Model;
+
+class Render:public Component
+{
+public:
+	Render()
+	{
+		componentName = "Render";
+	}
+	const std::string getComponentName() const override
+	{
+		return componentName;
+	}
+
+	std::unique_ptr<Component> clone() const override
+	{
+		return std::make_unique<Render>(*this);
+	}
+
+	void showUI() override
+	{
+		if (ImGui::TreeNode(getComponentName().c_str()))
+		{
+			ImGui::Spacing();
+			ImGui::Text("Render Info:");
+			ImGui::Separator();
+
+			ImGui::Text("  Model  : %s", model->filePath.c_str());
+			ImGui::Text("  Shader : %s", shader->getShaderName().c_str());
+
+			ImGui::Spacing();
+			ImGui::TreePop();
+		}
+	}
+
+	nlohmann::json toJson() override
+	{
+		nlohmann::json ret;
+		nlohmann::json data;
+
+		ret["componentName"] = getComponentName();
+		ret["componentData"] = data;
+
+		return ret;
+	}
+
+	void loadJson(const nlohmann::json& js) override
+	{
+		;
+	}
+
+
+	void start() override
+	{
+		if (object==nullptr)
+		{
+			std::cout << "Warnning: no object has set" << std::endl;
+			return;
+		}
+
+		model=object->GetComponentExact<Model>();
+		shader=object->GetComponentAs<baseShader>();
+	}
+
+	void update() override
+	{
+		shader->blind_shader_value();
+		model->Draw();
+		shader->unblindShaderValue();
+	}
+
+private:
+	Model* model;
+	baseShader* shader;
+
+};

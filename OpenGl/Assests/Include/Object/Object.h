@@ -52,8 +52,16 @@ public:
         return ptr;
     }
 
+    template<typename T>
+    T* GetComponentExact()
+    {
+        const auto& it = components.find(typeid(T).hash_code());
+        if (it == components.end())return nullptr;
+        return static_cast<T*>(it->second.get());
+    }
+
     template <typename T>
-    T* GetComponent()
+    T* GetComponentAs()
     {
         for (auto& [typeHash, component] : components)
         {

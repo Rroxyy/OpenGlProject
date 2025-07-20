@@ -37,6 +37,10 @@
                     "filePath": ""
                 },
                 "componentName": "Model"
+            },
+            {
+                "componentData": null,
+                "componentName": "Render"
             }
         ],
         "id": 1,
@@ -47,7 +51,7 @@
             {
                 "componentData": {
                     "position": {
-                        "x": 0.20000000298023224,
+                        "x": 0.0,
                         "y": 0.0,
                         "z": 0.0
                     },
@@ -80,6 +84,10 @@
                     }
                 },
                 "componentName": "Shader"
+            },
+            {
+                "componentData": null,
+                "componentName": "Render"
             }
         ],
         "id": 2,
@@ -123,6 +131,10 @@
                     "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj"
                 },
                 "componentName": "Model"
+            },
+            {
+                "componentData": null,
+                "componentName": "Render"
             }
         ],
         "id": 3,
