@@ -71,11 +71,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Math;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\Shaders;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object\Component;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Managers;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include;C:\Users\Drwin\Desktop\render\render3\vs\include\imgui;C:\Users\Drwin\Desktop\render\render3\assimp\build\include;C:\Users\Drwin\Desktop\render\render3\assimp\include;C:\Users\Drwin\Desktop\render\render3\vs\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\Pass;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Math;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\Shaders;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object\Component;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Managers;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include;C:\Users\Drwin\Desktop\render\render3\vs\include\imgui;C:\Users\Drwin\Desktop\render\render3\assimp\build\include;C:\Users\Drwin\Desktop\render\render3\assimp\include;C:\Users\Drwin\Desktop\render\render3\vs\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Drwin\Desktop\render\render3\vs\lib\debug;C:\Users\Drwin\Desktop\render\render3\vs\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Math;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object\Component;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Managers;C:\Users\Drwin\Desktop\render\render3\vs\include\imgui;C:\Users\Drwin\Desktop\render\render3\assimp\contrib\zlib;C:\Users\Drwin\Desktop\render\render3\assimp\build\include;C:\Users\Drwin\Desktop\render\render3\assimp\include;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include;C:\Users\Drwin\Desktop\render\render3\vs\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\Pass;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Math;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object\Component;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Object;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Managers;C:\Users\Drwin\Desktop\render\render3\vs\include\imgui;C:\Users\Drwin\Desktop\render\render3\assimp\contrib\zlib;C:\Users\Drwin\Desktop\render\render3\assimp\build\include;C:\Users\Drwin\Desktop\render\render3\assimp\include;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include;C:\Users\Drwin\Desktop\render\render3\vs\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Drwin\Desktop\render\render3\vs\lib;C:\Users\Drwin\Desktop\render\render3\vs\lib\release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -139,10 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Assests\Include\render\Pass\ForwardPass.h" />
     <ClCompile Include="Assests\Lib\glad.c" />
     <ClCompile Include="Assests\Main.cpp" />
     <ClCompile Include="Assests\Src\imgui\ImGuizmo.cpp" />
-    <ClCompile Include="Assests\Src\Managers\ObjectManager.cpp" />
+    <ClCompile Include="Assests\Src\Managers\Scene.cpp" />
     <ClCompile Include="Assests\Src\Object\Component\Transform.cpp" />
     <ClCompile Include="Assests\Src\Object\Object.cpp" />
     <ClCompile Include="Assests\Src\Object\Component\baseShader.cpp" />
@@ -153,9 +154,12 @@
     <ClCompile Include="Assests\Src\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="Assests\Src\imgui\imgui_tables.cpp" />
     <ClCompile Include="Assests\Src\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="Assests\Src\Managers\globalParametersManager.cpp" />
+    <ClCompile Include="Assests\Src\Managers\GodClass.cpp" />
     <ClCompile Include="Assests\Src\Managers\InputSystem.cpp" />
     <ClCompile Include="Assests\Src\Managers\ResourcePathManager.cpp" />
+    <ClCompile Include="Assests\Src\render\Pass\ForwardPass.cpp" />
+    <ClCompile Include="Assests\Src\render\Render.cpp" />
+    <ClCompile Include="Assests\Src\render\RenderPipeLine.cpp" />
     <ClCompile Include="Assests\Src\render\shader.cpp" />
     <ClCompile Include="Assests\Src\render\Shaders\BaseLightShader.cpp" />
     <ClCompile Include="Assests\Src\render\stb_image.cpp" />
@@ -163,8 +167,10 @@
     <ClCompile Include="Assests\Src\Object\Component\TextureResource.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Assests\Include\EnumClass.h" />
     <ClInclude Include="Assests\Include\imgui\ImGuizmo.h" />
-    <ClInclude Include="Assests\Include\Managers\ObjectManager.h" />
+    <ClInclude Include="Assests\Include\Managers\Scene.h" />
+    <ClInclude Include="Assests\Include\Math\lib.h" />
     <ClInclude Include="Assests\Include\Math\Ray.h" />
     <ClInclude Include="Assests\Include\Object\Component\AABB.h" />
     <ClInclude Include="Assests\Include\Object\Component\Component.h" />
@@ -174,13 +180,18 @@
     <ClInclude Include="Assests\Include\plugins.h" />
     <ClInclude Include="Assests\Include\Object\Component\baseShader.h" />
     <ClInclude Include="Assests\Include\Object\Component\girdMesh.h" />
-    <ClInclude Include="Assests\Include\Managers\globalParametersManager.h" />
+    <ClInclude Include="Assests\Include\Managers\GodClass.h" />
     <ClInclude Include="Assests\Include\Managers\InputSystem.h" />
     <ClInclude Include="Assests\Include\Managers\UI_Manager.h" />
     <ClInclude Include="Assests\Include\Object\Component\mesh.h" />
     <ClInclude Include="Assests\Include\Object\Component\model.h" />
     <ClInclude Include="Assests\Include\Managers\ResourcePathManager.h" />
     <ClInclude Include="Assests\Include\Object\Object.h" />
+    <ClInclude Include="Assests\Include\render\MaskRenderer.h" />
+    <ClInclude Include="Assests\Include\render\Pass\GBufferPass.h" />
+    <ClInclude Include="Assests\Include\render\Pass\RenderPass.h" />
+    <ClInclude Include="Assests\Include\render\RenderContext.h" />
+    <ClInclude Include="Assests\Include\render\RenderPipeline.h" />
     <ClInclude Include="Assests\Include\render\Shaders\BaseLightShader.h" />
     <ClInclude Include="Assests\Include\Object\Component\TextureEnums.h" />
     <ClInclude Include="Assests\Include\Object\Component\TextureResource.h" />

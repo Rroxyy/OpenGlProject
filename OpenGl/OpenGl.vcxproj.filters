@@ -66,13 +66,13 @@
     <ClCompile Include="Assests\Src\Object\Component\baseShader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Assests\Src\Managers\globalParametersManager.cpp">
+    <ClCompile Include="Assests\Src\Managers\GodClass.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Assests\Src\Object\Object.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Assests\Src\Managers\ObjectManager.cpp">
+    <ClCompile Include="Assests\Src\Managers\Scene.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Assests\Src\Object\Component\Transform.cpp">
@@ -82,6 +82,18 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Assests\Src\imgui\ImGuizmo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Assests\Src\render\Render.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Assests\Src\render\RenderPipeLine.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Assests\Include\render\Pass\ForwardPass.h">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Assests\Src\render\Pass\ForwardPass.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -122,7 +134,7 @@
     <ClInclude Include="Assests\Include\Object\Component\girdMesh.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Assests\Include\Managers\globalParametersManager.h">
+    <ClInclude Include="Assests\Include\Managers\GodClass.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Assests\Include\Object\Object.h">
@@ -134,7 +146,7 @@
     <ClInclude Include="Assests\Include\Object\Component\Component.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Assests\Include\Managers\ObjectManager.h">
+    <ClInclude Include="Assests\Include\Managers\Scene.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Assests\Include\Object\Component\ComponentFactory.h">
@@ -156,6 +168,27 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Assests\Include\Math\Ray.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Assests\Include\Math\lib.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Assests\Include\render\MaskRenderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Assests\Include\render\RenderPipeline.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Assests\Include\render\Pass\GBufferPass.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Assests\Include\render\Pass\RenderPass.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Assests\Include\render\RenderContext.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Assests\Include\EnumClass.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

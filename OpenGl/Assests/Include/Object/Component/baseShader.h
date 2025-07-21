@@ -9,7 +9,10 @@
 #include <iostream>
 
 #include "Component.h"
+#include "EnumClass.h"
 #include "Shader.h"
+
+class RenderContext;
 
 class baseShader : public Shader,public Component
 {
@@ -25,8 +28,8 @@ public:
 
 	virtual void setShaderName(const std::string& _ShaderName);
 	virtual const std::string& getShaderName();
-	virtual void blind_shader_value();
-	virtual void unblindShaderValue() const;
+	virtual void use(RenderContext& context);
+	virtual void unuse() const;
 
 	//texture
 	virtual void setTexture(const std::string& nameInShader,TextureResource* tr);
@@ -40,10 +43,27 @@ public:
 	void showUI() override;
 	void start() override;
 
+	//render
+	virtual void setRenderState(bool _useDepth=true,CullMode _cullMode=CullMode::Front)
+	{
+		useDepth = _useDepth;
+		cullMode = _cullMode;
+	}
+	virtual void applyRenderState()
+	{
+		if (useDepth) glEnable(GL_DEPTH_TEST);
+		else glDisable(GL_DEPTH_TEST);
+
+
+	}
 
 protected:
 	std::string shaderName="baseShader";
 	std::vector<std::pair<std::string, TextureResource*>>textureResourcesList;
+
+	//render
+	bool useDepth = true;
+	CullMode cullMode = CullMode::Front;
 
 	ImVec4 defaultColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
 	virtual void blindTexturesChannel() const;

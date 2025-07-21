@@ -2,6 +2,7 @@
 #include <imgui.h>
 
 #include "Component.h"
+#include "MaskRenderer.h"
 #include "model.h"
 
 
@@ -18,6 +19,7 @@ public:
 	const std::string getComponentName() const override
 	{
 		return componentName;
+
 	}
 
 	std::unique_ptr<Component> clone() const override
@@ -70,12 +72,19 @@ public:
 		shader=object->GetComponentAs<baseShader>();
 	}
 
-	void update() override
+	/*void beFocused()
 	{
-		shader->blind_shader_value();
+		MaskRenderer mr;
+		mr.begin();
+		GodClass::getInstance().getFocusShader()->use();
 		model->Draw();
-		shader->unblindShaderValue();
-	}
+		GodClass::getInstance().getFocusShader()->unuse();
+		mr.end();
+	}*/
+
+
+	Model* getModel()const { return model; }
+	baseShader* getShader()const { return shader; }
 
 private:
 	Model* model;

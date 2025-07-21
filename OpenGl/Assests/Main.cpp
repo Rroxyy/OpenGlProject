@@ -25,9 +25,9 @@
 #include "ResourcePathManager.h"
 #include "UI_Manager.h"
 #include "girdMesh.h"
-#include "globalParametersManager.h"
+#include "GodClass.h"
 #include "Object.h"
-#include "ObjectManager.h"
+#include "Scene.h"
 #include "Render.h"
 #include "TextureManager.h"
 #include "imgui/ImGuizmo.h"
@@ -54,11 +54,12 @@ int main()
 {
     GLFWwindow* window = glfwInitialize();
     imguiInitialize(window);
-    globalParametersManager::getInstance().mainCamera = &camera;
 
-    //ObjectManager::getInstance().loadJson();
+    GodClass::getInstance().init(&camera);
 
-    Object* grid = ObjectManager::getInstance().createObjectPtr("Grid");
+    //Scene::getInstance().loadJson();
+
+    Object* grid = Scene::getInstance().createObjectPtr("Grid");
     grid->AddComponent<Model>();
 
 
@@ -73,27 +74,27 @@ int main()
 
     ///////////////////////////////////////////////
     //tv
-    Object* tv = ObjectManager::getInstance().createObjectPtr("TV");
+    Object* tv = Scene::getInstance().createObjectPtr("TV");
     Model tvModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj");
-    std::cout << "??????????????? " << tvModel.aabb << std::endl;
-    auto* temp=tv->AddComponent<Model>(std::move(tvModel));
-    std::cout <<"??????????????? "<< temp->aabb << std::endl;
+    tv->AddComponent<Model>(std::move(tvModel));
     BaseLightShader tvShader("tvShader");
-    tv->AddComponent<BaseLightShader>(std::move(tvShader));
+    baseShader tempShader(ResourcePathManager::getInstance().getFocusShaderVert().c_str(), ResourcePathManager::getInstance().getFocusShaderFrag().c_str());
+    tv->AddComponent<baseShader>(std::move(tempShader));
+    //tv->AddComponent<BaseLightShader>(std::move(tvShader));
     tv->AddComponent<Render>();
 
 
-    TextureResource* baseTex = TextureManager::getInstance()
+  /*  TextureResource* baseTex = TextureManager::getInstance()
 	.createTextureResource("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_MatID.tga");
 	TextureResource * normalTex = TextureManager::getInstance()
 	.createTextureResource("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_Normal_G.tga");
 
     tv->GetComponentAs<BaseLightShader>()->setTexture("texture_base", baseTex);
-    tv->GetComponentAs<BaseLightShader>()->setTexture("texture_normal",normalTex);
+    tv->GetComponentAs<BaseLightShader>()->setTexture("texture_normal",normalTex);*/
 
 
 
-    Object* plane = ObjectManager::getInstance().createObjectPtr("plane");
+    Object* plane = Scene::getInstance().createObjectPtr("plane");
     Model planeModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj");
     plane->AddComponent<Model>(std::move(planeModel));
     baseShader planeShader("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/DepthShader/baseShader.vert",
@@ -103,8 +104,8 @@ int main()
     plane->AddComponent<Render>();
 
 
-    Object* light = ObjectManager::getInstance().createObjectPtr("Light");
-    globalParametersManager::getInstance().mainLight = light;
+    Object* light = Scene::getInstance().createObjectPtr("Light");
+    GodClass::getInstance().mainLight = light;
 
 
     //camera initialize
@@ -119,24 +120,12 @@ int main()
     // draw in wireframe
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-
-    ObjectManager::getInstance().start();
+    //start
+    GodClass::getInstance().start();
 
     while (!glfwWindowShouldClose(window))
     {
-        globalParametersManager::getInstance().updateCurrentFrame();
-        
-
-        InputSystem::getInstance().checkInput(window);
-
-        // render
-        // ------
-        //sky color
-        glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
-        ObjectManager::getInstance().update();
+        GodClass::getInstance().run(window);
 
         //ui
         ui_update();
@@ -205,7 +194,6 @@ void ui_update()
 
     if (ImGui::TreeNode("Gizmos test"))
     {
-        // ✅ 添加 ImGuizmo 初始化调用
         ImGuizmo::BeginFrame();
 
         ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);  // 设置操作区域
@@ -215,8 +203,8 @@ void ui_update()
         ImGuizmo::SetOrthographic(false); 
 
         ImGuizmo::Manipulate(
-            glm::value_ptr(globalParametersManager::getInstance().mainCamera->GetViewMatrix()),
-            glm::value_ptr(globalParametersManager::getInstance().getProjection()),
+            glm::value_ptr(GodClass::getInstance().mainCamera->GetViewMatrix()),
+            glm::value_ptr(GodClass::getInstance().getProjection()),
             ImGuizmo::TRANSLATE,
             ImGuizmo::WORLD,
             glm::value_ptr(modelMatrix));
@@ -270,8 +258,8 @@ GLFWwindow* glfwInitialize()
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(globalParametersManager::getInstance().getWidth(),
-        globalParametersManager::getInstance().getHeight(), "LearnOpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(GodClass::getInstance().getWidth(),
+        GodClass::getInstance().getHeight(), "LearnOpenGL", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -309,7 +297,7 @@ GLFWwindow* glfwInitialize()
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-    globalParametersManager::getInstance().setResolution(width, height);
+    GodClass::getInstance().setResolution(width, height);
     glViewport(0, 0, width, height);
 }
 

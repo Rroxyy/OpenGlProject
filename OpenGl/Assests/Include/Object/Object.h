@@ -8,11 +8,11 @@
 
 class Component;
 class Object {
-    friend class ObjectManager;
+    friend class Scene;
 public:
     size_t id;
     std::string objectName;
-
+    bool beFocused = false;
    
     ~Object();
 

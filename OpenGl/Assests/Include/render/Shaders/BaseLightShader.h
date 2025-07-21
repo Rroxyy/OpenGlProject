@@ -8,7 +8,7 @@ public :
 	BaseLightShader(const std::string& shaderName);
 
 	void showUI()override;
-	void blind_shader_value() override;
+	void use(RenderContext& context) override;
 
 private:
 	int useBaseTex = 1;

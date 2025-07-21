@@ -5,10 +5,18 @@
 #include <json.hpp>
 #include <memory>
 #include <string>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "Component.h"
-#include <glm/glm.hpp>  
-#include <glm/gtc/matrix_transform.hpp>
+
+
+#include "GodClass.h"
+#include "imgui/ImGuizmo.h"
+#include"camera.h"
+#include "InputSystem.h"
+#include "Object.h"
+
+class Model;
 
 class Transform : public Component {
 public:
@@ -25,8 +33,9 @@ public:
     {
         componentName = "Transform";
         dirty = false;
-
     }
+
+    
 
     Transform(const glm::vec3& pos, const glm::vec3& scl, const glm::vec3& rot)
         : position(pos), scale(scl), rotation(rot) {
@@ -95,15 +104,40 @@ public:
 
     void showUI() override
     {
+        dirty = true;
+
         if (ImGui::TreeNode(getComponentName().c_str()))
         {
             ImGui::DragFloat3("Position", &position.x, 0.1f);
             ImGui::DragFloat3("Rotation", &rotation.x, 0.1f);
             ImGui::DragFloat3("Scale", &scale.x, 0.1f);
-            dirty=true;
             ImGui::TreePop();
         }
+
+        // 编辑器 Gizmo 绘制逻辑
+        ImGuiIO& io = ImGui::GetIO();
+        ImGuizmo::BeginFrame();
+
+        ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
+        ImGuizmo::SetOrthographic(false);
+
+        //// 更新 modelMat
+        //dirtyCheck();
+
+        ImGuizmo::Manipulate(
+            glm::value_ptr(GodClass::getInstance().mainCamera->GetViewMatrix()),
+            glm::value_ptr(GodClass::getInstance().getProjection()),
+            InputSystem::getInstance().operation,  // 你也可以添加枚举切换操作类型
+            ImGuizmo::WORLD,
+            glm::value_ptr(modelMat)
+        );
+
+        if (ImGuizmo::IsUsing())
+        {
+            updateFromModelMatrix();  // ←←← 如果有拖动操作，就反解更新 transform
+        }
     }
+
 
 
 
@@ -125,9 +159,10 @@ private:
 
 
             // 旋转（假设 rotation 是欧拉角，单位为弧度）
-            modelMat = glm::rotate(modelMat, rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-            modelMat = glm::rotate(modelMat, rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
             modelMat = glm::rotate(modelMat, rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+            modelMat = glm::rotate(modelMat, rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+            modelMat = glm::rotate(modelMat, rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+
 
             // 缩放
             modelMat = glm::scale(modelMat, scale);
@@ -141,7 +176,29 @@ private:
             forward.z = -cos(pitch) * cos(yaw); // 注意是 -Z（OpenGL惯例）
 
             forward = glm::normalize(forward);
+
+            updateAABB();
         }
     }
+    void updateFromModelMatrix()
+    {
+        float matrix[16];
+        memcpy(matrix, glm::value_ptr(modelMat), sizeof(float) * 16);
+
+        float translation[3], rotationDeg[3], scale[3];
+
+        ImGuizmo::DecomposeMatrixToComponents(matrix, translation, rotationDeg, scale);
+
+        position = glm::vec3(translation[0], translation[1], translation[2]);
+        rotation = glm::radians(glm::vec3(rotationDeg[0], rotationDeg[1], rotationDeg[2])); // 转为弧度
+        this->scale = glm::vec3(scale[0], scale[1], scale[2]);
+
+        dirty = true;          
+        dirtyCheck();          
+
+    }
+
+    void updateAABB();
+   
 };
 

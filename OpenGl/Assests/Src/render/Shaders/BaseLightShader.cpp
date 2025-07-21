@@ -1,6 +1,6 @@
 #include "Shaders/BaseLightShader.h"
 
-#include "globalParametersManager.h"
+#include "GodClass.h"
 #include "Transform.h"
 #include "camera.h"
 #include "ResourcePathManager.h"
@@ -74,18 +74,18 @@ void BaseLightShader::showUI()
 
 
 
-void BaseLightShader::blind_shader_value()
+void BaseLightShader::use(RenderContext& context)
 {
-    baseShader::blind_shader_value();
+    baseShader::use(context);
 
 
 
-    setVec3("cameraPos", globalParametersManager::getInstance().mainCamera->Position);
+    setVec3("cameraPos", GodClass::getInstance().mainCamera->Position);
 
 
     glm::vec3 temp = glm::vec3(lightColor.x, lightColor.y, lightColor.z);
     setVec3("lightColor", temp);
-    setVec3("lightDir", globalParametersManager::getInstance().mainLight->GetComponentAs<Transform>()->getBackDir());
+    setVec3("lightDir", GodClass::getInstance().mainLight->GetComponentAs<Transform>()->getBackDir());
 
     setInt("useBaseTex", useBaseTex);
    

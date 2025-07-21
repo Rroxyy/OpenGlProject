@@ -1,15 +1,25 @@
-#include "InputSystem.h"
+// InputSystem.cpp
 
-#include <glad/glad.h>
+#include <glad/glad.h>         // ✅ 必须第一个引入 OpenGL 的头，只用 glad 提供的
+
 #include <GLFW/glfw3.h>
+#include <iostream>
+#include <ostream>
 
+#include <imgui.h>
+#include <imgui_internal.h>    // 推荐：有些 ImGuizmo 版本依赖这个
+#include "imgui/ImGuizmo.h"
+
+#include "InputSystem.h"
 #include "camera.h"
-#include "globalParametersManager.h"
+#include "GodClass.h"
+
 
 InputSystem::InputSystem()
 {
     isMoving = false;
     firstMouse = true;
+    operation = ImGuizmo::TRANSLATE;
 }
 InputSystem::~InputSystem()
 {
@@ -28,6 +38,7 @@ InputSystem& InputSystem::getInstance()
 
 void InputSystem::checkInput(GLFWwindow* window)
 {
+    //exit
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 
@@ -50,53 +61,93 @@ void InputSystem::checkInput(GLFWwindow* window)
         isMoving = false;
     }
 
+
+
     if (isMoving)
     {
-        Camera* camera = globalParametersManager::getInstance().mainCamera;
-        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-            camera->IsPushing = true;
-
-        float deltaTime = globalParametersManager::getInstance().getFrameTime();
-
-        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-            camera->ProcessKeyboard(FORWARD, deltaTime);
-        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-            camera->ProcessKeyboard(BACKWARD, deltaTime);
-        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-            camera->ProcessKeyboard(LEFT, deltaTime);
-        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-            camera->ProcessKeyboard(RIGHT, deltaTime);
-        if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-            camera->ProcessKeyboard(DOWN, deltaTime);
-        if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-            camera->ProcessKeyboard(UP, deltaTime);
-        camera->IsPushing = false;
+        moveLogic(window);
+    }
+    else
+    {
+        if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+        {
+	        
+        }
+        else
+        {
+            transformLogic(window);
+        }
     }
 }
 
+void InputSystem::transformLogic(GLFWwindow* window)
+{
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        operation = ImGuizmo::TRANSLATE;
+
+    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+        operation = ImGuizmo::ROTATE;
+
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+        operation = ImGuizmo::SCALE;
+}
+
+
+
+
+void InputSystem::moveLogic(GLFWwindow* window)
+{
+    Camera* camera = GodClass::getInstance().mainCamera;
+    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+        camera->IsPushing = true;
+
+    float deltaTime = GodClass::getInstance().getFrameTime();
+
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        camera->ProcessKeyboard(FORWARD, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        camera->ProcessKeyboard(BACKWARD, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        camera->ProcessKeyboard(LEFT, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        camera->ProcessKeyboard(RIGHT, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+        camera->ProcessKeyboard(DOWN, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+        camera->ProcessKeyboard(UP, deltaTime);
+    camera->IsPushing = false;
+}
+
+
+
+
+
+/// ///////////////////////////////////////////////////////////
 void InputSystem::mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 {
-    if (!getInstance().isMoving)return;
-    float xpos = static_cast<float>(xposIn);
-    float ypos = static_cast<float>(yposIn);
+    nowX = static_cast<float>(xposIn);
+    nowY = static_cast<float>(yposIn);
 
     if (firstMouse)
     {
-        lastX = xpos;
-        lastY = ypos;
+        lastX = nowX;
+        lastY = nowY;
         firstMouse = false;
     }
 
-    float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+    float xoffset = nowX - lastX;
+    float yoffset = lastY - nowY; // reversed since y-coordinates go from bottom to top
 
-    lastX = xpos;
-    lastY = ypos;
+    lastX = nowX;
+    lastY = nowY;
 
-    globalParametersManager::getInstance().mainCamera->ProcessMouseMovement(xoffset, yoffset);
+    //std::cout << nowX << " " <<nowY << std::endl;
+
+    if (!getInstance().isMoving)return;
+    GodClass::getInstance().mainCamera->ProcessMouseMovement(xoffset, yoffset);
 }
 void InputSystem::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     if (!getInstance().isMoving)return;
-    globalParametersManager::getInstance().mainCamera->ProcessMouseScroll(static_cast<float>(yoffset));
+    GodClass::getInstance().mainCamera->ProcessMouseScroll(static_cast<float>(yoffset));
 }

@@ -3,7 +3,7 @@
 #include <string>
 
 #include "json.hpp"
-#include "ObjectManager.h"
+#include "Scene.h"
 #include "ComponentFactory.h"
 #include "UI_Manager.h"
 
@@ -48,6 +48,8 @@ void Object::afterUpdate()
 
 void Object::showUI()
 {
+    //ImGui::SetNextItemOpen(beFocused, ImGuiCond_Always);
+
 	if (ImGui::TreeNode((getObjectName()+ std::to_string(id)).c_str()))
 	{
         for (auto& it:components)

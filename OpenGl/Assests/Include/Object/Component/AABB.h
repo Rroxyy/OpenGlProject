@@ -1,4 +1,6 @@
 ﻿#pragma once
+
+#include <imgui.h>
 #include <glm/glm.hpp>
 #include <limits>
 #include <algorithm>
@@ -52,6 +54,41 @@ public:
         min_AABB = glm::min(min_AABB, other.min_AABB);
         max_AABB = glm::max(max_AABB, other.max_AABB);
     }
+
+    AABB translateToWorld_AABB(const glm::mat4& modelMat)
+    {
+        AABB worldBox;
+
+        // 原始局部空间 AABB 的8个角点
+        glm::vec3 corners[8] = {
+            { min_AABB.x, min_AABB.y, min_AABB.z },
+            { max_AABB.x, min_AABB.y, min_AABB.z },
+            { min_AABB.x, max_AABB.y, min_AABB.z },
+            { max_AABB.x, max_AABB.y, min_AABB.z },
+            { min_AABB.x, min_AABB.y, max_AABB.z },
+            { max_AABB.x, min_AABB.y, max_AABB.z },
+            { min_AABB.x, max_AABB.y, max_AABB.z },
+            { max_AABB.x, max_AABB.y, max_AABB.z },
+        };
+
+        // 初始化极值
+        glm::vec3 newMin(FLT_MAX), newMax(-FLT_MAX);
+
+        for (int i = 0; i < 8; ++i)
+        {
+            glm::vec4 transformed = modelMat * glm::vec4(corners[i], 1.0f);
+            glm::vec3 pos = glm::vec3(transformed);
+
+            newMin = glm::min(newMin, pos);
+            newMax = glm::max(newMax, pos);
+        }
+
+        worldBox.min_AABB = newMin;
+        worldBox.max_AABB = newMax;
+
+        return worldBox;
+    }
+
 
     // 获取盒子的中心点
     glm::vec3 getCenter() const

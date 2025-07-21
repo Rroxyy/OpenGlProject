@@ -43,11 +43,9 @@ public:
     {
         componentName = "Model";
     }
-    
-    
-    Model(std::string const& _path) 
+   
+    Model(std::string const& _path) :Model()
     {
-        componentName = "Model";
         filePath = _path;
         loadModel(_path);
     }
@@ -60,8 +58,8 @@ public:
     void addMesh(Mesh* mesh)
     {
         meshes.emplace_back(std::move(*mesh));
-
         setMeshName();
+        resetAABB();
     }
 
 
@@ -93,7 +91,6 @@ public:
     {
 	    if (ImGui::TreeNode(getComponentName().c_str()))
 	    {
-		    std::cout << aabb << std::endl;
             aabb.showUI();
 
 		    for (auto&it:meshes)
@@ -113,6 +110,21 @@ public:
             meshes[i].Draw();
     }
 
+    void setObject(Object* objectptr) override
+    {
+        object = objectptr;
+        resetAABB();
+    }
+    void resetAABB()
+    {
+        if (meshes.empty())return;
+        auto* translatePtr = object->GetComponentExact<Transform>();
+        aabb = meshes.front().aabb.translateToWorld_AABB(translatePtr->getModelMat4());
+        for (auto& it : meshes)
+        {
+            aabb.merge(it.aabb.translateToWorld_AABB(translatePtr->getModelMat4()));
+        }
+    }
 
 private:
 
@@ -140,22 +152,9 @@ private:
         processNode(scene->mRootNode, scene);
 
         setMeshName();
-
-        resetAABB();
     }
 
-    void resetAABB()
-    {
-        
-        aabb = meshes.front().aabb;
-        std::cout << aabb << std::endl;
-        std::cout << meshes.front().aabb << std::endl;
-        for (auto& it:meshes)
-        {
-            std::cout << "it:  " << it.aabb << std::endl;
-            aabb.merge(it.aabb);
-        }
-    }
+    
 
     // 递归处理模型的节点
     void processNode(aiNode* node, const aiScene* scene)

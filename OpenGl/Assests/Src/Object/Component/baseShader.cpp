@@ -1,11 +1,12 @@
 #include "baseShader.h"
 
 #include "camera.h"
-#include "globalParametersManager.h"
+#include "GodClass.h"
 #include "Object.h"
 #include "ResourcePathManager.h"
 #include "UI_Manager.h"
 #include "plugins.h"
+#include "RenderContext.h"
 #include "TextureResource.h"
 
 baseShader::baseShader(const char* vertexPath, const char* fragmentPath,const std::string& _shaderName)
@@ -63,7 +64,7 @@ void baseShader::blindTexturesChannel()const
 
 }
 
-void baseShader::unblindShaderValue()const
+void baseShader::unuse()const
 {
     int textureChannel = 0;
     for (const auto& it : textureResourcesList)
@@ -104,16 +105,18 @@ void baseShader::showUI()
 }
 
 
-void baseShader::blind_shader_value()
+void baseShader::use(RenderContext& context)
 {
+    context.setRenderState(useDepth, cullMode);
+
     Shader::use();
     //texture
     blindTexturesChannel();
 
     /////////////////////////
     //must pass these
-    setMat4("projection", globalParametersManager::getInstance().getProjection());
-    setMat4("view", globalParametersManager::getInstance().mainCamera->GetViewMatrix());
+    setMat4("projection", GodClass::getInstance().getProjection());
+    setMat4("view", GodClass::getInstance().mainCamera->GetViewMatrix());
     setMat4("model", object->GetComponentAs<Transform>()->getModelMat4());
     /////////////////////////
 

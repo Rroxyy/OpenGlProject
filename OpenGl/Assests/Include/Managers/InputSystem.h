@@ -1,16 +1,23 @@
 ﻿#pragma once
-
+#include <imgui.h>
+#include "imgui/ImGuizmo.h"
 
 
 struct GLFWwindow;
-
 class InputSystem
 {
 public:
 	bool isMoving;
+	ImGuizmo::OPERATION operation;
+
 
 	static InputSystem& getInstance();
+
+	
 	void checkInput(GLFWwindow* window);
+	void moveLogic(GLFWwindow* window);
+	void transformLogic(GLFWwindow* window);
+
 	void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
 	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
@@ -28,6 +35,9 @@ private:
 
 	float lastX;
 	float lastY;
+
+	float nowX;
+	float nowY;
 	bool firstMouse;
 };
 

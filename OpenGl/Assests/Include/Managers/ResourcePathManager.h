@@ -27,6 +27,15 @@ public:
 		return baseLightShaderFrag;
 	}
 
+	const std::string& getFocusShaderVert()const
+	{
+		return focusShaderVert;
+	}
+	const std::string& getFocusShaderFrag()const
+	{
+		return focusShaderFrag;
+	}
+
 	
 private:
 	const std::string baseShaderVert = "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/BaseShader/baseShader.vert";
@@ -35,8 +44,17 @@ private:
 	const std::string baseLightShaderVert = "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/BaseLightShader/baseLightShader.vert";
 	const std::string baseLightShaderFrag = "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/BaseLightShader/baseLightShader.frag";
 
+	const std::string focusShaderVert = "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/Focus/Focus.vert";
+	const std::string focusShaderFrag = "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/Focus/Focus.frag";
+
+
+
+
+
 	const std::string gridShaderVert = "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/grid/grid.vert";
 	const std::string gridShaderFrag = "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/grid/grid.frag";
+
+	
 
 	ResourcePathManager()=default;
 	~ResourcePathManager()=default;
