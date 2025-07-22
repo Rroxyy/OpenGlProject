@@ -1,8 +1,8 @@
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\Pass\ForwardPass.h;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\ForwardPass.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Lib\glad.c;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\glad.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Main.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\Main.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\imgui\ImGuizmo.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\ImGuizmo.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\Scene.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\Scene.obj
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Object\Component\camera.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\camera.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Object\Component\Transform.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\Transform.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Object\Object.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\Object.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Object\Component\baseShader.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\baseShader.obj

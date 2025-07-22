@@ -1,22 +1,28 @@
 ﻿#pragma once
 #include <memory>
-#include <glm/gtc/matrix_transform.hpp>
+#include <glm/detail/type_mat.hpp>
 
 #include "baseShader.h"
+#include"camera.h"
 
-class Camera;
+//class Camera;
 class Object;
 class Transform;
 class RenderPipeline;
+struct GLFWwindow;
+
+
 
 class GodClass
 {
 public:
-	Camera* mainCamera;
+	GLFWwindow* window = nullptr;
+
+	//Camera* mainCamera;
 	Object* mainLight;
 	bool projectionDirty = true;
 
-	void init(Camera* camera);
+	void init(GLFWwindow* _window);
 	static GodClass& getInstance()
 	{
 		static GodClass instance;
@@ -39,21 +45,31 @@ public:
 	{
 		return currentFrame - lastFrame;
 	}
-
 	baseShader* getFocusShader()
 	{
 		return focusShader.get();
 	}
 
+	Camera* getMainCamera() { return camera.get(); }
+
 	void start();
-	
+
+	//call back
+	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+	static void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
+	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+
+
+	//awake
+
+
 	//update
 	void run(GLFWwindow* window);
 
 	
 private:
+	std::unique_ptr<Camera>camera;
 	glm::mat4 projectionMat;
-
 	unsigned int SCR_WIDTH = 800;
 	unsigned int SCR_HEIGHT = 600;
 

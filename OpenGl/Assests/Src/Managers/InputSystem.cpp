@@ -97,7 +97,7 @@ void InputSystem::transformLogic(GLFWwindow* window)
 
 void InputSystem::moveLogic(GLFWwindow* window)
 {
-    Camera* camera = GodClass::getInstance().mainCamera;
+    Camera* camera = GodClass::getInstance().getMainCamera();
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
         camera->IsPushing = true;
 
@@ -144,10 +144,10 @@ void InputSystem::mouse_callback(GLFWwindow* window, double xposIn, double yposI
     //std::cout << nowX << " " <<nowY << std::endl;
 
     if (!getInstance().isMoving)return;
-    GodClass::getInstance().mainCamera->ProcessMouseMovement(xoffset, yoffset);
+    GodClass::getInstance().getMainCamera()->ProcessMouseMovement(xoffset, yoffset);
 }
 void InputSystem::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     if (!getInstance().isMoving)return;
-    GodClass::getInstance().mainCamera->ProcessMouseScroll(static_cast<float>(yoffset));
+    GodClass::getInstance().getMainCamera()->ProcessMouseScroll(static_cast<float>(yoffset));
 }

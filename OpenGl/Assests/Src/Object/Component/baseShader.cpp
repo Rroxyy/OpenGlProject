@@ -107,7 +107,6 @@ void baseShader::showUI()
 
 void baseShader::use(RenderContext& context)
 {
-    context.setRenderState(useDepth, cullMode);
 
     Shader::use();
     //texture
@@ -116,8 +115,8 @@ void baseShader::use(RenderContext& context)
     /////////////////////////
     //must pass these
     setMat4("projection", GodClass::getInstance().getProjection());
-    setMat4("view", GodClass::getInstance().mainCamera->GetViewMatrix());
-    setMat4("model", object->GetComponentAs<Transform>()->getModelMat4());
+    setMat4("view", GodClass::getInstance().getMainCamera()->GetViewMatrix());
+    setMat4("model", object->GetComponentExact<Transform>()->getModelMat4());
     /////////////////////////
 
     glm::vec3 temp = glm::vec3(defaultColor.x, defaultColor.y, defaultColor.z);

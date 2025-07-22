@@ -125,7 +125,7 @@ public:
         //dirtyCheck();
 
         ImGuizmo::Manipulate(
-            glm::value_ptr(GodClass::getInstance().mainCamera->GetViewMatrix()),
+            glm::value_ptr(GodClass::getInstance().getMainCamera()->GetViewMatrix()),
             glm::value_ptr(GodClass::getInstance().getProjection()),
             InputSystem::getInstance().operation,  // 你也可以添加枚举切换操作类型
             ImGuizmo::WORLD,

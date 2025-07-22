@@ -90,17 +90,14 @@
     <ClCompile Include="Assests\Src\render\RenderPipeLine.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Assests\Include\render\Pass\ForwardPass.h">
+    <ClCompile Include="Assests\Src\render\Pass\ForwardPass.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Assests\Src\render\Pass\ForwardPass.cpp">
+    <ClCompile Include="Assests\Src\Object\Component\camera.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Assests\Include\camera.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Assests\Include\render\Shader.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -125,7 +122,7 @@
     <ClInclude Include="Assests\Include\Managers\ResourcePathManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Assests\Include\Object\Component\baseShader.h">
+    <ClInclude Include="Assests\Include\render\Shaders\baseShader.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Assests\Include\Managers\UI_Manager.h">
@@ -173,7 +170,7 @@
     <ClInclude Include="Assests\Include\Math\lib.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Assests\Include\render\MaskRenderer.h">
+    <ClInclude Include="Assests\Include\render\RendererTarget.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Assests\Include\render\RenderPipeline.h">
@@ -189,6 +186,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Assests\Include\EnumClass.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Assests\Include\render\Pass\ForwardPass.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Assests\Include\Object\Component\camera.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

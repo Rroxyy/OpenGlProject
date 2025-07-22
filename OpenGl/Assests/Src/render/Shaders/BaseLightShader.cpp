@@ -80,7 +80,7 @@ void BaseLightShader::use(RenderContext& context)
 
 
 
-    setVec3("cameraPos", GodClass::getInstance().mainCamera->Position);
+    setVec3("cameraPos", GodClass::getInstance().getMainCamera()->Position);
 
 
     glm::vec3 temp = glm::vec3(lightColor.x, lightColor.y, lightColor.z);

@@ -64,7 +64,6 @@ public:
 	:Mesh(vertices,indices)
     {
         aabb = _aabb;
-        std::cout << "fkkk  " << aabb << std::endl;
     }
 
     ~Mesh()

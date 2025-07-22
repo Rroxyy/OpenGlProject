@@ -2,7 +2,6 @@
 #include <imgui.h>
 
 #include "Component.h"
-#include "MaskRenderer.h"
 #include "model.h"
 
 
@@ -74,7 +73,7 @@ public:
 
 	/*void beFocused()
 	{
-		MaskRenderer mr;
+		RendererTarget mr;
 		mr.begin();
 		GodClass::getInstance().getFocusShader()->use();
 		model->Draw();
