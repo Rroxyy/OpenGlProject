@@ -22,7 +22,7 @@ public:
 	CullMode cullMode = CullMode::Back;
 
 	baseShader();
-	baseShader(const char* vertexPath, const char* fragmentPath, const std::string& _shaderName = "baseSHader");
+	baseShader(const char* vertexPath, const char* fragmentPath, const std::string& _shaderName = "baseShader");
 	baseShader(const std::string& _shaderName);
 
 	~baseShader()
@@ -32,7 +32,8 @@ public:
 
 	virtual void setShaderName(const std::string& _ShaderName);
 	virtual const std::string& getShaderName();
-	virtual void use(RenderContext& context);
+	virtual void use();
+	virtual void use(Object* obj);
 	virtual void unuse() const;
 
 	//texture

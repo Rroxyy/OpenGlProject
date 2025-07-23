@@ -9,10 +9,12 @@ class UIManager {
 public:
     using UIDrawFunc = std::function<void()>;
 
-    void Register(const UIDrawFunc& func) {
-        drawFuncs.push_back(func);
+    void RegisterForMainWindow(const UIDrawFunc& func) {
+        mainUI.push_back(func);
     }
-
+    void RegisterForRendererPassesWindow(const UIDrawFunc& func) {
+        renderPassesUI.push_back(func);
+    }
     
 
     void DrawAllUI() {
@@ -22,26 +24,39 @@ public:
         ImGuiIO& io = ImGui::GetIO();
 
 
-        ImGui::Begin("Control Panel");
+        ImGui::Begin("Main Windows");
         ImGui::Spacing();
-
         showFPS();
-
-        drawObjectsUI();
-
+        drawMainUI();
         ImGui::End();
+
+
+        ImGui::Begin("Renderer Passes Windows");
+        ImGui::Spacing();
+        
+        drawRenderPassesUI();
+        ImGui::End();
+
 
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     }
 
-    void drawObjectsUI()
+    void drawMainUI()const 
 	{
-        for (const auto& func : drawFuncs) 
+        for (const auto& func : mainUI) 
         {
             func();
         }
 	}
+    void drawRenderPassesUI()const
+    {
+        for (const auto& func :renderPassesUI)
+        {
+            func();
+        }
+    }
+
 
     void showFPS()
     {
@@ -81,5 +96,6 @@ private:
     UIManager& operator=(UIManager&&) = delete;      // 移动赋值
 
 
-    std::vector<UIDrawFunc> drawFuncs;
+    std::vector<UIDrawFunc> mainUI;
+    std::vector<UIDrawFunc> renderPassesUI;
 };

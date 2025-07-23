@@ -105,9 +105,9 @@ void baseShader::showUI()
 }
 
 
-void baseShader::use(RenderContext& context)
+void baseShader::use()
 {
-
+    if (object == nullptr)return;
     Shader::use();
     //texture
     blindTexturesChannel();
@@ -122,6 +122,24 @@ void baseShader::use(RenderContext& context)
     glm::vec3 temp = glm::vec3(defaultColor.x, defaultColor.y, defaultColor.z);
     setVec3("defaultColor", temp);
 }
+
+void baseShader::use(Object* obj)
+{
+    Shader::use();
+    //texture
+    blindTexturesChannel();
+
+    /////////////////////////
+    //must pass these
+    setMat4("projection", GodClass::getInstance().getProjection());
+    setMat4("view", GodClass::getInstance().getMainCamera()->GetViewMatrix());
+    setMat4("model", obj->GetComponentExact<Transform>()->getModelMat4());
+    /////////////////////////
+
+    glm::vec3 temp = glm::vec3(defaultColor.x, defaultColor.y, defaultColor.z);
+    setVec3("defaultColor", temp);
+}
+
 
 
 void baseShader::setShaderName(const std::string& _ShaderName)

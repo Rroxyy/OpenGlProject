@@ -12,6 +12,7 @@ class Object {
 public:
     size_t id;
     std::string objectName;
+    bool preFocused = false;;
     bool beFocused = false;
    
     ~Object();

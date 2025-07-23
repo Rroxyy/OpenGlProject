@@ -2,6 +2,7 @@
 #include <json.hpp>
 #include <memory>
 #include <unordered_map>
+#include <unordered_set>
 
 
 class Object;
@@ -30,6 +31,10 @@ public:
 	bool removeObject(size_t id);
 	bool removeObject(Object* object);
 
+	void addFocusedObj(Object* obj);
+	void removeFocusedObj(Object* obj);
+	const std::unordered_set<Object*>& getFoucusedObjects()const;
+
 	const std::vector<Object*>& getObjectList()const { return objectList; }
 
 	void saveJson();
@@ -45,6 +50,7 @@ private:
 	size_t objectCnt=0;
 	std::unordered_map<size_t, std::unique_ptr<Object>>objects;
 	std::vector<Object*> objectList;
+	std::unordered_set<Object*>focusObjects;
 
 	Scene() = default;
 	~Scene();

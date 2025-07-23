@@ -72,3 +72,29 @@ static glm::vec2 jsonToVec2(const nlohmann::json& j)
         j.at("y").get<float>()
     );
 }
+
+
+
+
+
+
+
+
+/////////////////////////////////file///////////////////////////////////////
+inline void loadFileToString(const char* fragmentPath, std::string& outContent)
+{
+    std::ifstream fShaderFile;
+    fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+    outContent.clear();
+    try {
+        fShaderFile.open(fragmentPath);
+        std::stringstream fShaderStream;
+        fShaderStream << fShaderFile.rdbuf();
+        fShaderFile.close();
+        outContent = fShaderStream.str().c_str();
+    }
+    catch (std::ifstream::failure& e) {
+        std::cout << "ERROR::SHADER::FRAGMENT_FILE_NOT_READ: " << e.what() << std::endl;
+    }
+}

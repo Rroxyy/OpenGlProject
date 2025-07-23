@@ -74,9 +74,9 @@ void BaseLightShader::showUI()
 
 
 
-void BaseLightShader::use(RenderContext& context)
+void BaseLightShader::use()
 {
-    baseShader::use(context);
+    baseShader::use();
 
 
 

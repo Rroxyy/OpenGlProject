@@ -118,6 +118,7 @@ public:
     void resetAABB()
     {
         if (meshes.empty())return;
+        if (object == nullptr)return;
         auto* translatePtr = object->GetComponentExact<Transform>();
         aabb = meshes.front().aabb.translateToWorld_AABB(translatePtr->getModelMat4());
         for (auto& it : meshes)

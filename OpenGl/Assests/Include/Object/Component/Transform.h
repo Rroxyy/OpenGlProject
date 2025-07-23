@@ -102,6 +102,8 @@ public:
         dirty = true;
     }
 
+   
+
     void showUI() override
     {
         dirty = true;
@@ -114,6 +116,12 @@ public:
             ImGui::TreePop();
         }
 
+        drawManipulate();
+    }
+
+
+    void drawManipulate()
+    {
         // 编辑器 Gizmo 绘制逻辑
         ImGuiIO& io = ImGui::GetIO();
         ImGuizmo::BeginFrame();
@@ -137,7 +145,6 @@ public:
             updateFromModelMatrix();  // ←←← 如果有拖动操作，就反解更新 transform
         }
     }
-
 
 
 
@@ -193,8 +200,8 @@ private:
         rotation = glm::radians(glm::vec3(rotationDeg[0], rotationDeg[1], rotationDeg[2])); // 转为弧度
         this->scale = glm::vec3(scale[0], scale[1], scale[2]);
 
-        dirty = true;          
-        dirtyCheck();          
+        /*dirty = true;          
+        dirtyCheck();       */   
 
     }
 

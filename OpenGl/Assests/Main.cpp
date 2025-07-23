@@ -56,7 +56,7 @@ GLFWwindow* glfwInitialize()
     glfwSetCursorPosCallback(window, GodClass::mouse_callback);
     glfwSetScrollCallback(window, GodClass::scroll_callback);
 
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -90,7 +90,7 @@ void imguiInitialize(GLFWwindow* window)
 
     std::cout << "imguiInitialize ok" << std::endl;
 }
-glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+//glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
 int main()
 {
@@ -119,7 +119,7 @@ int main()
     Model tvModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj");
     tv->AddComponent<Model>(std::move(tvModel));
     BaseLightShader tvShader("tvShader");
-    //baseShader tempShader(ResourcePathManager::getInstance().getFocusShaderVert().c_str(), ResourcePathManager::getInstance().getFocusShaderFrag().c_str());
+    //baseShader tempShader(ResourcePathManager::getInstance().getOutlineShaderVert().c_str(), ResourcePathManager::getInstance().getOutlineShaderFrag().c_str());
     //tv->AddComponent<baseShader>(std::move(tempShader));
     tv->AddComponent<BaseLightShader>(std::move(tvShader));
     tv->AddComponent<Render>();

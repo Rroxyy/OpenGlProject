@@ -17,7 +17,10 @@ C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\GodClass.cp
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\InputSystem.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\InputSystem.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\ResourcePathManager.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\ResourcePathManager.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Pass\ForwardPass.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\ForwardPass.obj
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Pass\OutlinePass.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\OutlinePass.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Render.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\Render.obj
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\RendererTarget.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\RendererTarget.obj
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\RenderPass.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\RenderPass.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\RenderPipeLine.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\RenderPipeLine.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\shader.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\shader.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Shaders\BaseLightShader.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\BaseLightShader.obj

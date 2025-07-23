@@ -25,7 +25,7 @@ public:
 private:
     std::unique_ptr<RenderContext> context;
     std::vector<std::unique_ptr<RenderPass>> passes;
-
+    std::unordered_map<std::string, RenderPass*> passesMap;
 
 
     RenderPipeline();

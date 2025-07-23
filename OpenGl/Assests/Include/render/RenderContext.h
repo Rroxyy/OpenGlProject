@@ -41,16 +41,18 @@ public:
         }
     }
 
-    void setRenderState(bool enable,CullMode mode)
+    void setRenderState(baseShader* shader)
     {
-	    if (enable!=useDepth)
+        bool _useDepth = shader->useDepth;
+        CullMode _cullMode = shader->cullMode;
+	    if (_useDepth!=useDepth)
 	    {
-            useDepth = enable;
+            _useDepth = useDepth;
             setDepthTest();
 	    }
-        if (mode!=cullMode)
+        if (_cullMode!=cullMode)
         {
-            cullMode = mode;
+            cullMode = _cullMode;
             setCullMode();
         }
     }

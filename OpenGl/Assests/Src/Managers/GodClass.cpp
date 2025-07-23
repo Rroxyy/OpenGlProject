@@ -28,8 +28,8 @@ void GodClass::init(GLFWwindow* _window)
     camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 3.0f));
 
 	focusShader = std::make_unique<baseShader>(
-		ResourcePathManager::getInstance().getFocusShaderVert().c_str(),
-		ResourcePathManager::getInstance().getFocusShaderFrag().c_str(),
+		ResourcePathManager::getInstance().getOutlineShaderVert().c_str(),
+		ResourcePathManager::getInstance().getOutlineShaderFrag().c_str(),
 		"focusShader"
 	);
 	renderPipeline = &RenderPipeline::getInstance();

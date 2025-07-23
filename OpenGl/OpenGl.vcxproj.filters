@@ -96,6 +96,15 @@
     <ClCompile Include="Assests\Src\Object\Component\camera.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Assests\Src\render\RendererTarget.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Assests\Src\render\Pass\OutlinePass.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Assests\Src\render\RenderPass.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assests\Include\render\Shader.h">
@@ -176,9 +185,6 @@
     <ClInclude Include="Assests\Include\render\RenderPipeline.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Assests\Include\render\Pass\GBufferPass.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Assests\Include\render\Pass\RenderPass.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -192,6 +198,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Assests\Include\Object\Component\camera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Assests\Include\render\Pass\OutlinePass.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Assests\Include\Object\Component\QuadMesh.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,36 +1,10 @@
-﻿  ForwardPass.cpp
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\RendererTarget.h(109,37): warning C4244: “return”: 从“const int”转换到“float”，可能丢失数据
-  (编译源文件“Assests/Src/render/Pass/ForwardPass.cpp”)
+﻿  OutlinePass.cpp
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\RendererTarget.h(102,38): warning C4244: “return”: 从“const int”转换到“float”，可能丢失数据
+  (编译源文件“Assests/Src/render/Pass/OutlinePass.cpp”)
   
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\RendererTarget.h(110,38): warning C4244: “return”: 从“const int”转换到“float”，可能丢失数据
-  (编译源文件“Assests/Src/render/Pass/ForwardPass.cpp”)
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\RendererTarget.h(103,38): warning C4244: “return”: 从“const int”转换到“float”，可能丢失数据
+  (编译源文件“Assests/Src/render/Pass/OutlinePass.cpp”)
   
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Managers\UI_Manager.h(53,28): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-  (编译源文件“Assests/Src/render/Pass/ForwardPass.cpp”)
-  
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\Pass\ForwardPass.h(38,94): warning C4244: “参数”: 从“unsigned int”转换到“float”，可能丢失数据
-  (编译源文件“Assests/Src/render/Pass/ForwardPass.cpp”)
-  
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\Pass\ForwardPass.h(38,57): warning C4244: “参数”: 从“unsigned int”转换到“float”，可能丢失数据
-  (编译源文件“Assests/Src/render/Pass/ForwardPass.cpp”)
-  
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Pass\ForwardPass.cpp(32,77): warning C4244: “参数”: 从“float”转换到“GLint”，可能丢失数据
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Pass\ForwardPass.cpp(32,51): warning C4244: “参数”: 从“float”转换到“GLint”，可能丢失数据
-  RenderPipeLine.cpp
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\RendererTarget.h(109,37): warning C4244: “return”: 从“const int”转换到“float”，可能丢失数据
-  (编译源文件“Assests/Src/render/RenderPipeLine.cpp”)
-  
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\RendererTarget.h(110,38): warning C4244: “return”: 从“const int”转换到“float”，可能丢失数据
-  (编译源文件“Assests/Src/render/RenderPipeLine.cpp”)
-  
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\Managers\UI_Manager.h(53,28): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-  (编译源文件“Assests/Src/render/RenderPipeLine.cpp”)
-  
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\Pass\ForwardPass.h(38,94): warning C4244: “参数”: 从“unsigned int”转换到“float”，可能丢失数据
-  (编译源文件“Assests/Src/render/RenderPipeLine.cpp”)
-  
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\Pass\ForwardPass.h(38,57): warning C4244: “参数”: 从“unsigned int”转换到“float”，可能丢失数据
-  (编译源文件“Assests/Src/render/RenderPipeLine.cpp”)
-  
-  正在生成代码...
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Pass\OutlinePass.cpp(91,90): warning C4244: “参数”: 从“unsigned int”转换到“float”，可能丢失数据
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Pass\OutlinePass.cpp(91,53): warning C4244: “参数”: 从“unsigned int”转换到“float”，可能丢失数据
   OpenGl.vcxproj -> C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\x64\Debug\OpenGl.exe

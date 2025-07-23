@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <unordered_set>
 #include "Object.h"
 
 Scene::~Scene()
@@ -34,6 +35,7 @@ void Scene::update()
 	{
 		it.second.get()->update();
 	}
+
 }
 
 
@@ -111,6 +113,22 @@ bool Scene::removeObject(Object* object)
 {
 	return removeObject(object->id);
 }
+
+void Scene::addFocusedObj(Object* obj)
+{
+	focusObjects.insert(obj);
+}
+void Scene::removeFocusedObj(Object* obj)
+{
+	focusObjects.erase(obj);
+}
+const std::unordered_set<Object*>& Scene::getFoucusedObjects() const
+{
+	return focusObjects;
+}
+
+
+
 
 void Scene::saveJson()
 {

@@ -5,12 +5,13 @@
 #include "RenderContext.h"
 
 
-
+//run per frame
 void ForwardPass::execute(RenderContext& context)
 {
+    renderTarget->resize(GodClass::getInstance().getWidth(), GodClass::getInstance().getHeight());
     renderTarget->begin();
 
-    glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // 红色
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f); 
 
     for (auto* obj : Scene::getInstance().getObjectList()) {
         auto* render = obj->GetComponentExact<Render>();
@@ -18,21 +19,15 @@ void ForwardPass::execute(RenderContext& context)
 
         baseShader* shader = render->getShader();
         Model* model = render->getModel();
-
-        context.setRenderState(shader->useDepth, shader->cullMode);
-
-        shader->use(context);
+        context.setRenderState(shader);
+        shader->use();
         model->Draw();
         shader->unuse();
     }
     renderTarget->end();
-
-    glBindFramebuffer(GL_READ_FRAMEBUFFER, renderTarget->getFBO());
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);  // 默认 framebuffer
-    glBlitFramebuffer(0, 0, renderTarget->getWidth(),renderTarget->getHeight(),
-        0, 0, GodClass::getInstance().getWidth(), GodClass::getInstance().getHeight(),
-        GL_COLOR_BUFFER_BIT, GL_NEAREST);
-
 }
+
+
+
 
 

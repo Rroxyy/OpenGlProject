@@ -27,15 +27,24 @@ public:
 		return baseLightShaderFrag;
 	}
 
-	const std::string& getFocusShaderVert()const
+	const std::string& getOutlineShaderVert()const
 	{
-		return focusShaderVert;
+		return outlineShaderVert;
 	}
-	const std::string& getFocusShaderFrag()const
+	const std::string& getOutlineShaderFrag()const
 	{
-		return focusShaderFrag;
+		return outlineShaderFrag;
 	}
 
+
+	const std::string& getQuadOutlineShaderVert()const
+	{
+		return QuadOutlineShaderVert;
+	}
+	const std::string& getQuadOutlineShaderFrag()const
+	{
+		return QuadOutlineShaderFrag;
+	}
 	
 private:
 	const std::string baseShaderVert = "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/BaseShader/baseShader.vert";
@@ -44,10 +53,11 @@ private:
 	const std::string baseLightShaderVert = "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/BaseLightShader/baseLightShader.vert";
 	const std::string baseLightShaderFrag = "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/BaseLightShader/baseLightShader.frag";
 
-	const std::string focusShaderVert = "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/Focus/Focus.vert";
-	const std::string focusShaderFrag = "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/Focus/Focus.frag";
+	const std::string outlineShaderVert = "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/Outline/Outline.vert";
+	const std::string outlineShaderFrag = "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/Outline/Outline.frag";
 
-
+	const std::string QuadOutlineShaderVert = "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/Outline/QuadOutline.vert";
+	const std::string QuadOutlineShaderFrag = "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/Outline/QuadOutline.frag";
 
 
 

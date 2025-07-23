@@ -3,8 +3,6 @@
 #include <iostream>
 #include <glad/glad.h>
 
-#include "GodClass.h"
-
 class RendererTarget
 {
 public:
@@ -37,10 +35,11 @@ public:
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
-    RendererTarget():RendererTarget(
+    RendererTarget();
+	/*:RendererTarget(
         GodClass::getInstance().getWidth(),
         GodClass::getInstance().getHeight())
-    {}
+    {}*/
 
     ~RendererTarget()
     {
@@ -50,14 +49,8 @@ public:
     }
 
     // 开始 渲染
-    void begin()
-    {
-        resize(GodClass::getInstance().getWidth(), GodClass::getInstance().getHeight());
-        glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-        glViewport(0, 0, width, height);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glEnable(GL_DEPTH_TEST);
-    }
+    void begin();
+
 
     void resize(int newWidth, int newHeight)
     {
@@ -106,7 +99,7 @@ public:
     // 获取生成的 mask 纹理
     GLuint getRenderTextureId() const { return rt_Id; }
     GLuint getFBO() const { return fbo; }
-    float getWidth()const  { return width; }
+    float getWidth()const  { return  width; }
     float getHeight() const { return height; }
 
 private:

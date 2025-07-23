@@ -11,7 +11,7 @@ Object::Object()
 {
     objectName = "Empty Object";
     AddComponent<Transform>();
-    UIManager::getInstance().Register([this]()
+    UIManager::getInstance().RegisterForMainWindow([this]()
         {
             this->showUI();
         });
@@ -35,11 +35,21 @@ void Object::beforeUpdate()
 void Object::update()
 {
     for (const auto& it : components)it.second.get()->update();
+
 }
 
 void Object::afterUpdate()
 {
     for (const auto& it : components)it.second.get()->afterUpdate();
+
+    if (beFocused^preFocused)
+    {
+        if (beFocused)
+            Scene::getInstance().addFocusedObj(this);
+        else
+            Scene::getInstance().removeFocusedObj(this);
+    }
+    preFocused = beFocused;
 }
 
 
@@ -49,13 +59,15 @@ void Object::afterUpdate()
 void Object::showUI()
 {
     //ImGui::SetNextItemOpen(beFocused, ImGuiCond_Always);
-
+    beFocused = false;
 	if (ImGui::TreeNode((getObjectName()+ std::to_string(id)).c_str()))
 	{
         for (auto& it:components)
         {
             it.second->showUI();
         }
+
+        beFocused = true;
 
         ImGui::TreePop();
 	}

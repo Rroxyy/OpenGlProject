@@ -9,6 +9,10 @@
 #include <sstream>
 #include <iostream>
 
+#include "plugins.h"
+
+//#include "plugins.h"
+
 class TextureResource;
 class Shader
 {
@@ -79,6 +83,58 @@ public:
 
     void blindTextureToShader(const std::string& nameInShader, int shaderChannel)const;
 
+    
+
+    bool reloadFragmentShader(const char* fragmentPath)
+    {
+	    std::string temp;
+    	const char* fShaderCode;
+    	loadFileToString(fragmentPath, temp);
+        fShaderCode = temp.c_str();
+
+	    // 编译新的 fragment shader
+        GLuint newFragment = glCreateShader(GL_FRAGMENT_SHADER);
+        glShaderSource(newFragment, 1, &fShaderCode, NULL);
+        glCompileShader(newFragment);
+        checkCompileErrors(newFragment, "FRAGMENT");
+
+        // 重新链接 program（保留原有 vertex shader）
+        GLuint newProgram = glCreateProgram();
+
+        // 获取当前程序中附着的顶点着色器
+        GLint count = 0;
+        GLuint attachedShaders[2];
+        glGetAttachedShaders(ID, 2, &count, attachedShaders);
+
+        GLuint vertexShader = 0;
+        for (int i = 0; i < count; ++i) {
+            GLint shaderType;
+            glGetShaderiv(attachedShaders[i], GL_SHADER_TYPE, &shaderType);
+            if (shaderType == GL_VERTEX_SHADER) {
+                vertexShader = attachedShaders[i];
+                break;
+            }
+        }
+
+        if (vertexShader == 0) {
+            std::cout << "ERROR::SHADER::VERTEX_SHADER_NOT_FOUND_IN_PROGRAM" << std::endl;
+            glDeleteShader(newFragment);
+            return false;
+        }
+
+        // 重新 attach 并链接
+        glAttachShader(newProgram, vertexShader);
+        glAttachShader(newProgram, newFragment);
+        glLinkProgram(newProgram);
+        checkCompileErrors(newProgram, "PROGRAM");
+
+        // 替换当前 program
+        glDeleteProgram(ID);       // 删除旧 program
+        ID = newProgram;           // 更新 ID
+        glDeleteShader(newFragment); // 不再需要了
+
+        return true;
+    }
 
 
 
