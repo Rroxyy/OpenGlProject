@@ -3,6 +3,7 @@ C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Main.cpp;C:\Users\Drwin\
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\imgui\ImGuizmo.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\ImGuizmo.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\Scene.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\Scene.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Object\Component\camera.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\camera.obj
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Object\Component\Component\ModelResource.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\ModelResource.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Object\Component\Transform.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\Transform.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Object\Object.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\Object.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Object\Component\baseShader.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\baseShader.obj
@@ -17,7 +18,10 @@ C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\GodClass.cp
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\InputSystem.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\InputSystem.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\ResourcePathManager.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\ResourcePathManager.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Pass\ForwardPass.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\ForwardPass.obj
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Pass\OutlinePass.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\OutlinePass.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Render.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\Render.obj
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\RendererTarget.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\RendererTarget.obj
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\RenderPass.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\RenderPass.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\RenderPipeLine.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\RenderPipeLine.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\shader.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\shader.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Shaders\BaseLightShader.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\BaseLightShader.obj

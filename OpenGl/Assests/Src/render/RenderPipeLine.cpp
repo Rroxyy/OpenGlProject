@@ -28,8 +28,8 @@ void RenderPipeline::renderScene()
 	ForwardPass* fp = static_cast<ForwardPass*>(passesMap[typeid(ForwardPass).name()]);
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, fp->getRendererTarget()->getFBO());
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);  // 默认 framebuffer
-	glBlitFramebuffer(0, 0, fp->getRendererTarget()->getWidth(), fp->getRendererTarget()->getHeight(),
-		0, 0, GodClass::getInstance().getWidth(), GodClass::getInstance().getHeight(),
+	glBlitFramebuffer(0, 0, static_cast<GLint>(fp->getRendererTarget()->getWidth()), static_cast<GLint>(fp->getRendererTarget()->getHeight()),
+		0, 0, static_cast<GLint>(GodClass::getInstance().getWidth()), static_cast<GLint>(GodClass::getInstance().getHeight()),
 		GL_COLOR_BUFFER_BIT, GL_NEAREST);
 
 

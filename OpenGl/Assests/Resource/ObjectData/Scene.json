@@ -14,6 +14,12 @@
             },
             {
                 "componentData": {
+                    "filePath": ""
+                },
+                "componentName": "ModelComponent"
+            },
+            {
+                "componentData": {
                     "position": {
                         "x": 0.0,
                         "y": 0.0,
@@ -31,12 +37,6 @@
                     }
                 },
                 "componentName": "Transform"
-            },
-            {
-                "componentData": {
-                    "filePath": ""
-                },
-                "componentName": "Model"
             },
             {
                 "componentData": null,
@@ -50,6 +50,12 @@
         "componentsData": [
             {
                 "componentData": {
+                    "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj"
+                },
+                "componentName": "ModelComponent"
+            },
+            {
+                "componentData": {
                     "position": {
                         "x": 0.0,
                         "y": 0.0,
@@ -67,12 +73,6 @@
                     }
                 },
                 "componentName": "Transform"
-            },
-            {
-                "componentData": {
-                    "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj"
-                },
-                "componentName": "Model"
             },
             {
                 "componentData": {
@@ -108,6 +108,12 @@
             },
             {
                 "componentData": {
+                    "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj"
+                },
+                "componentName": "ModelComponent"
+            },
+            {
+                "componentData": {
                     "position": {
                         "x": 0.0,
                         "y": 0.0,
@@ -125,12 +131,6 @@
                     }
                 },
                 "componentName": "Transform"
-            },
-            {
-                "componentData": {
-                    "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj"
-                },
-                "componentName": "Model"
             },
             {
                 "componentData": null,

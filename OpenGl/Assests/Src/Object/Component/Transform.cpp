@@ -1,12 +1,12 @@
 #include "Transform.h"
 #include "Object.h"
-#include "model.h"
+#include "ModelComponent.h"
 
 void Transform::updateAABB()
 {
     
     if (!object)return;
-    Model* ptr = object->GetComponentExact<Model>();
+    ModelComponent* ptr = object->GetComponentExact<ModelComponent>();
     if (!ptr)return;
     ptr->resetAABB();
     

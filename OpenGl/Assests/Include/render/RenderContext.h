@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "EnumClass.h"
-#include "model.h"
+#include "ModelComponent.h"
 
 
 

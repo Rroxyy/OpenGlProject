@@ -107,7 +107,6 @@ void baseShader::showUI()
 
 void baseShader::use()
 {
-    if (object == nullptr)return;
     Shader::use();
     //texture
     blindTexturesChannel();
@@ -116,7 +115,10 @@ void baseShader::use()
     //must pass these
     setMat4("projection", GodClass::getInstance().getProjection());
     setMat4("view", GodClass::getInstance().getMainCamera()->GetViewMatrix());
-    setMat4("model", object->GetComponentExact<Transform>()->getModelMat4());
+    if (object)
+    {
+        setMat4("model", object->GetComponentExact<Transform>()->getModelMat4());
+    }
     /////////////////////////
 
     glm::vec3 temp = glm::vec3(defaultColor.x, defaultColor.y, defaultColor.z);

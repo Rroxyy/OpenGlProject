@@ -19,7 +19,7 @@
 
 #include "camera.h"
 #include "InputSystem.h"
-#include "model.h"
+#include "ModelComponent.h"
 #include "TextureResource.h"
 #include "Shader.h"
 #include "ResourcePathManager.h"
@@ -101,12 +101,14 @@ int main()
     //Scene::getInstance().loadJson();
 
     Object* grid = Scene::getInstance().createObjectPtr("Grid");
-    grid->AddComponent<Model>();
+    grid->AddComponent<ModelComponent>();
 
 
-    gridMesh grid_mesh;
+    auto grid_MR = std::make_shared<ModelResource>();
+    grid_MR->moveMesh(new gridMesh());
+    auto gridModel=ResourceManager::getInstance().registerModel("gridModel", std::move(grid_MR));
 
-    grid->GetComponentAs<Model>()->addMesh(&grid_mesh);
+    grid->GetComponentAs<ModelComponent>()->resetModel(gridModel);
 
     baseShader gridShader("gridShader");
     grid->AddComponent<baseShader>(gridShader);
@@ -116,11 +118,9 @@ int main()
     ///////////////////////////////////////////////
     //tv
     Object* tv = Scene::getInstance().createObjectPtr("TV");
-    Model tvModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj");
-    tv->AddComponent<Model>(std::move(tvModel));
+    auto tvModelResource = ResourceManager::getInstance().loadModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj");
+    tv->AddComponent<ModelComponent>(std::move(tvModelResource));
     BaseLightShader tvShader("tvShader");
-    //baseShader tempShader(ResourcePathManager::getInstance().getOutlineShaderVert().c_str(), ResourcePathManager::getInstance().getOutlineShaderFrag().c_str());
-    //tv->AddComponent<baseShader>(std::move(tempShader));
     tv->AddComponent<BaseLightShader>(std::move(tvShader));
     tv->AddComponent<Render>();
 
@@ -136,8 +136,8 @@ int main()
 
 
     Object* plane = Scene::getInstance().createObjectPtr("plane");
-    Model planeModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj");
-    plane->AddComponent<Model>(std::move(planeModel));
+    auto planeModelResource = ResourceManager::getInstance().loadModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj");
+    plane->AddComponent<ModelComponent>(std::move(planeModelResource));
     baseShader planeShader("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/DepthShader/baseShader.vert",
         "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/DepthShader/baseShader.frag",
         "planeShader");

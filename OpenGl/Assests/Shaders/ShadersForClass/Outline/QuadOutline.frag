@@ -1,20 +1,27 @@
 #version 330 core
 out vec4 FragColor;
 
-uniform vec3 defaultColor;
 in vec2 TexCoords;
 
-uniform sampler2D sceneColor;
+uniform vec3 defaultColor;
+uniform sampler2D sceneTex;
 uniform vec2 texelSize;
 
 void main()
 {
-    vec3 col = texture(sceneColor, TexCoords).rgb;
-    vec3 colRight = texture(sceneColor, TexCoords + vec2(texelSize.x, 0.0)).rgb;
-    vec3 colUp = texture(sceneColor, TexCoords + vec2(0.0, texelSize.y)).rgb;
+    float center = texture(sceneTex, TexCoords).r; // 白 or 黑
+    float mask3 = textureLod(sceneTex, TexCoords, 3.0).r;
+    float edge = 0.0;
+    for (int dx = -2; dx <= 2; ++dx)
+        for (int dy = -2; dy <= 2; ++dy) {
+            vec2 offset = vec2(dx, dy) * texelSize;
+            float sample = texture(sceneTex, TexCoords + offset).r;
+            edge += abs(center - sample);
+    }
 
-    float diff = length(col - colRight) + length(col - colUp);
 
-    float edge = step(0.1, diff);  // 超过阈值算边界
-    FragColor = vec4(vec3(edge), 1.0);  // 白色边框
+    // 若周围存在不同像素，则为边缘
+    float isEdge = step(0.001, edge); // 只要有一个不同就会变为1.0
+
+    FragColor = vec4( defaultColor * isEdge, 1.0); // 只有边缘区域画颜色
 }

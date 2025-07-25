@@ -18,7 +18,7 @@ void ForwardPass::execute(RenderContext& context)
         if (!render)continue;
 
         baseShader* shader = render->getShader();
-        Model* model = render->getModel();
+        ModelComponent* model = render->getModel();
         context.setRenderState(shader);
         shader->use();
         model->Draw();

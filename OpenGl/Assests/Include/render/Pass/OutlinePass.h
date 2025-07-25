@@ -1,14 +1,16 @@
 ﻿#pragma once
 #include "baseShader.h"
-#include "model.h"
+#include "ModelComponent.h"
 #include "RenderPass.h"
+
 
 
 class OutlinePass:public RenderPass
 {
 public:
     OutlinePass();
-	void execute(RenderContext& context) override;
+    void getOutline();
+    void execute(RenderContext& context) override;
 	const  std::string& getName()override
     {
         static std::string name = "OutlinePass";
@@ -16,12 +18,12 @@ public:
     }
     
     void showUI() override;
+
+
+    RendererTarget* finalOutlineRT()const { return outlineRT.get(); }
    
 private:
     std::unique_ptr<baseShader> outlineShader;
     std::unique_ptr<baseShader> quadOutlineShader;
-
-    std::unique_ptr<Model> quadModel;
-
-    std::unique_ptr<RendererTarget> postProcessTarget;
+    std::unique_ptr<RendererTarget> outlineRT;
 };

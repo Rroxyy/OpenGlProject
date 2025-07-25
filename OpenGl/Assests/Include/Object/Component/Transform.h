@@ -16,7 +16,7 @@
 #include "InputSystem.h"
 #include "Object.h"
 
-class Model;
+class ModelComponent;
 
 class Transform : public Component {
 public:

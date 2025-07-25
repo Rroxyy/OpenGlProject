@@ -33,19 +33,23 @@ public:
             std::cerr << "Mask FBO 创建失败" << std::endl;
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        useMipmap = false;
     }
 
     RendererTarget();
-	/*:RendererTarget(
-        GodClass::getInstance().getWidth(),
-        GodClass::getInstance().getHeight())
-    {}*/
+
 
     ~RendererTarget()
     {
         glDeleteFramebuffers(1, &fbo);
         glDeleteTextures(1, &rt_Id);
         glDeleteRenderbuffers(1, &rbo);
+    }
+
+    void setRT(bool _useMipMap=false)
+    {
+        useMipmap = _useMipMap;
     }
 
     // 开始 渲染
@@ -99,13 +103,16 @@ public:
     // 获取生成的 mask 纹理
     GLuint getRenderTextureId() const { return rt_Id; }
     GLuint getFBO() const { return fbo; }
-    float getWidth()const  { return  width; }
-    float getHeight() const { return height; }
+    float getWidth() const { return static_cast<float>(width); }
+
+    float getHeight() const { return static_cast<float>(height); }
 
 private:
     GLuint fbo = 0;
     GLuint rt_Id = 0;
     GLuint rbo = 0;  // 深度缓冲
+
+    bool useMipmap;
 
     int width = 0;
     int height = 0;

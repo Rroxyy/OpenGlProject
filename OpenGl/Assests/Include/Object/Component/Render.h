@@ -2,11 +2,11 @@
 #include <imgui.h>
 
 #include "Component.h"
-#include "model.h"
+#include "ModelComponent.h"
 
 
 class baseShader;
-class Model;
+class ModelComponent;
 
 class Render:public Component
 {
@@ -34,7 +34,7 @@ public:
 			ImGui::Text("Render Info:");
 			ImGui::Separator();
 
-			ImGui::Text("  Model  : %s", model->filePath.c_str());
+			ImGui::Text("  ModelComponent  : %s", model->getModelPath().size()==0?"null": model->getModelPath());
 			ImGui::Text("  Shader : %s", shader->getShaderName().c_str());
 
 			ImGui::Spacing();
@@ -67,7 +67,7 @@ public:
 			return;
 		}
 
-		model=object->GetComponentExact<Model>();
+		model=object->GetComponentExact<ModelComponent>();
 		shader=object->GetComponentAs<baseShader>();
 	}
 
@@ -82,11 +82,11 @@ public:
 	}*/
 
 
-	Model* getModel()const { return model; }
+	ModelComponent* getModel()const { return model; }
 	baseShader* getShader()const { return shader; }
 
 private:
-	Model* model;
+	ModelComponent* model;
 	baseShader* shader;
 
 };

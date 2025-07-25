@@ -65,7 +65,7 @@ public:
         static float last_update = 0.0f;   // 上次更新时间
         static float avg_fps = 0.0f;       // 最终显示的平均 FPS
 
-        float current_time = ImGui::GetTime();              // 当前时间（秒）
+        float current_time =static_cast<float>(ImGui::GetTime());              // 当前时间（秒）
         fps_accum += ImGui::GetIO().Framerate;
         frame_count++;
 
