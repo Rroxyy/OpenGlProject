@@ -6,23 +6,27 @@
 #include "Render.h"
 #include "Scene.h"
 #include "RenderContext.h"
-#include "ResourcePathManager.h"
+#include "ShaderPathManager.h"
 
 OutlinePass::OutlinePass()
 {
     outlineShader = std::make_unique<baseShader>(
-		ResourcePathManager::getInstance().getOutlineShaderVert().c_str(),
-        ResourcePathManager::getInstance().getOutlineShaderFrag().c_str(),
+		ShaderPathManager::getInstance().getOutlineShaderVert().c_str(),
+        ShaderPathManager::getInstance().getOutlineShaderFrag().c_str(),
 		"Outline Shader"
     );
 
     quadOutlineShader = std::make_unique<baseShader>(
-        ResourcePathManager::getInstance().  getQuadOutlineShaderVert().c_str(),
-        ResourcePathManager::getInstance().getQuadOutlineShaderFrag().c_str(),
+        ShaderPathManager::getInstance().  getQuadOutlineShaderVert().c_str(),
+        ShaderPathManager::getInstance().getQuadOutlineShaderFrag().c_str(),
         "Quad Outline Shader"
     );
 
-   outlineRT = std::make_unique<RendererTarget>();
+
+   useRT1 = true;
+   rt1 = std::make_unique<RendererTarget>();
+   rt2 = std::make_unique<RendererTarget>();
+
 }
 
 
@@ -30,68 +34,73 @@ OutlinePass::OutlinePass()
 
 void OutlinePass::execute(RenderContext& context)
 {
-    if (Scene::getInstance().getFoucusedObjects().empty())return;
-
-
+    if (Scene::getInstance().getFoucusedObjects().empty())
+    {
+        hasOutline = false;
+	    return;
+    }
     outlineShader.get()->start();
-  
-
-
-    renderTarget->resize(GodClass::getInstance().getWidth(), GodClass::getInstance().getHeight());
+    renderTarget->resize();
     renderTarget->begin();
-
-   /* glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
-    glGenerateMipmap(GL_TEXTURE_2D);*/
-
-    glClearColor(0,0,0,0);
     context.setRenderState(outlineShader.get());
-
     for (auto* obj : Scene::getInstance().getFoucusedObjects()) {
         Render* rd = obj->GetComponentExact<Render>();
         if (rd == nullptr)continue;
         ModelComponent* model = rd->getModel();
-
-
         outlineShader.get()->use(obj);
         model->Draw();
         outlineShader.get()->unuse();
     }
-
-   
-
     renderTarget->end();
-   /* glBindTexture(GL_TEXTURE_2D, renderTarget.get()->getRenderTextureId());
-    glGenerateMipmap(GL_TEXTURE_2D);*/
+    dilatedRT();
+    hasOutline = true;
+}
 
-    getOutline();
+void OutlinePass::dilatedRT()
+{
+    RendererTarget* preRT;
+	RendererTarget* outRT;
+    for (int i=1;i<=outlineWidth;i++)
+    {
+    	preRT= i == 1 ? renderTarget.get() : useRT1 ? rt1.get() : rt2.get();
+    	outRT= useRT1 ? rt2.get() : rt1.get();
+        useRT1 ^= 1;
+
+        outRT->resize();
+        outRT->begin();
+
+        quadOutlineShader->start();
+
+        // 输入为前面纯色的 renderTarget 的贴图
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, preRT->getRenderTextureId());
+
+        
+        quadOutlineShader->use();
+        quadOutlineShader->setInt("sceneTex", 0);
+        quadOutlineShader->setVec2("texelSize", glm::vec2(
+            1.0f / GodClass::getInstance().getWidth(),
+            1.0f / GodClass::getInstance().getHeight()
+        ));
+
+        ModelManager::getInstance().getQuadMesh()->Draw();  // 绘制后处理结果
+        quadOutlineShader->unuse();
+
+        outRT->end();
+    }
+
 
 }
 
-void OutlinePass::getOutline()
+
+
+RendererTarget* OutlinePass::getDilatedRT() const
 {
-    outlineRT->resize(GodClass::getInstance().getWidth(), GodClass::getInstance().getHeight());
-    outlineRT->begin();
-
-    glClearColor(0, 0, 0, 1);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    quadOutlineShader->start();
-
-    // 输入为前面纯色的 renderTarget 的贴图
-    GLuint colorTex = renderTarget->getRenderTextureId();
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, colorTex);
-    quadOutlineShader->use();
-    quadOutlineShader->setInt("sceneTex", 0);
-    quadOutlineShader->setVec2("texelSize", glm::vec2(
-        1.0f / GodClass::getInstance().getWidth(),
-        1.0f / GodClass::getInstance().getHeight()
-    ));
-
-    ResourceManager::getInstance().getQuadMesh()->Draw();  // 绘制后处理结果
-    quadOutlineShader->unuse();
-
-    outlineRT->end();  // 后处理结束
+    if (!hasOutline)
+    {
+        return GodClass::getInstance().getEmptyRenderTarget();
+    }
+	return useRT1 ? rt1.get() : rt2.get();
 }
 
 
@@ -107,14 +116,19 @@ void OutlinePass::showUI()
 
         quadOutlineShader->showUI();
 
+        ImGui::Spacing();
+        ImGui::SliderInt("Outline Width", &outlineWidth, 1, 10);
+
         ImGui::Image(
             (void*)(intptr_t)renderTarget.get()->getRenderTextureId(),
             size,
             ImVec2(0, 1),
             ImVec2(1, 0)
         );
+
+        RendererTarget* temp = useRT1 ? rt1.get() : rt2.get();
         ImGui::Image(
-            (void*)(intptr_t)outlineRT.get()->getRenderTextureId(),
+            (void*)(intptr_t)temp->getRenderTextureId(),
             size,
             ImVec2(0, 1),
             ImVec2(1, 0)

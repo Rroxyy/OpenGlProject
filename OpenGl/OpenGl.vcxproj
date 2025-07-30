@@ -157,9 +157,10 @@
     <ClCompile Include="Assests\Src\imgui\imgui_widgets.cpp" />
     <ClCompile Include="Assests\Src\Managers\GodClass.cpp" />
     <ClCompile Include="Assests\Src\Managers\InputSystem.cpp" />
-    <ClCompile Include="Assests\Src\Managers\ResourcePathManager.cpp" />
+    <ClCompile Include="Assests\Src\Managers\ShaderPathManager.cpp" />
     <ClCompile Include="Assests\Src\render\Pass\ForwardPass.cpp" />
     <ClCompile Include="Assests\Src\render\Pass\OutlinePass.cpp" />
+    <ClCompile Include="Assests\Src\render\Pass\Post-ProcessingPass.cpp" />
     <ClCompile Include="Assests\Src\render\Render.cpp" />
     <ClCompile Include="Assests\Src\render\RendererTarget.cpp" />
     <ClCompile Include="Assests\Src\render\RenderPass.cpp" />
@@ -171,7 +172,7 @@
     <ClCompile Include="Assests\Src\Object\Component\TextureResource.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Assests\Include\Managers\ResourceManager.h" />
+    <ClInclude Include="Assests\Include\Managers\ModelManager.h" />
     <ClInclude Include="Assests\Include\Object\Component\Model\ModelResource.h" />
     <ClInclude Include="Assests\Include\Object\Component\Model\QuadMesh.h" />
     <ClInclude Include="Assests\Include\render\Pass\ForwardPass.h" />
@@ -194,7 +195,7 @@
     <ClInclude Include="Assests\Include\Managers\UI_Manager.h" />
     <ClInclude Include="Assests\Include\Object\Component\Model\mesh.h" />
     <ClInclude Include="Assests\Include\Object\Component\Model\ModelComponent.h" />
-    <ClInclude Include="Assests\Include\Managers\ResourcePathManager.h" />
+    <ClInclude Include="Assests\Include\Managers\ShaderPathManager.h" />
     <ClInclude Include="Assests\Include\Object\Object.h" />
     <ClInclude Include="Assests\Include\render\RendererTarget.h" />
     <ClInclude Include="Assests\Include\render\Pass\RenderPass.h" />
@@ -206,6 +207,7 @@
     <ClInclude Include="Assests\Include\Object\Component\camera.h" />
     <ClInclude Include="Assests\Include\render\Shader.h" />
     <ClInclude Include="Assests\Include\Managers\TextureManager.h" />
+    <ClInclude Include="Assests\Include\render\Pass\Post-ProcessingPass.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assests\Resource\ObjectData\ObjectManager.json" />

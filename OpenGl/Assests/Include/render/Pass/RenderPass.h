@@ -11,7 +11,7 @@ public:
     RenderPass();
     
     virtual ~RenderPass() {}
-
+    virtual void start(RenderContext& context){}
     virtual void execute(RenderContext& context) = 0; // 每帧执行
     virtual const std::string& getName()
     {

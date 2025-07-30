@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "Component.h"
 #include "ModelResource.h"
-#include "ResourceManager.h"
+#include "ModelManager.h"
 #include "Transform.h"
 
 class ModelComponent : public Component {
@@ -78,7 +78,7 @@ public:
 
     void loadJson(const nlohmann::json& js) override {
         std::string path = js["filePath"];
-        model = ResourceManager::getInstance().loadModel(path);
+        model = ModelManager::getInstance().loadModel(path);
         resetAABB();
     }
 

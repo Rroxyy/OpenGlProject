@@ -16,9 +16,10 @@ C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\imgui\imgui_tables.c
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\imgui\imgui_widgets.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\imgui_widgets.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\GodClass.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\GodClass.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\InputSystem.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\InputSystem.obj
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\ResourcePathManager.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\ResourcePathManager.obj
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\ShaderPathManager.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\ShaderPathManager.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Pass\ForwardPass.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\ForwardPass.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Pass\OutlinePass.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\OutlinePass.obj
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Pass\Post-ProcessingPass.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\Post-ProcessingPass.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Render.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\Render.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\RendererTarget.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\RendererTarget.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\RenderPass.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Release\RenderPass.obj

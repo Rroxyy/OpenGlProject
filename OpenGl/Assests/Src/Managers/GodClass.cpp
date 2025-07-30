@@ -5,13 +5,13 @@
 #include "baseShader.h"
 #include "camera.h"
 #include "RenderPipeline.h"
-#include "ResourcePathManager.h"
+#include "ShaderPathManager.h"
 #include "Scene.h"
 #include "UI_Manager.h"
 
 GodClass::GodClass()
 {
-   
+	
 }
 
 GodClass::~GodClass()
@@ -28,8 +28,8 @@ void GodClass::init(GLFWwindow* _window)
     camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 3.0f));
 
 	focusShader = std::make_unique<baseShader>(
-		ResourcePathManager::getInstance().getOutlineShaderVert().c_str(),
-		ResourcePathManager::getInstance().getOutlineShaderFrag().c_str(),
+		ShaderPathManager::getInstance().getOutlineShaderVert().c_str(),
+		ShaderPathManager::getInstance().getOutlineShaderFrag().c_str(),
 		"focusShader"
 	);
 	renderPipeline = &RenderPipeline::getInstance();
@@ -38,7 +38,14 @@ void GodClass::init(GLFWwindow* _window)
 
 void GodClass::start()
 {
+	emptyRT = std::make_unique<RendererTarget>();
+	emptyRT->clearColor();
+
+
 	Scene::getInstance().start();
+	renderPipeline->start();
+
+	
 }
 
 

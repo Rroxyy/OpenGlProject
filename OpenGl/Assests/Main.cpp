@@ -22,7 +22,7 @@
 #include "ModelComponent.h"
 #include "TextureResource.h"
 #include "Shader.h"
-#include "ResourcePathManager.h"
+#include "ShaderPathManager.h"
 #include "UI_Manager.h"
 #include "girdMesh.h"
 #include "GodClass.h"
@@ -106,7 +106,7 @@ int main()
 
     auto grid_MR = std::make_shared<ModelResource>();
     grid_MR->moveMesh(new gridMesh());
-    auto gridModel=ResourceManager::getInstance().registerModel("gridModel", std::move(grid_MR));
+    auto gridModel=ModelManager::getInstance().registerModel("gridModel", std::move(grid_MR));
 
     grid->GetComponentAs<ModelComponent>()->resetModel(gridModel);
 
@@ -118,7 +118,7 @@ int main()
     ///////////////////////////////////////////////
     //tv
     Object* tv = Scene::getInstance().createObjectPtr("TV");
-    auto tvModelResource = ResourceManager::getInstance().loadModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj");
+    auto tvModelResource = ModelManager::getInstance().loadModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj");
     tv->AddComponent<ModelComponent>(std::move(tvModelResource));
     BaseLightShader tvShader("tvShader");
     tv->AddComponent<BaseLightShader>(std::move(tvShader));
@@ -126,9 +126,9 @@ int main()
 
 
     TextureResource* baseTex = TextureManager::getInstance()
-	.createTextureResource("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_MatID.tga");
+	.createTextureResourceByPath("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_MatID.tga");
 	TextureResource * normalTex = TextureManager::getInstance()
-	.createTextureResource("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_Normal_G.tga");
+	.createTextureResourceByPath("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_Normal_G.tga");
 
     tv->GetComponentAs<BaseLightShader>()->setTexture("texture_base", baseTex);
     tv->GetComponentAs<BaseLightShader>()->setTexture("texture_normal",normalTex);
@@ -136,7 +136,7 @@ int main()
 
 
     Object* plane = Scene::getInstance().createObjectPtr("plane");
-    auto planeModelResource = ResourceManager::getInstance().loadModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj");
+    auto planeModelResource = ModelManager::getInstance().loadModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj");
     plane->AddComponent<ModelComponent>(std::move(planeModelResource));
     baseShader planeShader("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/DepthShader/baseShader.vert",
         "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/DepthShader/baseShader.frag",

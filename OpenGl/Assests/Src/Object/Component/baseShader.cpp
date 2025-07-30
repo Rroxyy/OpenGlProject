@@ -3,7 +3,7 @@
 #include "camera.h"
 #include "GodClass.h"
 #include "Object.h"
-#include "ResourcePathManager.h"
+#include "ShaderPathManager.h"
 #include "UI_Manager.h"
 #include "plugins.h"
 #include "RenderContext.h"
@@ -17,14 +17,14 @@ baseShader::baseShader(const char* vertexPath, const char* fragmentPath,const st
 }
 
 baseShader::baseShader()
-	: baseShader(ResourcePathManager::getInstance().getBaseShaderVert().c_str(),
-		ResourcePathManager::getInstance().getBaseShaderFrag().c_str())
+	: baseShader(ShaderPathManager::getInstance().getBaseShaderVert().c_str(),
+		ShaderPathManager::getInstance().getBaseShaderFrag().c_str())
 {
 	
 }
 
-baseShader::baseShader(const std::string& _shaderName): baseShader(ResourcePathManager::getInstance().getBaseShaderVert().c_str(),
-    ResourcePathManager::getInstance().getBaseShaderFrag().c_str(), _shaderName)
+baseShader::baseShader(const std::string& _shaderName): baseShader(ShaderPathManager::getInstance().getBaseShaderVert().c_str(),
+    ShaderPathManager::getInstance().getBaseShaderFrag().c_str(), _shaderName)
 {
 	
 }
@@ -88,6 +88,17 @@ void baseShader::setTexture(const std::string& nameInShader, TextureResource* tr
 }
 
 
+void baseShader::changeTexture(const std::string& nameInShader, TextureResource* tr)
+{
+	for (auto& it:textureResourcesList)
+	{
+		if (it.first==nameInShader)
+		{
+            it.second = tr;
+            return;
+		}
+	}
+}
 
 
 

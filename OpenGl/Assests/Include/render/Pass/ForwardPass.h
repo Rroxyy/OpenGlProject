@@ -7,6 +7,10 @@
 
 class ForwardPass : public RenderPass {
 public:
+    ForwardPass()
+    {
+        renderTarget->setClearColor(skyColor);
+    }
     void execute(RenderContext& context) override;
     const std::string& getName() override
     {
@@ -14,5 +18,8 @@ public:
         return name;
     }
 
+    void showUI() override;
+private:
+    glm::vec4 skyColor = glm::vec4(0.1, 0.1, 0.1, 1);
 
 };

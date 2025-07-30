@@ -60,7 +60,7 @@
     <ClCompile Include="Assests\Src\imgui\imgui_widgets.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Assests\Src\Managers\ResourcePathManager.cpp">
+    <ClCompile Include="Assests\Src\Managers\ShaderPathManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Assests\Src\Object\Component\baseShader.cpp">
@@ -108,6 +108,9 @@
     <ClCompile Include="Assests\Src\Object\Component\Component\ModelResource.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Assests\Src\render\Pass\Post-ProcessingPass.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assests\Include\render\Shader.h">
@@ -131,7 +134,7 @@
     <ClInclude Include="Assests\Include\Managers\InputSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Assests\Include\Managers\ResourcePathManager.h">
+    <ClInclude Include="Assests\Include\Managers\ShaderPathManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Assests\Include\render\Shaders\baseShader.h">
@@ -209,10 +212,13 @@
     <ClInclude Include="Assests\Include\Object\Component\Model\QuadMesh.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Assests\Include\Managers\ResourceManager.h">
+    <ClInclude Include="Assests\Include\Managers\ModelManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Assests\Include\Object\Component\Model\ModelResource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Assests\Include\render\Pass\Post-ProcessingPass.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

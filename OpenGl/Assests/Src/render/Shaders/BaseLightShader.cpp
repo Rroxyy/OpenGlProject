@@ -3,19 +3,19 @@
 #include "GodClass.h"
 #include "Transform.h"
 #include "camera.h"
-#include "ResourcePathManager.h"
+#include "ShaderPathManager.h"
 #include "Object/Object.h"
 
 BaseLightShader::BaseLightShader() :baseShader(
-    ResourcePathManager::getInstance().getBaseLightShaderVert().c_str(),
-    ResourcePathManager::getInstance().getBaseLightShaderFrag().c_str(),
+    ShaderPathManager::getInstance().getBaseLightShaderVert().c_str(),
+    ShaderPathManager::getInstance().getBaseLightShaderFrag().c_str(),
     "BaseLightShader")
 {
 }
 
 BaseLightShader::BaseLightShader(const std::string& shaderName) :baseShader(
-    ResourcePathManager::getInstance().getBaseLightShaderVert().c_str(),
-    ResourcePathManager::getInstance().getBaseLightShaderFrag().c_str(),
+    ShaderPathManager::getInstance().getBaseLightShaderVert().c_str(),
+    ShaderPathManager::getInstance().getBaseLightShaderFrag().c_str(),
     shaderName)
 {
 }

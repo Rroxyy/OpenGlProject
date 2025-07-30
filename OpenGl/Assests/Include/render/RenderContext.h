@@ -6,18 +6,7 @@
 
 class RenderContext {
 public:
-    void clear(float r, float g, float b, float a, bool clearDepth = true)
-	{
-        glClearColor(r, g, b, a);
-        glClear(GL_COLOR_BUFFER_BIT | (clearDepth ? GL_DEPTH_BUFFER_BIT : 0));
-    }
-
-    void clear(glm::vec4 color, bool clearDepth = true)
-    {
-        glClearColor(color.r, color.g, color.b, color. a);
-        glClear(GL_COLOR_BUFFER_BIT | (clearDepth ? GL_DEPTH_BUFFER_BIT : 0));
-    }
-
+   
     void setDepthTest()
 	{
         if (useDepth) glEnable(GL_DEPTH_TEST);

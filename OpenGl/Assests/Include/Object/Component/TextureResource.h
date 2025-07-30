@@ -16,9 +16,6 @@ class TextureResource
 public:
 	friend class TextureManager;
 
-	
-
-	~TextureResource();
 
 	void SetTexture( WrapMode wrap_mode, FilterMode filter_mode, bool useMipmap);
 
@@ -29,13 +26,9 @@ public:
 		return gltexture_id;
 	}
 
-	//void activeTexture() const;
-	//void deactivateTexture() const;
-	//GLenum getGLTextureUnit() const;
-	//int getTextureUnitIndex() const;
 
 private:
-	size_t texture_id;
+	size_t textureManger_id;
 	unsigned int gltexture_id;
 	std::string filePath;
 
@@ -46,6 +39,7 @@ private:
 	int format;
 
 	TextureResource(size_t id,const std::string& filePath);
+	TextureResource(size_t gl_id);
 
 
 	static GLenum loadTextureFormat(int& nrChannels);

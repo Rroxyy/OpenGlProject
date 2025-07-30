@@ -16,9 +16,9 @@ TextureResource::TextureResource(size_t id,const std::string& _filePath)
     SetTexture(WrapMode::Repeat, FilterMode::Linear, false);
 }
 
-TextureResource::~TextureResource()
+TextureResource::TextureResource( size_t gl_id)
 {
-   
+    gltexture_id = gl_id;
 }
 
 void TextureResource::SetTexture(WrapMode wrap_mode,FilterMode filter_mode,bool useMipmap)
@@ -61,30 +61,6 @@ void TextureResource::setToShader(Shader& shader)
 	
 }
 
-
-
-////when update use 
-//void TextureResource::activeTexture() const
-//{
-//    glActiveTexture(toGLTextureUnit(textureChannel));
-//    glBindTexture(GL_TEXTURE_2D, gltexture_id);
-//}
-//
-//void TextureResource::deactivateTexture() const
-//{
-//    glActiveTexture(toGLTextureUnit(textureChannel));
-//    glBindTexture(GL_TEXTURE_2D, 0);
-//}
-//
-//int TextureResource::getTextureUnitIndex() const
-//{
-//    return static_cast<int>(textureChannel);
-//}
-//
-//GLenum TextureResource::getGLTextureUnit() const
-//{
-//    return toGLTextureUnit(textureChannel);
-//}
 
 GLenum TextureResource::loadTextureFormat(int& nrChannels)
 {

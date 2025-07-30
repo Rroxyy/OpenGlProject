@@ -38,6 +38,7 @@ public:
 
 	//texture
 	virtual void setTexture(const std::string& nameInShader,TextureResource* tr);
+	virtual void changeTexture(const std::string& nameInShader, TextureResource* tr);
 
 
 	//component

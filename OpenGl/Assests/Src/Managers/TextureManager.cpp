@@ -13,7 +13,7 @@ TextureManager::~TextureManager() {
     return;
 }
 
-TextureResource* TextureManager::createTextureResource(const std::string& _filePath)
+TextureResource* TextureManager::createTextureResourceByPath(const std::string& _filePath)
 {
 	const auto& it = filePathMap.find(_filePath);
 	if (it!=filePathMap.end())
@@ -31,6 +31,14 @@ TextureResource* TextureManager::createTextureResource(const std::string& _fileP
 	nowIndex++;
 	return rawPtr;
 }
+
+std::unique_ptr<TextureResource> TextureManager::createTextureResourceByGlid(size_t glTexture_id)
+{
+	std::unique_ptr<TextureResource>tr = std::unique_ptr<TextureResource>(new TextureResource(glTexture_id));
+	
+	return tr;
+}
+
 
 TextureResource* TextureManager::getTextureByPath(const std::string& _filePath) const
 {

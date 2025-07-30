@@ -4,6 +4,7 @@
 
 #include "baseShader.h"
 #include"camera.h"
+#include "RendererTarget.h"
 
 //class Camera;
 class Object;
@@ -34,11 +35,25 @@ public:
 	void setResolution(unsigned int w, unsigned int h) {
 		SCR_WIDTH = w;
 		SCR_HEIGHT = h;
+
+		widthScale = 1.0 / SCR_WIDTH;
+		heightScale = 1.0 / SCR_HEIGHT;
+
 		projectionDirty = true; 
 	}
-	void updateTime();
+	glm::vec2 getScale()
+	{
+		return glm::vec2(widthScale, heightScale);
+	}
 
 	RenderPipeline* getRenderPipeline();
+	RendererTarget* getEmptyRenderTarget()
+	{
+		return emptyRT.get();
+	}
+
+	void updateTime();
+
 
 
 	float getFrameTime()
@@ -73,6 +88,9 @@ private:
 	unsigned int SCR_WIDTH = 800;
 	unsigned int SCR_HEIGHT = 600;
 
+	double widthScale = 1.0 / SCR_WIDTH;
+	double heightScale = 1.0 / SCR_HEIGHT;
+
 	//time
 	float currentFrame = 0;
 	float lastFrame = 0;
@@ -84,7 +102,7 @@ private:
 	//RP
 	RenderPipeline* renderPipeline = nullptr;
 
-
+	std::unique_ptr<RendererTarget> emptyRT;
 
 	GodClass() ;
 	~GodClass();

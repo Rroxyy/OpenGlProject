@@ -19,7 +19,9 @@ public:
 
     //TextureChannel getTexChannel(TextureResource* tr);
     
-    TextureResource* createTextureResource(const std::string& _filePath);
+    TextureResource* createTextureResourceByPath(const std::string& _filePath);
+    std::unique_ptr<TextureResource> createTextureResourceByGlid(size_t glTexture_id);
+
     TextureResource* getTextureByPath(const std::string& _filePath) const;
 private:
     size_t nowIndex=0;

@@ -9,6 +9,8 @@ class RenderContext;
 class RenderPipeline
 {
 public:
+    std::unordered_map<std::string, RenderPass*> passesMap;
+
     static RenderPipeline& getInstance()
     {
         static RenderPipeline instance;
@@ -19,13 +21,16 @@ public:
     {
         return context.get();
     }
-    
+
+    void start();
+
     void renderScene();
 
 private:
     std::unique_ptr<RenderContext> context;
     std::vector<std::unique_ptr<RenderPass>> passes;
-    std::unordered_map<std::string, RenderPass*> passesMap;
+
+   
 
 
     RenderPipeline();
