@@ -2,6 +2,7 @@
 
 #ifndef TEXTUREMANAGER_H
 #define TEXTUREMANAGER_H
+#include <json.hpp>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -19,15 +20,16 @@ public:
 
     //TextureChannel getTexChannel(TextureResource* tr);
     
-    TextureResource* createTextureResourceByPath(const std::string& _filePath);
-    std::unique_ptr<TextureResource> createTextureResourceByGlid(size_t glTexture_id);
+    TextureResource* getTextureResourceByPath(const std::string& _filePath);
+    TextureResource* getTextureResourceByJson(const nlohmann::json& data);
 
-    TextureResource* getTextureByPath(const std::string& _filePath) const;
+    std::unique_ptr<TextureResource> getTextureResourceByGlid(size_t glTexture_id);
+
 private:
-    size_t nowIndex=0;
+    //size_t nowIndex=0;
     //std::unordered_map<unsigned int, std::unique_ptr<TextureResource>>textureResources;
-    std::unordered_map<size_t,std::unique_ptr<TextureResource>> textureResourcesMap;
-    std::unordered_map<std::string, size_t>filePathMap;
+    std::unordered_map<std::string,std::unique_ptr<TextureResource>> textureResourcesMap;
+    //std::unordered_map<std::string, size_t>filePathMap;
     TextureManager();
 
     TextureManager(const TextureManager&) = delete;

@@ -19,7 +19,11 @@ class baseShader : public Shader,public Component
 public:
 	//render
 	bool useDepth = true;
+	bool writeToDepth = true;
+
 	CullMode cullMode = CullMode::Back;
+	DepthFuncType depth_func = DepthFuncType::Less;
+
 
 	baseShader();
 	baseShader(const char* vertexPath, const char* fragmentPath, const std::string& _shaderName = "baseShader");

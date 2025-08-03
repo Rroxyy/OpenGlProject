@@ -4,6 +4,7 @@
 #include "Transform.h"
 #include "camera.h"
 #include "ShaderPathManager.h"
+#include "TextureManager.h"
 #include "Object/Object.h"
 
 BaseLightShader::BaseLightShader() :baseShader(
@@ -11,6 +12,7 @@ BaseLightShader::BaseLightShader() :baseShader(
     ShaderPathManager::getInstance().getBaseLightShaderFrag().c_str(),
     "BaseLightShader")
 {
+    componentName = "BaseLightShader";
 }
 
 BaseLightShader::BaseLightShader(const std::string& shaderName) :baseShader(
@@ -18,6 +20,7 @@ BaseLightShader::BaseLightShader(const std::string& shaderName) :baseShader(
     ShaderPathManager::getInstance().getBaseLightShaderFrag().c_str(),
     shaderName)
 {
+    componentName = "BaseLightShader";
 }
 
 
@@ -25,11 +28,7 @@ void BaseLightShader::showUI()
 {
     if (ImGui::TreeNode(shaderName.c_str()))  // 顶层 Shader 名
     {
-        if (ImGui::TreeNode("Lighting"))
-        {
-            ImGui::ColorEdit3("Light Color", (float*)&lightColor);
-            ImGui::TreePop();
-        }
+       
 
         if (ImGui::TreeNode("BaseColor"))
         {
@@ -78,12 +77,11 @@ void BaseLightShader::use()
 {
     baseShader::use();
 
-
-
     setVec3("cameraPos", GodClass::getInstance().getMainCamera()->Position);
 
 
-    glm::vec3 temp = glm::vec3(lightColor.x, lightColor.y, lightColor.z);
+    glm::vec3 temp = GodClass::getInstance().lightColor;
+
     setVec3("lightColor", temp);
     setVec3("lightDir", GodClass::getInstance().mainLight->GetComponentAs<Transform>()->getBackDir());
 
@@ -99,4 +97,57 @@ void BaseLightShader::use()
     setFloat("specularStrength", specularStrength);
     setFloat("shininess", shininess);
 }
+
+
+nlohmann::json BaseLightShader::toJson()
+{
+    nlohmann::json ret;
+    nlohmann::json data;
+
+    data["defaultColor"] = vec4ToJson(imToGlmVec4(defaultColor));
+    data["useBaseTex"] = useBaseTex;
+    data["useNormalTex"] = useNormalTex;
+    data["ambientStrength"] = ambientStrength;
+    data["specularStrength"] = specularStrength;
+    data["shininess"] = shininess;
+
+    nlohmann::json textures=nlohmann::json::array();
+    for (auto& [name,tr]: textureResourcesList)
+    {
+        nlohmann::json item;
+        item["nameInShader"] = name;
+        item["textureResource"] = tr->toJson();
+        textures.push_back(item);
+    }
+
+    data["textureResourcesList"] = textures;
+
+    ret["componentName"] = getComponentName();
+    ret["componentData"] = data;
+    return ret;
+}
+
+
+void BaseLightShader::loadJson(const nlohmann::json& js)
+{
+    defaultColor = jsonToImVec4(js["defaultColor"]);
+    useBaseTex = js["useBaseTex"].get<int>();
+    useNormalTex = js["useNormalTex"].get<int>();
+    ambientStrength = js["ambientStrength"].get<float>();
+    specularStrength = js["specularStrength"].get<float>();
+    shininess = js["shininess"].get<float>();
+
+
+    auto textures = js["textureResourcesList"];
+    for (auto& it:textures)
+    {
+        TextureResource* texturePtr = TextureManager::getInstance().getTextureResourceByJson(it["textureResource"]);
+        std::string nameInShader = it["nameInShader"];
+        setTexture(nameInShader, texturePtr);
+    }
+
+}
+
+
+
 

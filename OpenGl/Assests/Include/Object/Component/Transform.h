@@ -116,7 +116,7 @@ public:
             ImGui::TreePop();
         }
 
-        drawManipulate();
+
     }
 
 
@@ -129,13 +129,10 @@ public:
         ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
         ImGuizmo::SetOrthographic(false);
 
-        //// 更新 modelMat
-        //dirtyCheck();
-
         ImGuizmo::Manipulate(
             glm::value_ptr(GodClass::getInstance().getMainCamera()->GetViewMatrix()),
             glm::value_ptr(GodClass::getInstance().getProjection()),
-            InputSystem::getInstance().operation,  // 你也可以添加枚举切换操作类型
+            InputSystem::getInstance().operation,  
             ImGuizmo::WORLD,
             glm::value_ptr(modelMat)
         );
@@ -175,14 +172,7 @@ private:
             modelMat = glm::scale(modelMat, scale);
 
 
-            float pitch = glm::radians(rotation.x); // 上下
-            float yaw = glm::radians(rotation.y); // 左右
-
-            forward.x = cos(pitch) * sin(yaw);
-            forward.y = sin(pitch);
-            forward.z = -cos(pitch) * cos(yaw); // 注意是 -Z（OpenGL惯例）
-
-            forward = glm::normalize(forward);
+            forward = -glm::normalize(glm::vec3(modelMat[2]));
 
             updateAABB();
         }

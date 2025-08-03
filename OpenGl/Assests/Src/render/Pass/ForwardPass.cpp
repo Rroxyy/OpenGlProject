@@ -8,7 +8,7 @@
 //run per frame
 void ForwardPass::execute(RenderContext& context)
 {
-    renderTarget->resize(GodClass::getInstance().getWidth(), GodClass::getInstance().getHeight());
+    renderTarget->resize();
     renderTarget->begin();
 
     for (auto* obj : Scene::getInstance().getObjectList()) {

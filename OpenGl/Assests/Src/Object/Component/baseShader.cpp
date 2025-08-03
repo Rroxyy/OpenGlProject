@@ -7,12 +7,13 @@
 #include "UI_Manager.h"
 #include "plugins.h"
 #include "RenderContext.h"
+#include "TextureManager.h"
 #include "TextureResource.h"
 
 baseShader::baseShader(const char* vertexPath, const char* fragmentPath,const std::string& _shaderName)
 	: Shader(vertexPath, fragmentPath)
 {
-    componentName = "Shader";
+    componentName = "baseShader";
     shaderName = _shaderName;
 }
 
@@ -180,6 +181,16 @@ nlohmann::json baseShader::toJson()
 
     data["defaultColor"] = vec4ToJson(imToGlmVec4(defaultColor));
 
+    nlohmann::json textures = nlohmann::json::array();
+    for (auto& [name, tr] : textureResourcesList)
+    {
+        nlohmann::json item;
+        item["nameInShader"] = name;
+        item["textureResource"] = tr->toJson();
+        textures.push_back(item);
+    }
+    data["textureResourcesList"] = textures;
+
     ret["componentName"] = getComponentName();
     ret["componentData"] = data;
 
@@ -188,7 +199,15 @@ nlohmann::json baseShader::toJson()
 
 void baseShader::loadJson(const nlohmann::json& js)
 {
-    defaultColor=jsonToImVec4(js);
+    defaultColor=jsonToImVec4(js["defaultColor"]);
+
+    auto textures = js["textureResourcesList"];
+    for (auto& it : textures)
+    {
+        TextureResource* texturePtr = TextureManager::getInstance().getTextureResourceByJson(it["textureResource"]);
+        std::string nameInShader = it["nameInShader"];
+        setTexture(nameInShader, texturePtr);
+    }
 }
 
 std::unique_ptr<Component> baseShader::clone() const

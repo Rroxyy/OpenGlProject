@@ -30,7 +30,7 @@ public:
     std::unique_ptr<Component> create(const std::string& type) {
         auto it = creators.find(type);
         if (it != creators.end()) {
-            return it->second()->clone();
+            return it->second();
         }
         return nullptr;
     }

@@ -119,10 +119,10 @@ public:
     }
 
     // 射线与 AABB 相交测试（返回 true 表示有交点，输出 tNear/tFar）
-    bool intersectsRay(const Ray& ray, float& tNear, float& tFar) const
+    bool intersectsRay(const Ray& ray,float& tNear,float& tFar) const
     {
-        tNear = -std::numeric_limits<float>::infinity();
-        tFar = std::numeric_limits<float>::infinity();
+         tNear = -std::numeric_limits<float>::infinity();
+         tFar = std::numeric_limits<float>::infinity();
 
         for (int i = 0; i < 3; ++i) // x, y, z
         {

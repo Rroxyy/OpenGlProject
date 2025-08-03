@@ -98,9 +98,10 @@ int main()
     imguiInitialize(window);
     GodClass::getInstance().init(window);
 
-    //Scene::getInstance().loadJson();
+    Scene::getInstance().loadJson();
 
     Object* grid = Scene::getInstance().createObjectPtr("Grid");
+    grid->SetSave(false);
     grid->AddComponent<ModelComponent>();
 
 
@@ -113,39 +114,43 @@ int main()
     baseShader gridShader("gridShader");
     grid->AddComponent<baseShader>(gridShader);
     grid->AddComponent<Render>();
+    grid->checkAABB = false;
 
 
-    ///////////////////////////////////////////////
-    //tv
-    Object* tv = Scene::getInstance().createObjectPtr("TV");
-    auto tvModelResource = ModelManager::getInstance().loadModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj");
-    tv->AddComponent<ModelComponent>(std::move(tvModelResource));
-    BaseLightShader tvShader("tvShader");
-    tv->AddComponent<BaseLightShader>(std::move(tvShader));
-    tv->AddComponent<Render>();
+ //   ///////////////////////////////////////////////
+ //   //tv
+
+ //   Object* tv = Scene::getInstance().createObjectPtr("TV");
+ //   auto tvModelResource = ModelManager::getInstance().loadModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj");
+ //   tv->AddComponent<ModelComponent>(std::move(tvModelResource));
+ //   BaseLightShader tvShader("tvShader");
+	//tv->AddComponent<BaseLightShader>(std::move(tvShader));
+	//tv->AddComponent<Render>();
+
+     
+	//TextureResource* baseTex = TextureManager::getInstance().getTextureResourceByPath("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_MatID.tga");
+	//TextureResource * normalTex = TextureManager::getInstance().getTextureResourceByPath("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_Normal_G.tga");
+
+ //   tv->GetComponentAs<BaseLightShader>()->setTexture("texture_base", baseTex);
+ //   tv->GetComponentAs<BaseLightShader>()->setTexture("texture_normal",normalTex);
 
 
-    TextureResource* baseTex = TextureManager::getInstance()
-	.createTextureResourceByPath("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_MatID.tga");
-	TextureResource * normalTex = TextureManager::getInstance()
-	.createTextureResourceByPath("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_Normal_G.tga");
 
-    tv->GetComponentAs<BaseLightShader>()->setTexture("texture_base", baseTex);
-    tv->GetComponentAs<BaseLightShader>()->setTexture("texture_normal",normalTex);
-
-
-
-    Object* plane = Scene::getInstance().createObjectPtr("plane");
-    auto planeModelResource = ModelManager::getInstance().loadModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj");
-    plane->AddComponent<ModelComponent>(std::move(planeModelResource));
-    baseShader planeShader("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/DepthShader/baseShader.vert",
-        "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Shaders/ShadersForClass/DepthShader/baseShader.frag",
-        "planeShader");
-    plane->AddComponent<baseShader>(std::move(planeShader));
-    plane->AddComponent<Render>();
+    //Object* plane = Scene::getInstance().createObjectPtr("plane");
+    //auto planeModelResource = ModelManager::getInstance().loadModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj");
+    //plane->AddComponent<ModelComponent>(std::move(planeModelResource));
+    //baseShader planeShader("planeShader");
+    //plane->AddComponent<baseShader>(std::move(planeShader));
+    //plane->AddComponent<Render>();
 
 
     Object* light = Scene::getInstance().createObjectPtr("Light");
+    light->SetSave(false);
+    auto lightModel = ModelManager::getInstance().loadModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/LightModel/light.obj");
+    light->AddComponent<ModelComponent>(std::move(lightModel));
+    light->AddComponent<baseShader>();
+    light->AddComponent<Render>();
+    
     GodClass::getInstance().mainLight = light;
 
 

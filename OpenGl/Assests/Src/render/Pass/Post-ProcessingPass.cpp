@@ -67,7 +67,7 @@ void Post_ProcessingPass::execute(RenderContext& context)
     finalShader->use();
     ModelManager::getInstance().getQuadMesh()->Draw();
     finalShader->unuse();
-    finalRT->end();
+    finalRT.get()->end();
 }
 
 

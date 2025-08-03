@@ -10,13 +10,12 @@ public :
 	void showUI()override;
 	void use() override;
 
+	void loadJson(const nlohmann::json& js) override;
+	nlohmann::json toJson() override;
+
 private:
 	int useBaseTex = 1;
 	int useNormalTex = 1;
-
-	ImVec4 lightColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
-
-
 	float ambientStrength = 0.1f;
 	float specularStrength = 0.5f;
 	float shininess = 32.0f;

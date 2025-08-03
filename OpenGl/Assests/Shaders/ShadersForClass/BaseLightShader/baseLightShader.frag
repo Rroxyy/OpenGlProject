@@ -39,6 +39,8 @@ void main()
 
     // 漫反射
     float diff = max(dot(normalWS, lightDir), 0.0);
+    //float diff = max(dot(normalWS, vec3(0,-1,0)), 0.0);
+
     vec3 diffuse=diff*lightColor;
 
     //镜面反射
@@ -52,4 +54,6 @@ void main()
     vec3 finalColor = (ambient + diffuse + specular) * baseColor;
 
     FragColor = vec4(finalColor, 1.0);
+    //FragColor = vec4(tangentNormal, 1.0);
+
 }

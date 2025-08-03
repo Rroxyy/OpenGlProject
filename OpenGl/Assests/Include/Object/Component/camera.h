@@ -77,7 +77,12 @@ public:
     // returns the view matrix calculated using Euler Angles and the LookAt Matrix
     glm::mat4 GetViewMatrix()
     {
-        return glm::lookAt(Position, Position + Front, Up);
+        if (isDirty)
+        {
+            viewMat4 = glm::lookAt(Position, Position + Front, Up);
+            isDirty = false;
+        }
+        return viewMat4;
     }
 
     // processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
@@ -126,7 +131,15 @@ public:
     void ProcessMouseScroll(float yoffset);
 
 
+    void beforeUpdate()
+    {
+        isDirty = true;
+    }
+
+
 private:
+    bool isDirty = true;
+    glm::mat4 viewMat4;
     // calculates the front vector from the Camera's (updated) Euler Angles
     void updateCameraVectors()
     {

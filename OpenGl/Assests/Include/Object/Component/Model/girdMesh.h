@@ -44,7 +44,6 @@ public:
     Vertex createGridVertex(const glm::vec3& pos)
     {
         Vertex v;
-        aabb.updateAABB(pos);
         v.Position = pos;
         v.Normal = glm::vec3(0.0f, 1.0f, 0.0f); // 向上（Y+），用于调试也行
         v.TexCoords = glm::vec2(0.0f);          // 网格线不贴图，可为0

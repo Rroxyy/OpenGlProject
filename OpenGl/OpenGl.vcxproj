@@ -143,6 +143,7 @@
     <ClCompile Include="Assests\Main.cpp" />
     <ClCompile Include="Assests\Src\imgui\ImGuizmo.cpp" />
     <ClCompile Include="Assests\Src\Managers\Scene.cpp" />
+    <ClCompile Include="Assests\Src\Managers\UI_Manager.cpp" />
     <ClCompile Include="Assests\Src\Object\Component\camera.cpp" />
     <ClCompile Include="Assests\Src\Object\Component\Component\ModelResource.cpp" />
     <ClCompile Include="Assests\Src\Object\Component\Transform.cpp" />
@@ -210,7 +211,6 @@
     <ClInclude Include="Assests\Include\render\Pass\Post-ProcessingPass.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assests\Resource\ObjectData\ObjectManager.json" />
     <None Include="Shaders\light_cube.frag" />
     <None Include="Shaders\materials.frag" />
     <None Include="Shaders\shader.frag" />

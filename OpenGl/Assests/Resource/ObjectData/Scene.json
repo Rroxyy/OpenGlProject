@@ -3,51 +3,24 @@
         "componentsData": [
             {
                 "componentData": {
-                    "defaultColor": {
-                        "w": 1.0,
-                        "x": 1.0,
-                        "y": 1.0,
-                        "z": 1.0
-                    }
-                },
-                "componentName": "Shader"
-            },
-            {
-                "componentData": {
-                    "filePath": ""
-                },
-                "componentName": "ModelComponent"
-            },
-            {
-                "componentData": {
                     "position": {
                         "x": 0.0,
                         "y": 0.0,
                         "z": 0.0
                     },
                     "rotation": {
-                        "x": 0.0,
-                        "y": 0.0,
+                        "x": 0.05698314309120178,
+                        "y": -0.0,
                         "z": 0.0
                     },
                     "scale": {
                         "x": 1.0,
-                        "y": 1.0,
-                        "z": 1.0
+                        "y": 0.9999982118606567,
+                        "z": 0.9999982118606567
                     }
                 },
                 "componentName": "Transform"
             },
-            {
-                "componentData": null,
-                "componentName": "Render"
-            }
-        ],
-        "id": 1,
-        "objectName": "Grid"
-    },
-    {
-        "componentsData": [
             {
                 "componentData": {
                     "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj"
@@ -56,34 +29,41 @@
             },
             {
                 "componentData": {
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.31007522344589233,
-                        "z": 0.27146852016448975
-                    },
-                    "rotation": {
-                        "x": 0.0,
-                        "y": -0.0,
-                        "z": 0.0
-                    },
-                    "scale": {
-                        "x": 1.0,
-                        "y": 1.0,
-                        "z": 1.0
-                    }
-                },
-                "componentName": "Transform"
-            },
-            {
-                "componentData": {
+                    "ambientStrength": 0.375,
                     "defaultColor": {
                         "w": 1.0,
                         "x": 1.0,
-                        "y": 1.0,
-                        "z": 1.0
-                    }
+                        "y": 0.29893237352371216,
+                        "z": 0.29893237352371216
+                    },
+                    "shininess": 26.0,
+                    "specularStrength": 0.6729999780654907,
+                    "textureResourcesList": [
+                        {
+                            "nameInShader": "texture_base",
+                            "textureResource": {
+                                "filePath": "C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_MatID.tga",
+                                "magFilter": 0,
+                                "minFilter": 0,
+                                "useMipmap": false,
+                                "wrapMode": 1
+                            }
+                        },
+                        {
+                            "nameInShader": "texture_normal",
+                            "textureResource": {
+                                "filePath": "C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_Normal_G.tga",
+                                "magFilter": 0,
+                                "minFilter": 0,
+                                "useMipmap": false,
+                                "wrapMode": 1
+                            }
+                        }
+                    ],
+                    "useBaseTex": 1,
+                    "useNormalTex": 1
                 },
-                "componentName": "Shader"
+                "componentName": "BaseLightShader"
             },
             {
                 "componentData": null,
@@ -92,78 +72,5 @@
         ],
         "id": 2,
         "objectName": "TV"
-    },
-    {
-        "componentsData": [
-            {
-                "componentData": {
-                    "defaultColor": {
-                        "w": 1.0,
-                        "x": 1.0,
-                        "y": 1.0,
-                        "z": 1.0
-                    }
-                },
-                "componentName": "Shader"
-            },
-            {
-                "componentData": {
-                    "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj"
-                },
-                "componentName": "ModelComponent"
-            },
-            {
-                "componentData": {
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "rotation": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "scale": {
-                        "x": 1.0,
-                        "y": 1.0,
-                        "z": 1.0
-                    }
-                },
-                "componentName": "Transform"
-            },
-            {
-                "componentData": null,
-                "componentName": "Render"
-            }
-        ],
-        "id": 3,
-        "objectName": "plane"
-    },
-    {
-        "componentsData": [
-            {
-                "componentData": {
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "rotation": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "scale": {
-                        "x": 1.0,
-                        "y": 1.0,
-                        "z": 1.0
-                    }
-                },
-                "componentName": "Transform"
-            }
-        ],
-        "id": 4,
-        "objectName": "Light"
     }
 ]

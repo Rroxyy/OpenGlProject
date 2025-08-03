@@ -12,11 +12,15 @@ public:
 
 
 	static InputSystem& getInstance();
+	void idleStateLogic(GLFWwindow* window);
+	void SetMovingState(GLFWwindow* window);
+	void UnsetMovingState(GLFWwindow* window);
 
-	
+
 	void checkInput(GLFWwindow* window);
 	void moveLogic(GLFWwindow* window);
-	void transformLogic(GLFWwindow* window);
+	void ChangeOperateLogic(GLFWwindow* window);
+	void checkAABBLogic();
 
 	void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
 	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
@@ -39,5 +43,8 @@ private:
 	float nowX;
 	float nowY;
 	bool firstMouse;
+
+	float LastClickTime = -1000.0f;
+	bool LastFrameIsLeftPress = false;
 };
 

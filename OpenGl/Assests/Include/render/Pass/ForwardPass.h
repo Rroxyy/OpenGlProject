@@ -10,6 +10,7 @@ public:
     ForwardPass()
     {
         renderTarget->setClearColor(skyColor);
+        renderTarget->setDepthBuffer(true);
     }
     void execute(RenderContext& context) override;
     const std::string& getName() override

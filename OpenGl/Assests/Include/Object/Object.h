@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include <iostream>
+
 #include "Transform.h"
 
 class Component;
@@ -12,8 +13,8 @@ class Object {
 public:
     size_t id;
     std::string objectName;
-    bool preFocused = false;;
-    bool beFocused = false;
+    bool checkAABB = true;
+
    
     ~Object();
 
@@ -25,8 +26,6 @@ public:
         auto comp = std::make_unique<T>(std::forward<Args>(args)...);
         return AddComponent(std::move(comp));
     }
-
-
     template <typename T>
     T* AddComponent(std::unique_ptr<T> comp)
     {
@@ -60,7 +59,6 @@ public:
         if (it == components.end())return nullptr;
         return static_cast<T*>(it->second.get());
     }
-
     template <typename T>
     T* GetComponentAs()
     {
@@ -74,24 +72,28 @@ public:
     }
 
     void start();
-
     void beforeUpdate();
     void update();
     void afterUpdate();
 
 
     nlohmann::json toJson();
-
     void loadJson(const nlohmann::json& componentsJson);
-
     const std::string& getObjectName()const;
-
     void setObjectName(std::string&& name);
-
     void showUI();
 
-private:
 
+    void Unfocus();
+	void Focus();
+   
+    void SetSave(bool _save) { NEEDSAVE = _save; }
+    bool NeedSave()const { return NEEDSAVE; }
+private:
+    bool NEEDSAVE = true;
+    bool isFocus = false;
     Object();
+    Object(bool isCreateByJson);
+
     std::unordered_map<size_t, std::unique_ptr<Component>> components;
 };

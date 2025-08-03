@@ -4,8 +4,12 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "Object.h"
+#include "Ray.h"
 
-class Object;
+
+class Ray;
+
 
 
 //object manager
@@ -33,9 +37,14 @@ public:
 
 	void addFocusedObj(Object* obj);
 	void removeFocusedObj(Object* obj);
-	const std::unordered_set<Object*>& getFoucusedObjects()const;
+	void clearFocusObj();
 
+	const std::unordered_set<Object*>& getFoucusedObjects()const;
 	const std::vector<Object*>& getObjectList()const { return objectList; }
+
+	//AABB
+	void pickFocusObjectByRay(Ray ray);
+	std::vector<Object*> pickObjectsByRay(Ray ray)const;
 
 	void saveJson();
 
@@ -47,10 +56,14 @@ public:
 	void afterUpdate();
 
 private:
-	size_t objectCnt=0;
+	size_t objectIndex=0;
 	std::unordered_map<size_t, std::unique_ptr<Object>>objects;
 	std::vector<Object*> objectList;
 	std::unordered_set<Object*>focusObjects;
+
+	//AABB
+	Ray preRay;
+	std::vector<Object*> preHitObjects;
 
 	Scene() = default;
 	~Scene();

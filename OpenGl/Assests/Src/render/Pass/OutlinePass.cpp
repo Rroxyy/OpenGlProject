@@ -27,6 +27,9 @@ OutlinePass::OutlinePass()
    rt1 = std::make_unique<RendererTarget>();
    rt2 = std::make_unique<RendererTarget>();
 
+   rt1->getTextureResource()->setWrapMode(WrapMode::ClampToEdge);
+   rt2->getTextureResource()->setWrapMode(WrapMode::ClampToEdge);
+
 }
 
 

@@ -111,6 +111,9 @@
     <ClCompile Include="Assests\Src\render\Pass\Post-ProcessingPass.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Assests\Src\Managers\UI_Manager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assests\Include\render\Shader.h">
@@ -235,7 +238,6 @@
     <None Include="Shaders\shader.vert">
       <Filter>资源文件\Shaders</Filter>
     </None>
-    <None Include="Assests\Resource\ObjectData\ObjectManager.json" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assests\Resource\Textures\awesomeface.png">

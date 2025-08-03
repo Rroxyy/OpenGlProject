@@ -21,6 +21,8 @@ public:
 
 	//Camera* mainCamera;
 	Object* mainLight;
+	glm::vec3 lightColor=glm::vec3(1, 1, 1);
+
 	bool projectionDirty = true;
 
 	void init(GLFWwindow* _window);
@@ -52,14 +54,9 @@ public:
 		return emptyRT.get();
 	}
 
-	void updateTime();
 
 
 
-	float getFrameTime()
-	{
-		return currentFrame - lastFrame;
-	}
 	baseShader* getFocusShader()
 	{
 		return focusShader.get();
@@ -75,8 +72,12 @@ public:
 	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
 
-	//awake
-
+	//TIme
+	float getTime()const { return currentFrame; }
+	float getFrameTime()
+	{
+		return currentFrame - lastFrame;
+	}
 
 	//update
 	void run(GLFWwindow* window);
@@ -112,5 +113,8 @@ private:
 
 	GodClass(GodClass&&) = delete;
 	GodClass& operator=(GodClass&&) = delete;
+
+
+	void updateTime();
 
 };

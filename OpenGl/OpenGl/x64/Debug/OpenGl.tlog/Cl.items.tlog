@@ -2,7 +2,9 @@ C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Lib\glad.c;C:\Users\Drwi
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Main.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\Main.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\imgui\ImGuizmo.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\ImGuizmo.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\Scene.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\Scene.obj
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\UI_Manager.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\UI_Manager.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Object\Component\camera.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\camera.obj
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Object\Component\Component\ModelResource.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\ModelResource.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Object\Component\Transform.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\Transform.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Object\Object.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\Object.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Object\Component\baseShader.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\baseShader.obj
@@ -15,9 +17,10 @@ C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\imgui\imgui_tables.c
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\imgui\imgui_widgets.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\imgui_widgets.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\GodClass.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\GodClass.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\InputSystem.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\InputSystem.obj
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\ResourcePathManager.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\ResourcePathManager.obj
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\Managers\ShaderPathManager.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\ShaderPathManager.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Pass\ForwardPass.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\ForwardPass.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Pass\OutlinePass.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\OutlinePass.obj
+C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Pass\Post-ProcessingPass.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\Post-ProcessingPass.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Render.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\Render.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\RendererTarget.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\RendererTarget.obj
 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\RenderPass.cpp;C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\OpenGl\x64\Debug\RenderPass.obj

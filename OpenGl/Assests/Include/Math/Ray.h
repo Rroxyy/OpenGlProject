@@ -26,7 +26,4 @@ public:
         return origin + rayDir * t;
     }
 
-   
-
-   
 };

@@ -5,7 +5,6 @@
 
 
 TextureManager::TextureManager() {
-    nowIndex = 0;
     return;
 }
 
@@ -13,26 +12,39 @@ TextureManager::~TextureManager() {
     return;
 }
 
-TextureResource* TextureManager::createTextureResourceByPath(const std::string& _filePath)
+TextureResource* TextureManager::getTextureResourceByPath(const std::string& _filePath)
 {
-	const auto& it = filePathMap.find(_filePath);
-	if (it!=filePathMap.end())
+	const auto& it = textureResourcesMap.find(_filePath);
+	if (it!= textureResourcesMap.end())
 	{
-		std::cout << "[TextureManager] Texture already loaded: " << _filePath
-			<< " (ID = " << it->second << ")" << std::endl;
-
-		return textureResourcesMap[it->second].get();
+		return it->second.get();
 	}
 
-	std::unique_ptr<TextureResource>tr = std::unique_ptr<TextureResource>(new TextureResource(nowIndex, _filePath));
+	std::unique_ptr<TextureResource>tr = std::unique_ptr<TextureResource>(new TextureResource(_filePath));
 	TextureResource* rawPtr = tr.get();
-	textureResourcesMap[nowIndex] = std::move(tr);
-	filePathMap[_filePath] = nowIndex;
-	nowIndex++;
+	textureResourcesMap[_filePath] = std::move(tr);
 	return rawPtr;
 }
 
-std::unique_ptr<TextureResource> TextureManager::createTextureResourceByGlid(size_t glTexture_id)
+TextureResource* TextureManager::getTextureResourceByJson(const nlohmann::json& data)
+{
+	std::string filePath = data["filePath"];
+
+	const auto& it = textureResourcesMap.find(filePath);
+	if (it != textureResourcesMap.end())
+	{
+		return it->second.get();
+	}
+
+	std::unique_ptr<TextureResource>tr = std::unique_ptr<TextureResource>(new TextureResource());
+	TextureResource* rawPtr = tr.get();
+	tr->loadJson(data);
+	textureResourcesMap[filePath] = std::move(tr);
+	return rawPtr;
+}
+
+
+std::unique_ptr<TextureResource> TextureManager::getTextureResourceByGlid(size_t glTexture_id)
 {
 	std::unique_ptr<TextureResource>tr = std::unique_ptr<TextureResource>(new TextureResource(glTexture_id));
 	
@@ -40,13 +52,6 @@ std::unique_ptr<TextureResource> TextureManager::createTextureResourceByGlid(siz
 }
 
 
-TextureResource* TextureManager::getTextureByPath(const std::string& _filePath) const
-{
-	auto it = filePathMap.find(_filePath);
-	if (it != filePathMap.end())
-		return textureResourcesMap.at(it->second).get();
-	return nullptr;
-}
 
 
 TextureManager& TextureManager::getInstance()
@@ -55,30 +60,6 @@ TextureManager& TextureManager::getInstance()
 	return instance;
 }
 
-//TextureChannel TextureManager::getTexChannel(TextureResource* tr)
-//{
-//	if (!tr) {
-//		std::cerr << "tr is null!" << std::endl;
-//		std::abort();
-//	}
-//	if (!tr->filePath) {
-//		std::cerr << "filePath is null!" << std::endl;
-//		std::abort();
-//	}
-//
-//	if (nowIndex>=32)
-//	{
-//		std::cerr << "Failed to get texture channel: " << tr->filePath <<std::endl
-//		<< "Because no channel" << std::endl;
-//		std::abort();
-//	}
-//	if (m.find(tr)==m.end())
-//	{
-//		m[tr] = static_cast<TextureChannel>(static_cast<int>(TextureChannel::Texture0) + nowIndex);
-//		nowIndex++;
-//	}
-//	//std::cout << tr->filePath << "    " << "textureChannel" << static_cast<int>(m[tr]) << std::endl;
-//	return m[tr];
-//}
+
 
 

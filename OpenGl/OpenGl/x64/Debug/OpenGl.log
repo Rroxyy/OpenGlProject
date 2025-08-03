@@ -1,10 +1,2 @@
-﻿  OutlinePass.cpp
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\RendererTarget.h(102,38): warning C4244: “return”: 从“const int”转换到“float”，可能丢失数据
-  (编译源文件“Assests/Src/render/Pass/OutlinePass.cpp”)
-  
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Include\render\RendererTarget.h(103,38): warning C4244: “return”: 从“const int”转换到“float”，可能丢失数据
-  (编译源文件“Assests/Src/render/Pass/OutlinePass.cpp”)
-  
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Pass\OutlinePass.cpp(91,90): warning C4244: “参数”: 从“unsigned int”转换到“float”，可能丢失数据
-C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\Assests\Src\render\Pass\OutlinePass.cpp(91,53): warning C4244: “参数”: 从“unsigned int”转换到“float”，可能丢失数据
+﻿  TextureResource.cpp
   OpenGl.vcxproj -> C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\x64\Debug\OpenGl.exe

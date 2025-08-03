@@ -38,8 +38,8 @@ void GodClass::init(GLFWwindow* _window)
 
 void GodClass::start()
 {
-	emptyRT = std::make_unique<RendererTarget>();
-	emptyRT->clearColor();
+	emptyRT = std::make_unique<RendererTarget>(1,1);
+	emptyRT->setEmpty();
 
 
 	Scene::getInstance().start();
@@ -57,6 +57,7 @@ void GodClass::run(GLFWwindow* window)
 	InputSystem::getInstance().checkInput(window);
 
 
+	getMainCamera()->beforeUpdate();
 
 	Scene::getInstance().beforeUpdate();
 	Scene::getInstance().update();

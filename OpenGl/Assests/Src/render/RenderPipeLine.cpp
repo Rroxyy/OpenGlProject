@@ -23,6 +23,8 @@ RenderPipeline::RenderPipeline()
 
 void RenderPipeline::start()
 {
+	context->start();
+
 	for (auto& it : passes)
 	{
 		it.get()->start(*context.get());

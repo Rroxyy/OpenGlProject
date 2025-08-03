@@ -10,15 +10,24 @@
 Object::Object()
 {
     objectName = "Empty Object";
-    AddComponent<Transform>();
     UIManager::getInstance().RegisterForMainWindow([this]()
         {
             this->showUI();
         });
 }
 
+Object::Object(bool isCreateByJson):Object()
+{
+	if (isCreateByJson==false)
+    {
+        AddComponent<Transform>();
+    }
+}
+
+
 Object::~Object()
 {
+    if (isFocus)Unfocus();
     std::cout << "Release Object: " << objectName << std::endl;
 }
 
@@ -42,14 +51,7 @@ void Object::afterUpdate()
 {
     for (const auto& it : components)it.second.get()->afterUpdate();
 
-    if (beFocused^preFocused)
-    {
-        if (beFocused)
-            Scene::getInstance().addFocusedObj(this);
-        else
-            Scene::getInstance().removeFocusedObj(this);
-    }
-    preFocused = beFocused;
+  
 }
 
 
@@ -58,20 +60,39 @@ void Object::afterUpdate()
 
 void Object::showUI()
 {
-    //ImGui::SetNextItemOpen(beFocused, ImGuiCond_Always);
-    beFocused = false;
-	if (ImGui::TreeNode((getObjectName()+ std::to_string(id)).c_str()))
-	{
-        for (auto& it:components)
+   
+    if (ImGui::Button((getObjectName() + std::to_string(id)).c_str()))
+    {
+        if (isFocus)
         {
-            it.second->showUI();
+            Unfocus();
+        }
+        else
+        {
+            Focus();
+        }
+    }
+
+    if (isFocus)
+    {
+        std::string windowName = getObjectName() + std::to_string(id);
+
+        // 注意：传 &isFocus，用户点 X 时 ImGui 会把它改为 false
+        if (ImGui::Begin(windowName.c_str(), &isFocus))
+        {
+            for (auto& it : components)
+            {
+                it.second->showUI();
+            }
         }
 
-        beFocused = true;
-
-        ImGui::TreePop();
-	}
+        GetComponentExact<Transform>()->drawManipulate();
+        ImGui::End();
+    }
+    //std::cout << objectName << " :" << isFocus << std::endl;
+   
 }
+
 
 nlohmann::json Object::toJson() 
 {
@@ -96,11 +117,13 @@ void Object::loadJson(const nlohmann::json& componentsJson)
 	{
         if (js.contains("componentName") && js["componentName"].is_string()) {
             std::string name = js["componentName"].get<std::string>();
-            std::cout << getObjectName() << " " << name << std::endl;
+            //std::cout << getObjectName() << " " << name << std::endl;
 
-            auto comPtr = ComponentFactory::getInstance().create(name);
+            std::unique_ptr<Component> comPtr = ComponentFactory::getInstance().create(name);
             auto ptr = AddComponent(std::move(comPtr));
             ptr->loadJson(js["componentData"]);
+
+            //std::cout << getObjectName() << " " << name << std::endl;
         }
         else {
             std::cerr << "Object::loadJson: 缺少或错误的字段 componentName: " << js.dump(4) << std::endl;
@@ -118,6 +141,20 @@ void  Object::setObjectName(std::string&& name)
 const std::string& Object::getObjectName()const
 {
     return objectName;
+}
+
+
+void Object::Unfocus()
+{
+    isFocus = false;
+    Scene::getInstance().removeFocusedObj(this);
+}
+
+
+void Object::Focus()
+{
+        isFocus = true;
+        Scene::getInstance().addFocusedObj(this);
 }
 
 

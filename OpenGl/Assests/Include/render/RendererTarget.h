@@ -12,48 +12,75 @@ class RendererTarget
 public:
     RendererTarget(int _width, int _height);
     RendererTarget();
-    RendererTarget(GLuint existingTexId)
-    {
-        rt_Id = existingTexId;
-        dontRelese = true;
-    }
+    RendererTarget(GLuint existingTexId);
+   
 
 
     ~RendererTarget()
     {
-        if (dontRelese)return;
+        if (dontRelease)return;
         glDeleteFramebuffers(1, &fbo);
         glDeleteTextures(1, &rt_Id);
         glDeleteRenderbuffers(1, &rbo);
     }
 
-    void setMipmap(bool _useMipmap = false)
-    {
-        if (_useMipmap ^ useMipmap)
-        {
-            useMipmap = _useMipmap;
-
-            glBindTexture(GL_TEXTURE_2D, rt_Id);
-
-            if (useMipmap)
-            {
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-                glGenerateMipmap(GL_TEXTURE_2D);
-            }
-            else
-            {
-                // 恢复不使用 mipmap 的设置
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-            }
-            glBindTexture(GL_TEXTURE_2D, 0);
-        }
-    }
+   
     void setClearColor(const glm::vec4& _color)
     {
         defaultColor = _color;
     }
+
+
+    void setDepthBuffer(bool _useDepthBuffer)
+    {
+        if (useDepthBuffer ^ _useDepthBuffer)
+        {
+            useDepthBuffer = _useDepthBuffer;
+            updateDepthBuffer();
+        }
+    }
+    void updateDepthBuffer()
+    {
+        glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+
+        if (useDepthBuffer)
+        {
+            // 如果之前有旧的 rbo，先删掉
+            if (rbo)
+            {
+                glDeleteRenderbuffers(1, &rbo);
+                rbo = 0;
+            }
+
+            glGenRenderbuffers(1, &rbo);
+            glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+            glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
+            glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+        }
+        else
+        {
+            // 移除 FBO 上绑定的深度附件
+            glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, 0);
+            // 删除 renderbuffer 对象
+            if (rbo)
+            {
+                glDeleteRenderbuffers(1, &rbo);
+                rbo = 0;
+            }
+        }
+
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
+
+    void setEmpty()
+    {
+        glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+        glViewport(0, 0, width, height);
+        glClearColor(defaultColor.x, defaultColor.y, defaultColor.z, defaultColor.w);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
+
 
     // 开始 渲染
     void begin();
@@ -75,13 +102,9 @@ public:
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 
         // 重新绑定并分配渲染缓冲内存（深度+模板）
-        glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
+        updateDepthBuffer();
 
-        // 重新附加纹理和渲染缓冲到FBO（可选，但写一下更保险）
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, rt_Id, 0);
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
-
+        texture_resource->applyWrapSettings();
         // 检查完整性
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             std::cerr << "FBO resize 后不完整!" << std::endl;
@@ -90,25 +113,12 @@ public:
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
-    void clearColor()
-    {
-        glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-        glViewport(0, 0, width, height);
-        glClearColor(defaultColor.x,defaultColor.y,defaultColor.z,defaultColor.w); 
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    }
 
     // 结束 mask 渲染，恢复主屏幕
     void end()
     {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        if (useMipmap)
-        {
-            glBindTexture(GL_TEXTURE_2D, rt_Id);
-            glGenerateMipmap(GL_TEXTURE_2D);
-            glBindTexture(GL_TEXTURE_2D, 0);
-        }
+        texture_resource->generateMipmap();
     }
 
    
@@ -130,9 +140,9 @@ private:
     GLuint rbo = 0;  // 深度缓冲
     std::unique_ptr<TextureResource> texture_resource;
 
-    bool dontRelese = false;;
+    bool dontRelease = false;
+    bool useDepthBuffer = false;
 
-    bool  useMipmap = false;;
     glm::vec4 defaultColor = glm::vec4(0);
 
     int width = 0;

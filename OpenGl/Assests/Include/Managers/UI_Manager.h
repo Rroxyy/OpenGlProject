@@ -42,13 +42,8 @@ public:
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     }
 
-    void drawMainUI()const 
-	{
-        for (const auto& func : mainUI) 
-        {
-            func();
-        }
-	}
+    void drawMainUI()const;
+	
     void drawRenderPassesUI()const
     {
         for (const auto& func :renderPassesUI)
