@@ -1,2 +1,4 @@
-﻿  TextureResource.cpp
+﻿  Main.cpp
+    正在创建库 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\x64\Debug\OpenGl.lib 和对象 C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\x64\Debug\OpenGl.exp
+LINK : warning LNK4098: 默认库“MSVCRT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
   OpenGl.vcxproj -> C:\Users\Drwin\Desktop\render\render3\vs\OpenGl\x64\Debug\OpenGl.exe

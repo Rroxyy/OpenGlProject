@@ -16,6 +16,11 @@ public :
 private:
 	int useBaseTex = 1;
 	int useNormalTex = 1;
+	int useSpecGlossTex = 1;
+	int useDispTex = 1;
+
+	float dispTexScale = 0.05f;//uv偏移
+
 	float ambientStrength = 0.1f;
 	float specularStrength = 0.5f;
 	float shininess = 32.0f;

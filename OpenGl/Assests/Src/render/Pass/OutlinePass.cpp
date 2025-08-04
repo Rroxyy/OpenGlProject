@@ -11,24 +11,27 @@
 OutlinePass::OutlinePass()
 {
     outlineShader = std::make_unique<baseShader>(
-		ShaderPathManager::getInstance().getOutlineShaderVert().c_str(),
+        ShaderPathManager::getInstance().getOutlineShaderVert().c_str(),
         ShaderPathManager::getInstance().getOutlineShaderFrag().c_str(),
-		"Outline Shader"
+        "Outline Shader"
     );
 
     quadOutlineShader = std::make_unique<baseShader>(
-        ShaderPathManager::getInstance().  getQuadOutlineShaderVert().c_str(),
+        ShaderPathManager::getInstance().getQuadOutlineShaderVert().c_str(),
         ShaderPathManager::getInstance().getQuadOutlineShaderFrag().c_str(),
         "Quad Outline Shader"
     );
 
 
-   useRT1 = true;
-   rt1 = std::make_unique<RendererTarget>();
-   rt2 = std::make_unique<RendererTarget>();
+    useRT1 = true;
+    rt1 = std::make_unique<RendererTarget>();
+    rt2 = std::make_unique<RendererTarget>();
+    rt1.get()->getTextureResource()->setWrapMode(WrapMode::ClampToEdge);
+    rt2.get()->getTextureResource()->setWrapMode(WrapMode::ClampToEdge);
+    renderTarget.get()->getTextureResource()->setWrapMode(WrapMode::ClampToEdge);
 
-   rt1->getTextureResource()->setWrapMode(WrapMode::ClampToEdge);
-   rt2->getTextureResource()->setWrapMode(WrapMode::ClampToEdge);
+    rt1->getTextureResource()->setWrapMode(WrapMode::ClampToEdge);
+    rt2->getTextureResource()->setWrapMode(WrapMode::ClampToEdge);
 
 }
 

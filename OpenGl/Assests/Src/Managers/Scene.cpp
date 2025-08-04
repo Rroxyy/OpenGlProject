@@ -190,7 +190,7 @@ void Scene::pickFocusObjectByRay(Ray ray)
 		{
 			// 射线方向发生较大变化，重置选择
 			clearFocusObj();
-			preHitObjects.front()->Focus();
+			hitObjects.front()->Focus();
 		}
 		else
 		{
@@ -289,10 +289,8 @@ void Scene::saveJson()
 	file.close();
 }
 
-void Scene::loadJson()
+void Scene::loadJson(const std::string& path)
 {
-	std::string path = "C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\ObjectData\\Scene.json";
-
 	std::ifstream file(path);
 	if (!file.is_open()) {
 		std::cerr << "无法打开文件用于读取: " << path << std::endl;
@@ -315,8 +313,15 @@ void Scene::loadJson()
 	for (const auto& objJson : js) {
 		// 这里假设Object有静态函数fromJson返回Object指针或unique_ptr
 		createObjectByJson(objJson);
-		
+
 	}
+}
+
+
+void Scene::loadJson()
+{
+	std::string path = "C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\ObjectData\\Scene.json";
+	loadJson(path);
 }
 
 

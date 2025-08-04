@@ -49,6 +49,7 @@ public:
 	void saveJson();
 
 	void loadJson();
+	void loadJson(const std::string& path);
 
 	void start();
 	void beforeUpdate();

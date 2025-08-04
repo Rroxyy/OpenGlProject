@@ -3,41 +3,42 @@
         "componentsData": [
             {
                 "componentData": {
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "rotation": {
-                        "x": 0.05698314309120178,
-                        "y": -0.0,
-                        "z": 0.0
-                    },
-                    "scale": {
-                        "x": 1.0,
-                        "y": 0.9999982118606567,
-                        "z": 0.9999982118606567
-                    }
-                },
-                "componentName": "Transform"
-            },
-            {
-                "componentData": {
                     "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj"
                 },
                 "componentName": "ModelComponent"
             },
             {
                 "componentData": {
-                    "ambientStrength": 0.375,
+                    "position": {
+                        "x": -0.00220489501953125,
+                        "y": 0.04007551074028015,
+                        "z": -0.783482551574707
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": -0.0,
+                        "z": 0.0
+                    },
+                    "scale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    }
+                },
+                "componentName": "Transform"
+            },
+            {
+                "componentData": {
+                    "ambientStrength": 0.4129999876022339,
                     "defaultColor": {
                         "w": 1.0,
                         "x": 1.0,
-                        "y": 0.29893237352371216,
-                        "z": 0.29893237352371216
+                        "y": 1.0,
+                        "z": 1.0
                     },
-                    "shininess": 26.0,
-                    "specularStrength": 0.6729999780654907,
+                    "dispTexScale": 0.0,
+                    "shininess": 32.0,
+                    "specularStrength": 0.5,
                     "textureResourcesList": [
                         {
                             "nameInShader": "texture_base",
@@ -46,7 +47,7 @@
                                 "magFilter": 0,
                                 "minFilter": 0,
                                 "useMipmap": false,
-                                "wrapMode": 1
+                                "wrapMode": 0
                             }
                         },
                         {
@@ -56,12 +57,14 @@
                                 "magFilter": 0,
                                 "minFilter": 0,
                                 "useMipmap": false,
-                                "wrapMode": 1
+                                "wrapMode": 0
                             }
                         }
                     ],
                     "useBaseTex": 1,
-                    "useNormalTex": 1
+                    "useDispTex": 0,
+                    "useNormalTex": 1,
+                    "useSpecGlossTex": 0
                 },
                 "componentName": "BaseLightShader"
             },
@@ -72,5 +75,189 @@
         ],
         "id": 2,
         "objectName": "TV"
+    },
+    {
+        "componentsData": [
+            {
+                "componentData": {
+                    "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj"
+                },
+                "componentName": "ModelComponent"
+            },
+            {
+                "componentData": {
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.02092982828617096,
+                        "z": 0.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": -0.0,
+                        "z": 0.0
+                    },
+                    "scale": {
+                        "x": 1.9900000095367432,
+                        "y": 1.9900000095367432,
+                        "z": 1.9900000095367432
+                    }
+                },
+                "componentName": "Transform"
+            },
+            {
+                "componentData": {
+                    "ambientStrength": 0.10000000149011612,
+                    "defaultColor": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "dispTexScale": 0.0,
+                    "shininess": 32.0,
+                    "specularStrength": 0.5,
+                    "textureResourcesList": [
+                        {
+                            "nameInShader": "texture_base",
+                            "textureResource": {
+                                "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/Floor/Diffiuse.jpg",
+                                "magFilter": 0,
+                                "minFilter": 5,
+                                "useMipmap": true,
+                                "wrapMode": 0
+                            }
+                        },
+                        {
+                            "nameInShader": "texture_disp",
+                            "textureResource": {
+                                "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/Floor/Disp.jpg",
+                                "magFilter": 0,
+                                "minFilter": 5,
+                                "useMipmap": true,
+                                "wrapMode": 0
+                            }
+                        },
+                        {
+                            "nameInShader": "texture_normal",
+                            "textureResource": {
+                                "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/Floor/Normal.jpg",
+                                "magFilter": 0,
+                                "minFilter": 5,
+                                "useMipmap": true,
+                                "wrapMode": 0
+                            }
+                        },
+                        {
+                            "nameInShader": "texture_specGloss",
+                            "textureResource": {
+                                "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/Floor/Spec_Gloss.jpg",
+                                "magFilter": 0,
+                                "minFilter": 5,
+                                "useMipmap": true,
+                                "wrapMode": 0
+                            }
+                        }
+                    ],
+                    "useBaseTex": 1,
+                    "useDispTex": 0,
+                    "useNormalTex": 1,
+                    "useSpecGlossTex": 1
+                },
+                "componentName": "BaseLightShader"
+            },
+            {
+                "componentData": null,
+                "componentName": "Render"
+            }
+        ],
+        "id": 3,
+        "objectName": "plane"
+    },
+    {
+        "componentsData": [
+            {
+                "componentData": {
+                    "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/Carpet/carpet.obj"
+                },
+                "componentName": "ModelComponent"
+            },
+            {
+                "componentData": {
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.023883163928985596,
+                        "z": -0.7093468308448792
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": -0.0,
+                        "z": 0.0
+                    },
+                    "scale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    }
+                },
+                "componentName": "Transform"
+            },
+            {
+                "componentData": {
+                    "ambientStrength": 0.10000000149011612,
+                    "defaultColor": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "dispTexScale": 0.003000000026077032,
+                    "shininess": 32.0,
+                    "specularStrength": 0.5,
+                    "textureResourcesList": [
+                        {
+                            "nameInShader": "texture_base",
+                            "textureResource": {
+                                "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/Carpet/Diffuse.jpg",
+                                "magFilter": 0,
+                                "minFilter": 5,
+                                "useMipmap": true,
+                                "wrapMode": 0
+                            }
+                        },
+                        {
+                            "nameInShader": "texture_normal",
+                            "textureResource": {
+                                "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/Carpet/Normal.jpg",
+                                "magFilter": 0,
+                                "minFilter": 5,
+                                "useMipmap": true,
+                                "wrapMode": 0
+                            }
+                        },
+                        {
+                            "nameInShader": "texture_specGloss",
+                            "textureResource": {
+                                "filePath": "C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/Carpet/Reflection_Glossines.jpg",
+                                "magFilter": 0,
+                                "minFilter": 5,
+                                "useMipmap": true,
+                                "wrapMode": 0
+                            }
+                        }
+                    ],
+                    "useBaseTex": 1,
+                    "useDispTex": 0,
+                    "useNormalTex": 1,
+                    "useSpecGlossTex": 1
+                },
+                "componentName": "BaseLightShader"
+            },
+            {
+                "componentData": null,
+                "componentName": "Render"
+            }
+        ],
+        "id": 4,
+        "objectName": "Carpet"
     }
 ]

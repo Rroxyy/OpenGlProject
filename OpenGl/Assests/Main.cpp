@@ -98,7 +98,9 @@ int main()
     imguiInitialize(window);
     GodClass::getInstance().init(window);
 
-    Scene::getInstance().loadJson();
+    Scene::getInstance().loadJson("C:/Users/Drwin/Desktop/Scene.json");
+    //Scene::getInstance().loadJson();
+
 
     Object* grid = Scene::getInstance().createObjectPtr("Grid");
     grid->SetSave(false);
@@ -117,32 +119,6 @@ int main()
     grid->checkAABB = false;
 
 
- //   ///////////////////////////////////////////////
- //   //tv
-
- //   Object* tv = Scene::getInstance().createObjectPtr("TV");
- //   auto tvModelResource = ModelManager::getInstance().loadModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/tv/tv.obj");
- //   tv->AddComponent<ModelComponent>(std::move(tvModelResource));
- //   BaseLightShader tvShader("tvShader");
-	//tv->AddComponent<BaseLightShader>(std::move(tvShader));
-	//tv->AddComponent<Render>();
-
-     
-	//TextureResource* baseTex = TextureManager::getInstance().getTextureResourceByPath("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_MatID.tga");
-	//TextureResource * normalTex = TextureManager::getInstance().getTextureResourceByPath("C:\\Users\\Drwin\\Desktop\\render\\render3\\vs\\OpenGl\\Assests\\Resource\\Mesh\\tv\\tv_Normal_G.tga");
-
- //   tv->GetComponentAs<BaseLightShader>()->setTexture("texture_base", baseTex);
- //   tv->GetComponentAs<BaseLightShader>()->setTexture("texture_normal",normalTex);
-
-
-
-    //Object* plane = Scene::getInstance().createObjectPtr("plane");
-    //auto planeModelResource = ModelManager::getInstance().loadModel("C:/Users/Drwin/Desktop/render/render3/vs/OpenGl/Assests/Resource/Mesh/plane.obj");
-    //plane->AddComponent<ModelComponent>(std::move(planeModelResource));
-    //baseShader planeShader("planeShader");
-    //plane->AddComponent<baseShader>(std::move(planeShader));
-    //plane->AddComponent<Render>();
-
 
     Object* light = Scene::getInstance().createObjectPtr("Light");
     light->SetSave(false);
@@ -152,9 +128,6 @@ int main()
     light->AddComponent<Render>();
     
     GodClass::getInstance().mainLight = light;
-
-
-    //camera initialize
 
     // draw in wireframe
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -173,8 +146,6 @@ int main()
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 
-    // glfw: terminate, clearing all previously allocated GLFW resources.
-    // ------------------------------------------------------------------
     glfwDestroyWindow(window);
     glfwTerminate();
     std::cout << "exit" << std::endl;

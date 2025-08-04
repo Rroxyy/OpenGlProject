@@ -113,7 +113,7 @@ private:
 	int format;
 
 	bool useMipmap = false;
-	WrapMode wrapMode = WrapMode::ClampToEdge;
+	WrapMode wrapMode = WrapMode::Repeat;
 	FilterMode magFilter = FilterMode::Nearest;
 	FilterMode minFilter = FilterMode::Nearest;
 
